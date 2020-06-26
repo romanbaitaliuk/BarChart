@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D3C0DC4124A5675C00298011 /* PropperCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C0DC3724A5675C00298011 /* PropperCharts.framework */; };
-		D3C0DC4624A5675C00298011 /* PropperChartsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC4524A5675C00298011 /* PropperChartsTests.swift */; };
+		D3C0DC4624A5675C00298011 /* YAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC4524A5675C00298011 /* YAxisTests.swift */; };
 		D3C0DC4824A5675C00298011 /* PropperCharts.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0DC3A24A5675C00298011 /* PropperCharts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C0DC7624A5696800298011 /* AxesGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC6B24A5696800298011 /* AxesGridView.swift */; };
 		D3C0DC7724A5696800298011 /* YAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC6C24A5696800298011 /* YAxis.swift */; };
-		D3C0DC7824A5696800298011 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC6D24A5696800298011 /* Extensions.swift */; };
 		D3C0DC7924A5696800298011 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC6E24A5696800298011 /* Styles.swift */; };
 		D3C0DC7A24A5696800298011 /* XAxisLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC6F24A5696800298011 /* XAxisLayout.swift */; };
 		D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */; };
@@ -38,11 +37,10 @@
 		D3C0DC3A24A5675C00298011 /* PropperCharts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropperCharts.h; sourceTree = "<group>"; };
 		D3C0DC3B24A5675C00298011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3C0DC4024A5675C00298011 /* PropperChartsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PropperChartsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3C0DC4524A5675C00298011 /* PropperChartsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropperChartsTests.swift; sourceTree = "<group>"; };
+		D3C0DC4524A5675C00298011 /* YAxisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisTests.swift; sourceTree = "<group>"; };
 		D3C0DC4724A5675C00298011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3C0DC6B24A5696800298011 /* AxesGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxesGridView.swift; sourceTree = "<group>"; };
 		D3C0DC6C24A5696800298011 /* YAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YAxis.swift; sourceTree = "<group>"; };
-		D3C0DC6D24A5696800298011 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D3C0DC6E24A5696800298011 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		D3C0DC6F24A5696800298011 /* XAxisLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XAxisLayout.swift; sourceTree = "<group>"; };
 		D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartCollectionView.swift; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */,
 				D3C0DC7124A5696800298011 /* BarChartView.swift */,
 				D3C0DC7224A5696800298011 /* ChartData.swift */,
-				D3C0DC6D24A5696800298011 /* Extensions.swift */,
 				D3C0DC6E24A5696800298011 /* Styles.swift */,
 				D3C0DC7424A5696800298011 /* XAxis.swift */,
 				D3C0DC6F24A5696800298011 /* XAxisLayout.swift */,
@@ -113,7 +110,7 @@
 		D3C0DC4424A5675C00298011 /* PropperChartsTests */ = {
 			isa = PBXGroup;
 			children = (
-				D3C0DC4524A5675C00298011 /* PropperChartsTests.swift */,
+				D3C0DC4524A5675C00298011 /* YAxisTests.swift */,
 				D3C0DC4724A5675C00298011 /* Info.plist */,
 			);
 			path = PropperChartsTests;
@@ -231,7 +228,6 @@
 			files = (
 				D3C0DC7724A5696800298011 /* YAxis.swift in Sources */,
 				D3C0DC7F24A5696800298011 /* XAxis.swift in Sources */,
-				D3C0DC7824A5696800298011 /* Extensions.swift in Sources */,
 				D3C0DC7624A5696800298011 /* AxesGridView.swift in Sources */,
 				D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */,
 				D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */,
@@ -247,7 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3C0DC4624A5675C00298011 /* PropperChartsTests.swift in Sources */,
+				D3C0DC4624A5675C00298011 /* YAxisTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,21 +51,28 @@ struct YAxis {
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
         
         if self.minValue > 0 || self.maxValue < 0 {
-            return absoluteMax * 1.1 / 3
+            return self.roundUp(absoluteMax / 3)!
         } else {
-            let step = absoluteMin * 1.1
+            let step = absoluteMin
             let maxPositiveStepCount = (absoluteMax / step).rounded(.up)
             if maxPositiveStepCount >= 2 && maxPositiveStepCount <= 3 {
-                return step
+                return self.roundUp(step)!
             } else {
-                return absoluteMax * 1.1 / 3
+                return self.roundUp(absoluteMax / 3)!
             }
         }
     }
     
-    private func roundedStep() -> Double {
-        // TODO: Check scenario when rounding can break max/min
-        return round(self.step() * 20) / 20
+    private func roundUp(_ value: Double) -> Double? {
+        if value < 1 {
+            return ceil(value * 100 / 5) * 5 / 100
+        } else if value >= 1 && value < 10 {
+            return ceil(value * 10 / 5) * 5 / 10
+        } else if value >= 10 {
+            return ceil(value / 5) * 5
+        } else {
+            return nil
+        }
     }
     
     func centre(proxy: GeometryProxy) -> CGFloat {
@@ -82,7 +89,7 @@ struct YAxis {
     
     func labels() -> [Double] {
         var labels = [Double]()
-        let step = self.roundedStep()
+        let step = self.step()
         var count = 0.0
         
         if self.min > 0 {
