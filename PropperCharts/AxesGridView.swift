@@ -11,14 +11,15 @@ import SwiftUI
 struct AxesGridView: View {
     
     @ObservedObject var data: ChartData
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    let gridlineColor: Color
+    let labelColor: Color
     
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .topLeading) {
                 // Draw horizontal zero line
                 self.zeroHorizontalLinePath(proxy: proxy)
-                    .stroke(self.colorScheme == .dark ? Colors.LegendDarkColor : Colors.LegendColor,
+                    .stroke(self.gridlineColor,
                             style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
                     .rotationEffect(.degrees(180), anchor: .center)
                     .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
@@ -28,7 +29,7 @@ struct AxesGridView: View {
                     HStack(alignment: .center) {
                         self.horizontalGridlinePath(at: index,
                                                     proxy: proxy)
-                            .stroke(self.colorScheme == .dark ? Colors.LegendDarkColor : Colors.LegendColor,
+                            .stroke(self.gridlineColor,
                                     style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: [5, 10]))
                             .rotationEffect(.degrees(180), anchor: .center)
                             .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
@@ -37,21 +38,21 @@ struct AxesGridView: View {
                             .font(AxisLabelInfo.font)
                             .offset(y: self.yLabelVerticalOffset(at: index,
                                                                  proxy: proxy))
-                            .foregroundColor(Colors.LegendText)
+                            .foregroundColor(self.labelColor)
                     }
                 }
                 // Draw vertical dashed gridlines
                 ForEach((0...self.xAxis(proxy: proxy).labels().count - 1), id: \.self) { index in
                     VStack(alignment: .center) {
                         self.verticalGridlinePath(at: index, proxy: proxy)
-                            .stroke(self.colorScheme == .dark ? Colors.LegendDarkColor : Colors.LegendColor,
+                            .stroke(self.gridlineColor,
                                     style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: [5, 10]))
                             .animation(.easeOut(duration: 0.2))
                         Text(self.xAxis(proxy: proxy).label(at: index))
                             .font(AxisLabelInfo.font)
                             .offset(x: self.xLabelHorizontalOffset(proxy: proxy, index: index),
                                     y: AxisLabelInfo.height + AxisLabelInfo.halfHeight)
-                            .foregroundColor(Colors.LegendText)
+                            .foregroundColor(self.labelColor)
                     }
                 }
             }
