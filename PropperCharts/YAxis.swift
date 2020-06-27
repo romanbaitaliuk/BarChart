@@ -45,8 +45,8 @@ struct YAxis {
         return proxy.size.height / CGFloat(self.verticalDistance())
     }
     
-    private func step() -> Double {
-        // If average value is under range 1
+    // TODO: smart rounding, round to next next value if the change less than 5%
+    func step() -> Double {
         let absoluteMax = Swift.max(abs(self.max), abs(self.min))
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
         

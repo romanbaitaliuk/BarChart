@@ -17,7 +17,7 @@ struct XAxis {
     }
     
     func labels() -> [String] {
-        let totalLabelsWidth = self.data.compactMap { AxisLabelInfo.width(value: $0) }.reduce(0, +)
+        let totalLabelsWidth = self.data.compactMap { AxisLabelUtils.width(value: $0) }.reduce(0, +)
         let averageLabelWidth = totalLabelsWidth / CGFloat(self.data.count)
         let maxNumberOfLabels = Int((self.frameWidth / averageLabelWidth))
         guard maxNumberOfLabels > 0,

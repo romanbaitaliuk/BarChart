@@ -41,13 +41,13 @@ public struct BarChartView : View {
             AxesGridView(data: self.data,
                          gridlineColor: self.currentStyle().gridlineColor,
                          labelColor: self.currentStyle().labelColor)
-                .padding([.top], AxisLabelInfo.halfHeight)
-                .padding([.bottom], AxisLabelInfo.height + AxisLabelInfo.halfHeight)
+                .padding([.top], AxisLabelUtils.halfHeight)
+                .padding([.bottom], AxisLabelUtils.height + AxisLabelUtils.halfHeight)
             BarChartCollectionView(data: self.data.yValues,
                                    gradient: self.currentStyle().gradientColor)
-                .padding([.trailing], AxisLabelInfo.maxWidth(values: self.data.yValues))
-                .padding([.top], AxisLabelInfo.halfHeight)
-                .padding([.bottom], AxisLabelInfo.height + AxisLabelInfo.halfHeight)
+                .padding([.trailing], AxisLabelUtils.maxWidth(yValues: self.data.yValues))
+                .padding([.top], AxisLabelUtils.halfHeight)
+                .padding([.bottom], AxisLabelUtils.height + AxisLabelUtils.halfHeight)
         }.frame(minWidth: 0,
                 maxWidth: self.frameSize.width,
                 minHeight: self.frameSize.height,

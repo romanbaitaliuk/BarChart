@@ -34,8 +34,8 @@ struct AxesGridView: View {
                             .rotationEffect(.degrees(180), anchor: .center)
                             .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                             .animation(.easeOut(duration: 0.2))
-                        Text("\(self.yAxis().label(at: index), specifier: "%.2f")")
-                            .font(AxisLabelInfo.font)
+                        Text("\(self.yAxis().label(at: index), specifier: AxisLabelUtils.specifier(value: self.yAxis().step())!)")
+                            .font(AxisLabelUtils.font)
                             .offset(y: self.yLabelVerticalOffset(at: index,
                                                                  proxy: proxy))
                             .foregroundColor(self.labelColor)
@@ -49,9 +49,9 @@ struct AxesGridView: View {
                                     style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: [5, 10]))
                             .animation(.easeOut(duration: 0.2))
                         Text(self.xAxis(proxy: proxy).label(at: index))
-                            .font(AxisLabelInfo.font)
+                            .font(AxisLabelUtils.font)
                             .offset(x: self.xLabelHorizontalOffset(proxy: proxy, index: index),
-                                    y: AxisLabelInfo.height + AxisLabelInfo.halfHeight)
+                                    y: AxisLabelUtils.height + AxisLabelUtils.halfHeight)
                             .foregroundColor(self.labelColor)
                     }
                 }
@@ -94,7 +94,7 @@ struct AxesGridView: View {
     
     func horizontalGridlinePath(y: CGFloat,
                                 proxy: GeometryProxy) -> Path {
-        let maxYLabelWidth = AxisLabelInfo.maxWidth(values: self.data.yValues)
+        let maxYLabelWidth = AxisLabelUtils.maxWidth(yValues: self.data.yValues)
         var hLine = Path()
         hLine.move(to: CGPoint(x: 0, y: y))
         hLine.addLine(to: CGPoint(x: proxy.size.width - maxYLabelWidth, y: y))
@@ -108,7 +108,7 @@ struct AxesGridView: View {
     }
     
     func zeroHorizontalLinePath(proxy: GeometryProxy) -> Path {
-        let maxYLabelWidth = AxisLabelInfo.maxWidth(values: self.data.yValues)
+        let maxYLabelWidth = AxisLabelUtils.maxWidth(yValues: self.data.yValues)
         var hLine = Path()
         let centreY = self.yAxis().centre(proxy: proxy) * (-1)
         hLine.move(to: CGPoint(x: 0, y: centreY))
@@ -134,7 +134,7 @@ struct AxesGridView: View {
     }
     
     func xAxis(proxy: GeometryProxy) -> XAxis {
-        let barChartWidth = proxy.size.width - AxisLabelInfo.maxWidth(values: self.data.yValues)
+        let barChartWidth = proxy.size.width - AxisLabelUtils.maxWidth(yValues: self.data.yValues)
         return XAxis(data: self.data.xValues,
                      frameWidth: barChartWidth)
     }

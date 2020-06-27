@@ -21,10 +21,12 @@ struct AxisLabelUtils {
         return AxisLabelUtils.height / 2
     }
     
-    static func maxWidth(values: [Double]) -> CGFloat {
+    static func maxWidth(yValues: [Double]) -> CGFloat {
         var maxWidth: CGFloat = 0
-        let specifier = self.specifier(data: values)!
-        for value in values {
+        let yAxis = YAxis(data: yValues)
+        let specifier = self.specifier(value: yAxis.step())!
+        let lables = yAxis.labels()
+        for value in lables {
             let valueString = String(format: specifier, value)
             let width = valueString.widthOfString(usingFont: AxisLabelUtils.uiFont)
             if width > maxWidth {
@@ -34,26 +36,15 @@ struct AxisLabelUtils {
         return maxWidth
     }
     
-    static func specifier(data: [Double]) -> String? {
-        let step = YAxis(data: data).step()
-        if step < 1 {
-            return "%.2f"
-        } else if step >= 1 && step < 10 {
-            return "%.1f"
-        } else if step >= 10 {
-            return "%.0f"
-        } else {
-            return nil
-        }
-    }
-    
-    static func roundUp(_ value: Double) -> Double? {
+    static func specifier(value: Double) -> String? {
         if value < 1 {
-            return ceil(value * 100 / 5) * 5 / 100
+            let decimalPart = value.truncatingRemainder(dividingBy: 1) * 100
+            return decimalPart.rounded().truncatingRemainder(dividingBy: 1) == 0 ? "%.1f" : "%.2f"
         } else if value >= 1 && value < 10 {
-            return ceil(value * 10 / 5) * 5 / 10
+            let decimalPart = value.truncatingRemainder(dividingBy: 1) * 10
+            return decimalPart.rounded().truncatingRemainder(dividingBy: 1) == 0 ? "%.0f" : "%.1f"
         } else if value >= 10 {
-            return ceil(value / 5) * 5
+            return "%.0f"
         } else {
             return nil
         }
