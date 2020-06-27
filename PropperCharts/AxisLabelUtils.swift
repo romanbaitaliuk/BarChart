@@ -37,12 +37,12 @@ struct AxisLabelUtils {
     }
     
     static func specifier(value: Double) -> String? {
-        if value < 1 {
-            let decimalPart = value.truncatingRemainder(dividingBy: 1) * 100
-            return decimalPart.rounded().truncatingRemainder(dividingBy: 1) == 0 ? "%.1f" : "%.2f"
+        if value > 0 && value < 1 {
+            let decimalsCount = value.decimalsCount()
+            return "%.\(decimalsCount)f"
         } else if value >= 1 && value < 10 {
             let decimalPart = value.truncatingRemainder(dividingBy: 1) * 10
-            return decimalPart.rounded().truncatingRemainder(dividingBy: 1) == 0 ? "%.0f" : "%.1f"
+            return decimalPart.rounded().truncatingRemainder(dividingBy: 10) == 0 ? "%.0f" : "%.1f"
         } else if value >= 10 {
             return "%.0f"
         } else {

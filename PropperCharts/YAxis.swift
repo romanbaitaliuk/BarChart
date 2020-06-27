@@ -45,31 +45,48 @@ struct YAxis {
         return proxy.size.height / CGFloat(self.verticalDistance())
     }
     
-    // TODO: smart rounding, round to next next value if the change less than 5%
     func step() -> Double {
         let absoluteMax = Swift.max(abs(self.max), abs(self.min))
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
         
         if self.minValue > 0 || self.maxValue < 0 {
-            return self.roundUp(absoluteMax / 3)!
+            return self.adjustValue(absoluteMax / 3)
         } else {
             let step = absoluteMin
             let maxPositiveStepCount = (absoluteMax / step).rounded(.up)
             if maxPositiveStepCount >= 2 && maxPositiveStepCount <= 3 {
-                return self.roundUp(step)!
+                return self.adjustValue(step)
             } else {
-                return self.roundUp(absoluteMax / 3)!
+                return self.adjustValue(absoluteMax / 3)
             }
         }
     }
     
+    private func adjustValue(_ value: Double,
+                             by percent: Int = 0) -> Double {
+        let adj = Double(percent) / 100.0 + 1
+        let roundedValue = self.roundUp(value * adj)!
+        let changeInProcent = (roundedValue - value) / value * 100
+        if changeInProcent < 5 {
+            return self.adjustValue(value, by: percent + 1)
+        }
+        return roundedValue
+    }
+    
     private func roundUp(_ value: Double) -> Double? {
-        if value < 1 {
-            return ceil(value * 100 / 5) * 5 / 100
+        if value > 0 && value < 1 {
+            let digitsCount = value.zerosCountAfterPoint() + 2
+            var adj = 100.0
+            if digitsCount > 2 {
+                adj = Double(truncating: pow(10.0, digitsCount) as NSNumber)
+            }
+            return ceil(value * adj / 5) * 5 / adj
         } else if value >= 1 && value < 10 {
             return ceil(value * 10 / 5) * 5 / 10
         } else if value >= 10 {
-            return ceil(value / 5) * 5
+            let digitsCount = Int(value).digitsCount()
+            let adj = Double(truncating: pow(10.0, digitsCount - 2) as NSNumber)
+            return ceil(value / adj / 5) * 5 * adj
         } else {
             return nil
         }
@@ -124,5 +141,43 @@ struct YAxis {
     
     func label(at index: Int) -> Double {
         return self.labels()[index]
+    }
+}
+
+extension Int {
+    func digitsCount() -> Int {
+        if abs(self) < 10 {
+            return 1
+        } else {
+            return 1 + (self/10).digitsCount()
+        }
+    }
+}
+
+extension Double {
+    func decimalsCount() -> Int {
+        if self == Double(Int(self)) {
+            return 0
+        }
+
+        let integerString = String(Int(self))
+        let doubleString = String(Double(self))
+        let decimalCount = doubleString.count - integerString.count - 1
+
+        return decimalCount
+    }
+    
+    func zerosCountAfterPoint() -> Int {
+        let valueString = String(self)
+        let decimalPart = valueString.replacingOccurrences(of: "0.", with: "")
+        var count: Int = 0
+        for digit in decimalPart {
+            if digit == "0" {
+                count += 1
+            } else {
+                break
+            }
+        }
+        return count
     }
 }
