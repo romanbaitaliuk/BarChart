@@ -34,7 +34,7 @@ struct AxesGridView: View {
                             .rotationEffect(.degrees(180), anchor: .center)
                             .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                             .animation(.easeOut(duration: 0.2))
-                        Text("\(self.yAxis().label(at: index), specifier: AxisLabelUtils.specifier(value: self.yAxis().step())!)")
+                        Text("\(self.yAxis().label(at: index), specifier: AxisLabelUtils.specifier(value: self.yAxis().step()))")
                             .font(AxisLabelUtils.font)
                             .offset(y: self.yLabelVerticalOffset(at: index,
                                                                  proxy: proxy))

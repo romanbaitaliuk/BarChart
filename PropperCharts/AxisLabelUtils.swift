@@ -23,10 +23,9 @@ struct AxisLabelUtils {
     
     static func maxWidth(yValues: [Double]) -> CGFloat {
         var maxWidth: CGFloat = 0
-        let yAxis = YAxis(data: yValues)
-        let specifier = self.specifier(value: yAxis.step())!
-        let lables = yAxis.labels()
+        let lables = YAxis(data: yValues).labels()
         for value in lables {
+            let specifier = self.specifier(value: value)
             let valueString = String(format: specifier, value)
             let width = valueString.widthOfString(usingFont: AxisLabelUtils.uiFont)
             if width > maxWidth {
@@ -36,15 +35,16 @@ struct AxisLabelUtils {
         return maxWidth
     }
     
-    static func specifier(value: Double) -> String? {
-        if value > 0 && value < 1 {
-            let decimalsCount = value.decimalsCount()
+    static func specifier(value: Double) -> String {
+        let absoluteValue = abs(value)
+        if absoluteValue > 0 && absoluteValue < 1 {
+            let decimalsCount = absoluteValue.decimalsCount()
             return "%.\(decimalsCount)f"
-        } else if value >= 1 {
+        } else if absoluteValue >= 1 {
             let decimalPart = value.truncatingRemainder(dividingBy: 1)
             return decimalPart == 0 ? "%.0f" : "%.1f"
         } else {
-            return nil
+            return "%.0f"
         }
     }
     

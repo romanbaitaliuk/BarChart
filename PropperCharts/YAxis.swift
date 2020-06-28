@@ -45,32 +45,19 @@ struct YAxis {
         return proxy.size.height / CGFloat(self.verticalDistance())
     }
     
-    func step() -> Double {
+    func step(gridlinesRange: ClosedRange<Int> = 3...10) -> Double {
         let absoluteMax = Swift.max(abs(self.max), abs(self.min))
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
+        let distance = self.roundUp(absoluteMax + absoluteMin)!
         
-        if self.minValue > 0 || self.maxValue < 0 {
-            return self.adjustValue(absoluteMax / 3)
-        } else {
-            let step = absoluteMin
-            let maxPositiveStepCount = (absoluteMax / step).rounded(.up)
-            if maxPositiveStepCount >= 2 && maxPositiveStepCount <= 3 {
-                return self.adjustValue(step)
-            } else {
-                return self.adjustValue(absoluteMax / 3)
+        for gridlinesCount in gridlinesRange {
+            let step = distance / Double(gridlinesCount)
+            let roundedStep = self.roundUp(step)!
+            if roundedStep == step {
+                return roundedStep
             }
         }
-    }
-    
-    private func adjustValue(_ value: Double,
-                             by percent: Int = 0) -> Double {
-        let adj = Double(percent) / 100.0 + 1
-        let roundedValue = self.roundUp(value * adj)!
-        let changeInProcent = (roundedValue - value) / value * 100
-        if changeInProcent < 5 {
-            return self.adjustValue(value, by: percent + 1)
-        }
-        return roundedValue
+        return distance / 5
     }
     
     private func roundUp(_ value: Double) -> Double? {
@@ -118,7 +105,7 @@ struct YAxis {
         } else if self.max < 0 {
             // Add negative Y values
             while count > self.min {
-                count += -1.0 * step
+                count -= step
                 labels.append(count)
             }
         } else {
@@ -132,11 +119,11 @@ struct YAxis {
             
             // Add negative Y values
             while count > self.min {
-                count += -1.0 * step
+                count -= step
                 labels.append(count)
             }
         }
-        return labels
+        return labels.compactMap { Double($0.removeZerosFromEnd()) }
     }
     
     func label(at index: Int) -> Double {
@@ -179,5 +166,13 @@ extension Double {
             }
         }
         return count
+    }
+    
+    func removeZerosFromEnd() -> String {
+        let formatter = NumberFormatter()
+        let number = NSNumber(value: self)
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 16
+        return String(formatter.string(from: number) ?? "")
     }
 }
