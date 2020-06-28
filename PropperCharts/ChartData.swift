@@ -1,6 +1,6 @@
 //
 //  ChartData.swift
-//  StockFinancials
+//  ProperCharts
 //
 //  Created by Roman Baitaliuk on 9/05/20.
 //  Copyright © 2020 Roman Baitaliuk. All rights reserved.

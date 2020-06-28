@@ -1,6 +1,6 @@
 //
 //  YAxisLayout.swift
-//  StockFinancials
+//  ProperCharts
 //
 //  Created by Roman Baitaliuk on 19/06/20.
 //  Copyright © 2020 Roman Baitaliuk. All rights reserved.
@@ -45,12 +45,12 @@ struct YAxis {
         return proxy.size.height / CGFloat(self.verticalDistance())
     }
     
-    func step(gridlinesRange: ClosedRange<Int> = 3...10) -> Double {
+    func step() -> Double {
         let absoluteMax = Swift.max(abs(self.max), abs(self.min))
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
         let distance = self.roundUp(absoluteMax + absoluteMin)!
         
-        for gridlinesCount in gridlinesRange {
+        for gridlinesCount in 3...8 {
             let step = distance / Double(gridlinesCount)
             let roundedStep = self.roundUp(step)!
             if roundedStep == step {
@@ -62,7 +62,7 @@ struct YAxis {
     
     private func roundUp(_ value: Double) -> Double? {
         if value > 0 && value < 1 {
-            let digitsCount = value.zerosCountAfterPoint() + 2
+            let digitsCount = self.zerosCountAfterPoint(value) + 2
             var adj = 100.0
             if digitsCount > 2 {
                 adj = Double(truncating: pow(10.0, digitsCount) as NSNumber)
@@ -77,6 +77,20 @@ struct YAxis {
         } else {
             return nil
         }
+    }
+    
+    private func zerosCountAfterPoint(_ value: Double) -> Int {
+        let valueString = String(value)
+        let decimalPart = valueString.replacingOccurrences(of: "0.", with: "")
+        var count: Int = 0
+        for digit in decimalPart {
+            if digit == "0" {
+                count += 1
+            } else {
+                break
+            }
+        }
+        return count
     }
     
     func centre(proxy: GeometryProxy) -> CGFloat {
@@ -152,20 +166,6 @@ extension Double {
         let decimalCount = doubleString.count - integerString.count - 1
 
         return decimalCount
-    }
-    
-    func zerosCountAfterPoint() -> Int {
-        let valueString = String(self)
-        let decimalPart = valueString.replacingOccurrences(of: "0.", with: "")
-        var count: Int = 0
-        for digit in decimalPart {
-            if digit == "0" {
-                count += 1
-            } else {
-                break
-            }
-        }
-        return count
     }
     
     func removeZerosFromEnd() -> String {
