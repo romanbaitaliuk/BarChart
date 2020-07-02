@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D36A2BAA24ADE5F900571EEF /* AxisLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36A2BA924ADE5F800571EEF /* AxisLabel.swift */; };
 		D3C0DC4124A5675C00298011 /* PropperCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C0DC3724A5675C00298011 /* PropperCharts.framework */; };
 		D3C0DC4624A5675C00298011 /* YAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC4524A5675C00298011 /* YAxisTests.swift */; };
 		D3C0DC4824A5675C00298011 /* PropperCharts.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0DC3A24A5675C00298011 /* PropperCharts.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D36A2BA924ADE5F800571EEF /* AxisLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxisLabel.swift; sourceTree = "<group>"; };
 		D3C0DC3724A5675C00298011 /* PropperCharts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PropperCharts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C0DC3A24A5675C00298011 /* PropperCharts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropperCharts.h; sourceTree = "<group>"; };
 		D3C0DC3B24A5675C00298011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				D3C0DC7424A5696800298011 /* XAxis.swift */,
 				D3C0DC6F24A5696800298011 /* XAxisLayout.swift */,
 				D3C0DC6C24A5696800298011 /* YAxis.swift */,
+				D36A2BA924ADE5F800571EEF /* AxisLabel.swift */,
 				D3C0DC3A24A5675C00298011 /* PropperCharts.h */,
 				D3C0DC3B24A5675C00298011 /* Info.plist */,
 			);
@@ -232,6 +235,7 @@
 				D3C0DC7724A5696800298011 /* YAxis.swift in Sources */,
 				D3C0DC7F24A5696800298011 /* XAxis.swift in Sources */,
 				D3C0DC7624A5696800298011 /* AxesGridView.swift in Sources */,
+				D36A2BAA24ADE5F900571EEF /* AxisLabel.swift in Sources */,
 				D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */,
 				D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */,
 				D3C0DC7924A5696800298011 /* ChartStyle.swift in Sources */,

@@ -25,7 +25,7 @@ struct AxesGridView: View {
                     .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                     .animation(.easeOut(duration: 0.2))
                 // Draw horizontal dashed gridlines
-                ForEach((0...self.yAxis().labels().count - 1), id: \.self) { index in
+                ForEach((0...self.yAxis(proxy).labels().count - 1), id: \.self) { index in
                     HStack(alignment: .center) {
                         self.horizontalGridlinePath(at: index,
                                                     proxy: proxy)
@@ -34,7 +34,7 @@ struct AxesGridView: View {
                             .rotationEffect(.degrees(180), anchor: .center)
                             .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                             .animation(.easeOut(duration: 0.2))
-                        Text("\(self.yAxis().label(at: index), specifier: AxisLabelUtils.specifier(value: self.yAxis().step()))")
+                        Text("\(self.yAxis(proxy).label(at: index), specifier: AxisLabelUtils.specifier(value: self.yAxis(proxy).step()))")
                             .font(AxisLabelUtils.font)
                             .offset(y: self.yLabelVerticalOffset(at: index,
                                                                  proxy: proxy))
@@ -94,7 +94,7 @@ struct AxesGridView: View {
     
     func horizontalGridlinePath(y: CGFloat,
                                 proxy: GeometryProxy) -> Path {
-        let maxYLabelWidth = AxisLabelUtils.maxWidth(yValues: self.data.yValues)
+        let maxYLabelWidth = AxisLabelUtils.maxWidth(yValues: self.data.yValues, frameHeight: proxy.size.height)
         var hLine = Path()
         hLine.move(to: CGPoint(x: 0, y: y))
         hLine.addLine(to: CGPoint(x: proxy.size.width - maxYLabelWidth, y: y))
@@ -108,9 +108,9 @@ struct AxesGridView: View {
     }
     
     func zeroHorizontalLinePath(proxy: GeometryProxy) -> Path {
-        let maxYLabelWidth = AxisLabelUtils.maxWidth(yValues: self.data.yValues)
+        let maxYLabelWidth = AxisLabelUtils.maxWidth(yValues: self.data.yValues, frameHeight: proxy.size.height)
         var hLine = Path()
-        let centreY = self.yAxis().centre(proxy: proxy) * (-1)
+        let centreY = self.yAxis(proxy).centre() * (-1)
         hLine.move(to: CGPoint(x: 0, y: centreY))
         hLine.addLine(to: CGPoint(x: proxy.size.width - maxYLabelWidth, y: centreY))
         return hLine
@@ -125,16 +125,16 @@ struct AxesGridView: View {
     
     func horizontalGridlineY(at index: Int,
                              proxy: GeometryProxy) -> CGFloat {
-        let label = self.yAxis().label(at: index)
-        return (CGFloat(label) - CGFloat(self.yAxis().chartMin)) * self.yAxis().pixelsRatio(proxy: proxy)
+        let label = self.yAxis(proxy).label(at: index)
+        return (CGFloat(label) - CGFloat(self.yAxis(proxy).chartMin)) * self.yAxis(proxy).pixelsRatio()
     }
     
-    func yAxis() -> YAxis {
-        return YAxis(data: self.data.yValues)
+    func yAxis(_ proxy: GeometryProxy) -> YAxis {
+        return YAxis(data: self.data.yValues, frameHeight: proxy.size.height)
     }
     
     func xAxis(proxy: GeometryProxy) -> XAxis {
-        let barChartWidth = proxy.size.width - AxisLabelUtils.maxWidth(yValues: self.data.yValues)
+        let barChartWidth = proxy.size.width - AxisLabelUtils.maxWidth(yValues: self.data.yValues, frameHeight: proxy.size.height)
         return XAxis(data: self.data.xValues,
                      frameWidth: barChartWidth)
     }

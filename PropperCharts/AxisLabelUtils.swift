@@ -21,9 +21,9 @@ struct AxisLabelUtils {
         return AxisLabelUtils.height / 2
     }
     
-    static func maxWidth(yValues: [Double]) -> CGFloat {
+    static func maxWidth(yValues: [Double], frameHeight: CGFloat) -> CGFloat {
         var maxWidth: CGFloat = 0
-        let lables = YAxis(data: yValues).labels()
+        let lables = YAxis(data: yValues, frameHeight: frameHeight).labels()
         for value in lables {
             let specifier = self.specifier(value: value)
             let valueString = String(format: specifier, value)

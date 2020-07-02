@@ -12,20 +12,17 @@ public struct BarChartView : View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     private let data: ChartData
-    public let title: String
     public let style: ChartStyle
     public let darkModeStyle: ChartStyle?
     public let dropShadow: Bool
     public let frameSize: CGSize
     
     public init(data: ChartData,
-                title: String,
                 style: ChartStyle,
                 darkModeStyle: ChartStyle? = nil,
                 dropShadow: Bool = false,
                 frameSize: CGSize) {
         self.data = data
-        self.title = title
         self.style = style
         self.darkModeStyle = darkModeStyle
         self.dropShadow = dropShadow
@@ -45,7 +42,8 @@ public struct BarChartView : View {
                 .padding([.bottom], AxisLabelUtils.height + AxisLabelUtils.halfHeight)
             BarChartCollectionView(data: self.data.yValues,
                                    gradient: self.currentStyle().gradientColor)
-                .padding([.trailing], AxisLabelUtils.maxWidth(yValues: self.data.yValues))
+                .padding([.trailing], AxisLabelUtils.maxWidth(yValues: self.data.yValues,
+                                                              frameHeight: self.frameSize.height - AxisLabelUtils.height * 2))
                 .padding([.top], AxisLabelUtils.halfHeight)
                 .padding([.bottom], AxisLabelUtils.height + AxisLabelUtils.halfHeight)
         }.frame(minWidth: 0,

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct YAxis {
     let data: [Double]
+    let frameHeight: CGFloat
     
     private var minValue: Double {
         self.data.min() ?? 0
@@ -41,23 +42,23 @@ struct YAxis {
         return max < 0 ? 0 : max
     }
     
-    func pixelsRatio(proxy: GeometryProxy) -> CGFloat {
-        return proxy.size.height / CGFloat(self.verticalDistance())
+    let minGridlineSpacing: CGFloat = 40.0
+    
+    var maxGridlinesCount: Int {
+        return Int(self.frameHeight / self.minGridlineSpacing)
+    }
+    
+    func pixelsRatio() -> CGFloat {
+        return self.frameHeight / CGFloat(self.verticalDistance())
     }
     
     func step() -> Double {
         let absoluteMax = Swift.max(abs(self.max), abs(self.min))
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
-        let distance = self.roundUp(absoluteMax + absoluteMin)!
-        
-        for gridlinesCount in 3...8 {
-            let step = distance / Double(gridlinesCount)
-            let roundedStep = self.roundUp(step)!
-            if roundedStep == step {
-                return roundedStep
-            }
-        }
-        return distance / 5
+        let distance = absoluteMax + absoluteMin
+        let step = distance / Double(self.maxGridlinesCount)
+        let roundedStep = self.roundUp(step)!
+        return roundedStep
     }
     
     private func roundUp(_ value: Double) -> Double? {
@@ -93,12 +94,12 @@ struct YAxis {
         return count
     }
     
-    func centre(proxy: GeometryProxy) -> CGFloat {
-        return CGFloat(self.chartMin) * self.pixelsRatio(proxy: proxy)
+    func centre() -> CGFloat {
+        return CGFloat(self.chartMin) * self.pixelsRatio()
     }
     
-    func normalizedValue(at index: Int) -> Double {
-        return self.data[index] / self.verticalDistance()
+    func normalizedValues() -> [Double] {
+        return self.data.map { $0 / self.verticalDistance() }
     }
     
     private func verticalDistance() -> Double {
@@ -107,8 +108,8 @@ struct YAxis {
     
     func labels() -> [Double] {
         var labels = [Double]()
-        let step = self.step()
         var count = 0.0
+        let step = self.step()
         
         if self.min > 0 {
             // Add positive Y values
@@ -140,10 +141,12 @@ struct YAxis {
         return labels.compactMap { Double($0.removeZerosFromEnd()) }
     }
     
+    // TODO: Remove this
     func label(at index: Int) -> Double {
         return self.labels()[index]
     }
 }
+
 
 extension Int {
     func digitsCount() -> Int {

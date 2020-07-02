@@ -18,11 +18,11 @@ public struct BarChartCollectionView: View {
             HStack(alignment: .bottom,
                    spacing: self.xAxisLayout(proxy: proxy).spacing) {
                     ForEach(0..<self.data.count, id: \.self) { index in
-                        BarChartCell(value: self.yAxis().normalizedValue(at: index),
+                        BarChartCell(value: self.yAxis(proxy).normalizedValues()[index],
                                      index: index,
                                      width: self.xAxisLayout(proxy: proxy).barWidth,
                                      gradient: self.gradient)
-                            .offset(y: self.yAxis().centre(proxy: proxy))
+                            .offset(y: self.yAxis(proxy).centre())
                     }
             }
         }
@@ -33,7 +33,7 @@ public struct BarChartCollectionView: View {
                            frameWidth: proxy.size.width)
     }
     
-    func yAxis() -> YAxis {
-        return YAxis(data: self.data)
+    func yAxis(_ proxy: GeometryProxy) -> YAxis {
+        return YAxis(data: self.data, frameHeight: proxy.size.height)
     }
 }
