@@ -37,7 +37,7 @@ public struct BarChartView : View {
                         radius: self.dropShadow ? 8 : 0)
             Group {
                 GeometryReader { proxy in
-                    AxesGridView(data: self.data,
+                    CoordinateSystemView(data: self.data,
                                  gridlineColor: self.currentStyle().gridlineColor,
                                  labelColor: self.currentStyle().labelColor,
                                  xAxis: self.xAxis(proxy),
