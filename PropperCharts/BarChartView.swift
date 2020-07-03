@@ -35,21 +35,32 @@ public struct BarChartView : View {
                 .fill(self.currentStyle().backgroundColor)
                 .shadow(color: self.currentStyle().dropShadowColor,
                         radius: self.dropShadow ? 8 : 0)
-            AxesGridView(data: self.data,
-                         gridlineColor: self.currentStyle().gridlineColor,
-                         labelColor: self.currentStyle().labelColor)
-                .padding([.top], AxisLabelUtils.halfHeight)
-                .padding([.bottom], AxisLabelUtils.height + AxisLabelUtils.halfHeight)
-            BarChartCollectionView(data: self.data.yValues,
-                                   gradient: self.currentStyle().gradientColor)
-                .padding([.trailing], AxisLabelUtils.maxWidth(yValues: self.data.yValues,
-                                                              frameHeight: self.frameSize.height - AxisLabelUtils.height * 2))
-                .padding([.top], AxisLabelUtils.halfHeight)
-                .padding([.bottom], AxisLabelUtils.height + AxisLabelUtils.halfHeight)
+            Group {
+                GeometryReader { proxy in
+                    AxesGridView(data: self.data,
+                                 gridlineColor: self.currentStyle().gridlineColor,
+                                 labelColor: self.currentStyle().labelColor,
+                                 xAxis: self.xAxis(proxy),
+                                 yAxis: self.yAxis(proxy),
+                                 frameSize: proxy.size)
+                    BarChartCollectionView(normalizedValues: self.yAxis(proxy).normalizedValues(),
+                                           gradient: self.currentStyle().gradientColor,
+                                           layout: self.xAxis(proxy).layout,
+                                           centre: self.yAxis(proxy).centre())
+                        .padding([.trailing], self.maxYLabelWidth(proxy))
+                }
+            }
+            .padding([.top], AxisLabelUtils.halfHeight)
+            .padding([.bottom], AxisLabelUtils.height + AxisLabelUtils.halfHeight)
         }.frame(minWidth: 0,
                 maxWidth: self.frameSize.width,
                 minHeight: self.frameSize.height,
                 maxHeight: self.frameSize.height)
+    }
+    
+    func maxYLabelWidth(_ proxy: GeometryProxy) -> CGFloat {
+        return AxisLabelUtils.maxWidth(yValues: self.data.yValues,
+                                       frameHeight: proxy.size.height)
     }
     
     func currentStyle() -> ChartStyle {
@@ -58,5 +69,14 @@ public struct BarChartView : View {
         } else {
             return self.style
         }
+    }
+    
+    func xAxis(_ proxy: GeometryProxy) -> XAxis {
+        let frameWidth = proxy.size.width - self.maxYLabelWidth(proxy)
+        return XAxis(data: self.data.xValues, frameWidth: frameWidth)
+    }
+    
+    func yAxis(_ proxy: GeometryProxy) -> YAxis {
+        return YAxis(data: self.data.yValues, frameHeight: proxy.size.height)
     }
 }
