@@ -20,17 +20,17 @@ struct CoordinateSystemView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             // Draw horizontal zero line
-            YGridlineView(y: self.yAxis.centre() * (-1),
-                          length: self.xAxis.frameWidth,
-                          isDashed: false,
-                          color: self.gridlineColor)
+            GridlineView(points: self.zeroHorizontalGridlinePoints(),
+                         isDashed: false,
+                         color: self.gridlineColor,
+                         isInverted: true)
             // Draw horizontal dashed gridlines
             ForEach((0..<self.yAxis.labels().count), id: \.self) { index in
                 HStack(alignment: .center) {
-                    YGridlineView(y: self.horizontalGridlineY(at: index),
-                                  length: self.xAxis.frameWidth,
-                                  isDashed: true,
-                                  color: self.gridlineColor)
+                    GridlineView(points: self.horizontalGridlinePoints(index: index),
+                                 isDashed: true,
+                                 color: self.gridlineColor,
+                                 isInverted: true)
                     Text("\(self.yAxis.label(at: index), specifier: AxisLabelUtils.specifier(value: self.yAxis.step()))")
                         .font(AxisLabelUtils.font)
                         .offset(y: self.yLabelVerticalOffset(at: index))
@@ -40,10 +40,10 @@ struct CoordinateSystemView: View {
             // Draw vertical dashed gridlines
             ForEach((0..<self.xAxis.labels().count), id: \.self) { index in
                 VStack(alignment: .center) {
-                    XGridlineView(x: self.verticalGridlineX(at: index),
-                                  length: self.frameSize.height,
-                                  isDashed: true,
-                                  color: self.gridlineColor)
+                    GridlineView(points: self.verticalGridlinePoints(index: index),
+                                 isDashed: true,
+                                 color: self.gridlineColor,
+                                 isInverted: false)
                     Text(self.xAxis.label(at: index))
                         .font(AxisLabelUtils.font)
                         .offset(x: self.xLabelHorizontalOffset(index: index),
@@ -68,6 +68,11 @@ struct CoordinateSystemView: View {
         return self.xAxis.layout.barCentre(at: indexAtFullRange)
     }
     
+    func verticalGridlinePoints(index: Int) -> (CGPoint, CGPoint) {
+        let x = self.verticalGridlineX(at: index)
+        return (CGPoint(x: x, y: 0), CGPoint(x: x, y: self.frameSize.height))
+    }
+    
     // MARK: - Y Axis
     
     func yLabelVerticalOffset(at index: Int) -> CGFloat {
@@ -80,48 +85,51 @@ struct CoordinateSystemView: View {
         let label = self.yAxis.label(at: index)
         return (CGFloat(label) - CGFloat(self.yAxis.chartMin)) * self.yAxis.pixelsRatio()
     }
+    
+    func horizontalGridlinePoints(index: Int) -> (CGPoint, CGPoint) {
+        let y = self.horizontalGridlineY(at: index)
+        return self.horizontalGridlinePoints(y: y)
+    }
+    
+    func zeroHorizontalGridlinePoints() -> (CGPoint, CGPoint) {
+        let y = self.yAxis.centre() * (-1)
+        return self.horizontalGridlinePoints(y: y)
+    }
+    
+    func horizontalGridlinePoints(y: CGFloat) -> (CGPoint, CGPoint) {
+        return (CGPoint(x: 0, y: y), CGPoint(x: self.xAxis.frameWidth, y: y))
+    }
 }
 
-struct XGridlineView: View {
-    let x: CGFloat
-    let length: CGFloat
+struct GridlineView: View {
+    let points: (CGPoint, CGPoint)
     let isDashed: Bool
     let color: Color
+    let isInverted: Bool
     
     var body: some View {
         self.verticalGridlinePath()
             .stroke(self.color,
-                    style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: [5, 10]))
+                    style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: self.isDashed ? [5, 10] : []))
             .animation(.easeOut(duration: 0.2))
+            .rotationEffect(.degrees(self.isInverted ? 180 : 0), anchor: .center)
+            .rotation3DEffect(.degrees(self.isInverted ? 180 : 0), axis: (x: 0, y: 1, z: 0))
     }
     
     func verticalGridlinePath() -> Path {
         var vLine = Path()
-        vLine.move(to: CGPoint(x: self.x, y: 0))
-        vLine.addLine(to: CGPoint(x: self.x, y: self.length))
+        vLine.move(to: self.points.0)
+        vLine.addLine(to: self.points.1)
         return vLine
     }
 }
 
-struct YGridlineView: View {
-    let y: CGFloat
-    let length: CGFloat
-    let isDashed: Bool
-    let color: Color
+struct LabelView: View {
+    let label: AxisLabel
     
     var body: some View {
-        self.horizontalGridlinePath()
-            .stroke(self.color,
-                    style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: self.isDashed ? [5, 10] : []))
-            .rotationEffect(.degrees(180), anchor: .center)
-            .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
-            .animation(.easeOut(duration: 0.2))
-    }
-    
-    func horizontalGridlinePath() -> Path {
-        var hLine = Path()
-        hLine.move(to: CGPoint(x: 0, y: self.y))
-        hLine.addLine(to: CGPoint(x: self.length, y: self.y))
-        return hLine
+        Text(self.label.text)
+            .font(self.label.font)
+            .foregroundColor(self.label.color)
     }
 }

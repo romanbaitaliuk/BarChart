@@ -94,13 +94,3 @@ private extension String {
         return self.size(withAttributes: fontAttributes)
     }
 }
-
-struct LabelView: View {
-    let label: AxisLabel
-    
-    var body: some View {
-        Text(self.label.text)
-            .font(self.label.font)
-            .foregroundColor(self.label.color)
-    }
-}
