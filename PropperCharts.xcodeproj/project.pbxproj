@@ -21,7 +21,6 @@
 		D3C0DC7F24A5696800298011 /* XAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7424A5696800298011 /* XAxis.swift */; };
 		D3C0DC8024A5696800298011 /* BarChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7524A5696800298011 /* BarChartCell.swift */; };
 		D3C0DC8924A593F700298011 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC8824A593F700298011 /* GradientColor.swift */; };
-		D3E775EF24B066CB00EC86AA /* ChartConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E775EE24B066CB00EC86AA /* ChartConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +51,6 @@
 		D3C0DC7424A5696800298011 /* XAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XAxis.swift; sourceTree = "<group>"; };
 		D3C0DC7524A5696800298011 /* BarChartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartCell.swift; sourceTree = "<group>"; };
 		D3C0DC8824A593F700298011 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
-		D3E775EE24B066CB00EC86AA /* ChartConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,11 +93,10 @@
 		D3C0DC3924A5675C00298011 /* PropperCharts */ = {
 			isa = PBXGroup;
 			children = (
-				D3C0DC6B24A5696800298011 /* CoordinateSystemView.swift */,
-				D3E775EE24B066CB00EC86AA /* ChartConfiguration.swift */,
-				D3C0DC7524A5696800298011 /* BarChartCell.swift */,
-				D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */,
 				D3C0DC7124A5696800298011 /* BarChartView.swift */,
+				D3C0DC6B24A5696800298011 /* CoordinateSystemView.swift */,
+				D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */,
+				D3C0DC7524A5696800298011 /* BarChartCell.swift */,
 				D3C0DC7224A5696800298011 /* ChartData.swift */,
 				D3C0DC6E24A5696800298011 /* ChartStyle.swift */,
 				D3C0DC8824A593F700298011 /* GradientColor.swift */,
@@ -235,7 +232,6 @@
 				D3C0DC7724A5696800298011 /* YAxis.swift in Sources */,
 				D3BC428724B131A400B36923 /* YValueFormatter.swift in Sources */,
 				D3C0DC7F24A5696800298011 /* XAxis.swift in Sources */,
-				D3E775EF24B066CB00EC86AA /* ChartConfiguration.swift in Sources */,
 				D3C0DC7624A5696800298011 /* CoordinateSystemView.swift in Sources */,
 				D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */,
 				D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */,

@@ -43,7 +43,7 @@ public struct BarChartView : View {
                     CoordinateSystemView(xAxis: self.xAxis,
                                          yAxis: self.yAxis,
                                          frameSize: proxy.size,
-                                         botomPadding: self.bottomPadding())
+                                         labelOffsetY: self.bottomPadding())
                         .onAppear {
                             // Recalculate axes in the exact order
                             self.updateYAxis(proxy)
@@ -54,7 +54,7 @@ public struct BarChartView : View {
                                            spacing: self.xAxis.spacing,
                                            barWidth: self.xAxis.barWidth,
                                            centre: self.yAxis.centre())
-                        .padding([.trailing], self.maxYLabelWidth())
+                        .padding([.trailing], self.yAxis.maxYLabelWidth)
                 }
             }
             .padding([.top], self.topPadding())
@@ -63,10 +63,6 @@ public struct BarChartView : View {
                 maxWidth: self.frameSize.width,
                 minHeight: self.frameSize.height,
                 maxHeight: self.frameSize.height)
-    }
-    
-    func maxYLabelWidth() -> CGFloat {
-        return self.yAxis.formattedLabels().map { $0.width(font: self.yAxis.labelUIFont) }.max() ?? 0
     }
     
     func topPadding() -> CGFloat {
@@ -86,7 +82,7 @@ public struct BarChartView : View {
     }
     
     func updateXAxis(_ proxy: GeometryProxy) {
-        let frameWidth = proxy.size.width - self.maxYLabelWidth()
+        let frameWidth = proxy.size.width - self.yAxis.maxYLabelWidth
         if self.xAxis.frameWidth == nil {
             self.xAxis.frameWidth = frameWidth
             

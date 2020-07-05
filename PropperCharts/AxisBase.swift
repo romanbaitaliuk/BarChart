@@ -40,4 +40,8 @@ extension AxisBase {
     var gridlineIsDashed: Bool {
         return true
     }
+    
+    var maxYLabelWidth: CGFloat {
+        return self.formattedLabels().map { $0.width(font: self.labelUIFont) }.max() ?? 0
+    }
 }
