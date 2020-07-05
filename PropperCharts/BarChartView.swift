@@ -9,35 +9,32 @@
 import SwiftUI
 
 public struct BarChartView : View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    private let data: ChartData
-    public let style: ChartStyle
-    public let darkModeStyle: ChartStyle?
-    public let dropShadow: Bool
-    public let frameSize: CGSize
+    private let config: ChartConfiguration
+    @State private var xAxis: XAxis
+    @State private var yAxis: YAxis
     
-    @State public var xAxis: XAxis = XAxis()
-    @State public var yAxis: YAxis = YAxis()
-    
-    public init(data: ChartData,
-                style: ChartStyle,
-                darkModeStyle: ChartStyle? = nil,
-                dropShadow: Bool = false,
-                frameSize: CGSize) {
-        self.data = data
-        self.style = style
-        self.darkModeStyle = darkModeStyle
-        self.dropShadow = dropShadow
-        self.frameSize = frameSize
+    public init(config: ChartConfiguration) {
+        self.config = config
+        self._xAxis = State(initialValue: XAxis(data: config.data.xValues,
+                                                labelColor: config.xAxis.labelColor,
+                                                gridlineColor: config.xAxis.gridlineColor,
+                                                labelCTFont: config.xAxis.labelFont,
+                                                gridlineDash: config.xAxis.gridlineDash))
+        self._yAxis = State(initialValue: YAxis(data: config.data.yValues,
+                                                labelColor: config.yAxis.labelColor,
+                                                gridlineColor: config.yAxis.gridlineColor,
+                                                labelCTFont: config.yAxis.labelFont,
+                                                gridlineDash: config.yAxis.gridlineDash,
+                                                minGridlineSpacing: config.yAxis.minGridlineSpacing))
     }
     
     public var body: some View {
         ZStack {
             Rectangle()
-                .fill(self.currentStyle().backgroundColor)
-                .shadow(color: self.currentStyle().dropShadowColor,
-                        radius: self.dropShadow ? 8 : 0)
+                .fill(self.config.backgroundColor)
+                .shadow(color: self.config.dropShadowColor,
+                        radius: self.config.dropShadow ? 8 : 0)
             Group {
                 GeometryReader { proxy in
                     CoordinateSystemView(xAxis: self.xAxis,
@@ -50,7 +47,8 @@ public struct BarChartView : View {
                             self.updateXAxis(proxy)
                         }
                     BarChartCollectionView(normalizedValues: self.yAxis.normalizedValues(),
-                                           gradient: self.currentStyle().gradientColor,
+                                           gradient: self.config.data.gradientColor,
+                                           color: self.config.data.color,
                                            spacing: self.xAxis.spacing,
                                            barWidth: self.xAxis.barWidth,
                                            centre: self.yAxis.centre())
@@ -60,9 +58,9 @@ public struct BarChartView : View {
             .padding([.top], self.topPadding())
             .padding([.bottom], self.bottomPadding())
         }.frame(minWidth: 0,
-                maxWidth: self.frameSize.width,
-                minHeight: self.frameSize.height,
-                maxHeight: self.frameSize.height)
+                maxWidth: self.config.frameSize.width,
+                minHeight: self.config.frameSize.height,
+                maxHeight: self.config.frameSize.height)
     }
     
     func topPadding() -> CGFloat {
@@ -73,21 +71,10 @@ public struct BarChartView : View {
         return self.topPadding() + String().height(font: self.xAxis.labelUIFont)
     }
     
-    func currentStyle() -> ChartStyle {
-        if let darkModeStyle = self.darkModeStyle {
-            return self.colorScheme == .dark ? darkModeStyle : self.style
-        } else {
-            return self.style
-        }
-    }
-    
     func updateXAxis(_ proxy: GeometryProxy) {
         let frameWidth = proxy.size.width - self.yAxis.maxYLabelWidth
         if self.xAxis.frameWidth == nil {
             self.xAxis.frameWidth = frameWidth
-            
-            // TODO: Set data in another place
-            self.xAxis.data = self.data.xValues
         }
     }
     
@@ -95,9 +82,6 @@ public struct BarChartView : View {
         let frameHeight = proxy.size.height
         if self.yAxis.frameHeight == nil {
             self.yAxis.frameHeight = frameHeight
-            
-            // TODO: Set data in another place
-            self.yAxis.data = self.data.yValues
         }
     }
 }

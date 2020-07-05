@@ -12,33 +12,17 @@ protocol AxisBase {
     var labelColor: Color { get }
     var gridlineColor: Color { get }
     var labelCTFont: CTFont { get }
-    var gridlineIsDashed: Bool { get }
+    var gridlineDash: [CGFloat] { get }
     func formattedLabels() -> [String]
 }
 
 extension AxisBase {
-    var labelColor: Color {
-        return .gray
-    }
-    
-    var gridlineColor: Color {
-        return .gray
-    }
-    
-    var labelCTFont: CTFont {
-        return CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
-    }
-    
     var labelUIFont: UIFont {
         return UIFont(name: CTFontCopyPostScriptName(self.labelCTFont) as String, size: CTFontGetSize(self.labelCTFont))!
     }
     
     var labelFont: Font {
         return Font(self.labelCTFont)
-    }
-    
-    var gridlineIsDashed: Bool {
-        return true
     }
     
     var maxYLabelWidth: CGFloat {

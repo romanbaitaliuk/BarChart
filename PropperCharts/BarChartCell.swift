@@ -8,25 +8,22 @@
 
 import SwiftUI
 
-public struct BarChartCell: View {
-    
-    // MARK: - Properties
-    
+struct BarChartCell: View {
     let value: Double
     let index: Int
     let width: CGFloat
-    let gradient: GradientColor
+    let gradient: GradientColor?
+    let color: Color
     
     @State var scaleValue: Double = 0
     
-    // MARK: - Body
-    
-    public var body: some View {
+    var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 4)
-                .fill(LinearGradient(gradient: self.gradient.getGradient(),
-                                     startPoint: .bottom,
-                                     endPoint: .top))
+            if self.gradient != nil {
+                    GradientColorRectangle(gradient: self.gradient!)
+                } else {
+                    SolidColorRectangle(color: self.color)
+                }
             }
             .frame(width: self.width)
             .scaleEffect(CGSize(width: 1, height: self.scaleValue), anchor: .bottom)
@@ -34,5 +31,23 @@ public struct BarChartCell: View {
                 self.scaleValue = self.value
             }
             .animation(Animation.spring().delay(Double(self.index) * 0.04))
+    }
+}
+
+struct SolidColorRectangle: View {
+    let color: Color
+    var body: some View {
+        RoundedRectangle(cornerRadius: 4)
+            .fill(color)
+    }
+}
+
+struct GradientColorRectangle: View {
+    let gradient: GradientColor
+    var body: some View {
+        RoundedRectangle(cornerRadius: 4)
+            .fill(LinearGradient(gradient: self.gradient.getGradient(),
+                                 startPoint: .bottom,
+                                 endPoint: .top))
     }
 }

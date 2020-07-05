@@ -9,15 +9,21 @@
 import SwiftUI
 
 public struct YAxis: AxisBase {
-    var data: [Double]?
+    var data: [Double]
     var frameHeight: CGFloat?
     
+    var labelColor: Color
+    var gridlineColor: Color
+    var labelCTFont: CTFont
+    var gridlineDash: [CGFloat]
+    let minGridlineSpacing: CGFloat
+    
     private var minValue: Double {
-        self.data?.min() ?? 0
+        self.data.min() ?? 0
     }
     
     private var maxValue: Double {
-        self.data?.max() ?? 0
+        self.data.max() ?? 0
     }
     
     private var max: Double {
@@ -42,8 +48,6 @@ public struct YAxis: AxisBase {
         return max < 0 ? 0 : max
     }
     
-    let minGridlineSpacing: CGFloat = 40.0
-    
     var maxGridlinesCount: Int {
         guard let frameHeight = self.frameHeight else { return 0 }
         return Int(frameHeight / self.minGridlineSpacing)
@@ -55,10 +59,11 @@ public struct YAxis: AxisBase {
     }
     
     func step() -> Double {
+        guard frameHeight != nil else { return 0 }
         let absoluteMax = Swift.max(abs(self.max), abs(self.min))
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
         let distance = absoluteMax + absoluteMin
-        let step = distance / Double(self.maxGridlinesCount)
+        let step = distance / Double(maxGridlinesCount)
         let roundedStep = self.roundUp(step)
         return roundedStep
     }
@@ -101,8 +106,8 @@ public struct YAxis: AxisBase {
     }
     
     func normalizedValues() -> [Double] {
-        guard let data = self.data else { return [] }
-        return data.map { $0 / self.verticalDistance() }
+        guard self.frameHeight != nil else { return [] }
+        return self.data.map { $0 / self.verticalDistance() }
     }
     
     private func verticalDistance() -> Double {
@@ -114,6 +119,7 @@ public struct YAxis: AxisBase {
     }
     
     func labels() -> [Double] {
+        guard self.frameHeight != nil else { return [] }
         var labels = [Double]()
         var count = 0.0
         let step = self.step()

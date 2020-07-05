@@ -18,11 +18,23 @@ public struct ChartDataEntry {
     }
 }
 
-public class ChartData: ObservableObject {
-    @Published var entries: [ChartDataEntry]
+public struct ChartData {
+    public var entries: [ChartDataEntry]
+    public var gradientColor: GradientColor?
+    public var color: Color = Color("dataColorEnd", bundle: Bundle.current)
     
     public init(entries: [ChartDataEntry]) {
         self.entries = entries
+    }
+    
+    public init(entries: [ChartDataEntry], gradientColor: GradientColor) {
+        self.entries = entries
+        self.gradientColor = gradientColor
+    }
+    
+    public init(entries: [ChartDataEntry], color: Color) {
+        self.entries = entries
+        self.color = color
     }
     
     var yValues: [Double] {
@@ -31,9 +43,5 @@ public class ChartData: ObservableObject {
     
     var xValues: [String] {
         return self.entries.map { $0.x }
-    }
-    
-    var count: Int {
-        return self.entries.count
     }
 }

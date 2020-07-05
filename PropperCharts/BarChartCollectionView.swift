@@ -11,7 +11,8 @@ import Foundation
 
 public struct BarChartCollectionView: View {
     let normalizedValues: [Double]
-    let gradient: GradientColor
+    let gradient: GradientColor?
+    let color: Color
     let spacing: CGFloat
     let barWidth: CGFloat
     let centre: CGFloat
@@ -23,7 +24,8 @@ public struct BarChartCollectionView: View {
                     BarChartCell(value: self.normalizedValues[index],
                                  index: index,
                                  width: self.barWidth,
-                                 gradient: self.gradient)
+                                 gradient: self.gradient,
+                                 color: self.color)
                         .offset(y: self.centre)
                 }
         }

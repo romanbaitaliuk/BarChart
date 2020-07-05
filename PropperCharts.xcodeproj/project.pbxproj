@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		D3BC428524B12E1700B36923 /* AxisBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428424B12E1700B36923 /* AxisBase.swift */; };
 		D3BC428724B131A400B36923 /* YValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428624B131A400B36923 /* YValueFormatter.swift */; };
+		D3BC428C24B1BDC900B36923 /* ChartConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */; };
+		D3BC428E24B1D49000B36923 /* DefaultColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3BC428D24B1D49000B36923 /* DefaultColors.xcassets */; };
 		D3C0DC4124A5675C00298011 /* PropperCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C0DC3724A5675C00298011 /* PropperCharts.framework */; };
 		D3C0DC4624A5675C00298011 /* YAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC4524A5675C00298011 /* YAxisTests.swift */; };
 		D3C0DC4824A5675C00298011 /* PropperCharts.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0DC3A24A5675C00298011 /* PropperCharts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C0DC7624A5696800298011 /* CoordinateSystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC6B24A5696800298011 /* CoordinateSystemView.swift */; };
 		D3C0DC7724A5696800298011 /* YAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC6C24A5696800298011 /* YAxis.swift */; };
-		D3C0DC7924A5696800298011 /* ChartStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC6E24A5696800298011 /* ChartStyle.swift */; };
 		D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */; };
 		D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7124A5696800298011 /* BarChartView.swift */; };
 		D3C0DC7D24A5696800298011 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7224A5696800298011 /* ChartData.swift */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		D3BC428424B12E1700B36923 /* AxisBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisBase.swift; sourceTree = "<group>"; };
 		D3BC428624B131A400B36923 /* YValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YValueFormatter.swift; sourceTree = "<group>"; };
+		D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartConfiguration.swift; sourceTree = "<group>"; };
+		D3BC428D24B1D49000B36923 /* DefaultColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DefaultColors.xcassets; sourceTree = "<group>"; };
 		D3C0DC3724A5675C00298011 /* PropperCharts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PropperCharts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C0DC3A24A5675C00298011 /* PropperCharts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropperCharts.h; sourceTree = "<group>"; };
 		D3C0DC3B24A5675C00298011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,7 +47,6 @@
 		D3C0DC4724A5675C00298011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3C0DC6B24A5696800298011 /* CoordinateSystemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateSystemView.swift; sourceTree = "<group>"; };
 		D3C0DC6C24A5696800298011 /* YAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YAxis.swift; sourceTree = "<group>"; };
-		D3C0DC6E24A5696800298011 /* ChartStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartStyle.swift; sourceTree = "<group>"; };
 		D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartCollectionView.swift; sourceTree = "<group>"; };
 		D3C0DC7124A5696800298011 /* BarChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		D3C0DC7224A5696800298011 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
@@ -93,18 +95,19 @@
 		D3C0DC3924A5675C00298011 /* PropperCharts */ = {
 			isa = PBXGroup;
 			children = (
+				D3C0DC7224A5696800298011 /* ChartData.swift */,
+				D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */,
 				D3C0DC7124A5696800298011 /* BarChartView.swift */,
 				D3C0DC6B24A5696800298011 /* CoordinateSystemView.swift */,
 				D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */,
 				D3C0DC7524A5696800298011 /* BarChartCell.swift */,
-				D3C0DC7224A5696800298011 /* ChartData.swift */,
-				D3C0DC6E24A5696800298011 /* ChartStyle.swift */,
 				D3C0DC8824A593F700298011 /* GradientColor.swift */,
 				D3BC428424B12E1700B36923 /* AxisBase.swift */,
 				D3C0DC7424A5696800298011 /* XAxis.swift */,
 				D3C0DC6C24A5696800298011 /* YAxis.swift */,
 				D3BC428624B131A400B36923 /* YValueFormatter.swift */,
 				D3C0DC3A24A5675C00298011 /* PropperCharts.h */,
+				D3BC428D24B1D49000B36923 /* DefaultColors.xcassets */,
 				D3C0DC3B24A5675C00298011 /* Info.plist */,
 			);
 			path = PropperCharts;
@@ -212,6 +215,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3BC428E24B1D49000B36923 /* DefaultColors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,9 +239,9 @@
 				D3C0DC7624A5696800298011 /* CoordinateSystemView.swift in Sources */,
 				D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */,
 				D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */,
-				D3C0DC7924A5696800298011 /* ChartStyle.swift in Sources */,
 				D3C0DC7D24A5696800298011 /* ChartData.swift in Sources */,
 				D3C0DC8924A593F700298011 /* GradientColor.swift in Sources */,
+				D3BC428C24B1BDC900B36923 /* ChartConfiguration.swift in Sources */,
 				D3BC428524B12E1700B36923 /* AxisBase.swift in Sources */,
 				D3C0DC8024A5696800298011 /* BarChartCell.swift in Sources */,
 			);

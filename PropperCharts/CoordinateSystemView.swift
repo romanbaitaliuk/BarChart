@@ -30,14 +30,14 @@ struct CoordinateSystemView: View {
 
 struct GridlineView: View {
     let points: (CGPoint, CGPoint)
-    let isDashed: Bool
+    let dash: [CGFloat]
     let color: Color
     let isInverted: Bool
     
     var body: some View {
         self.verticalGridlinePath()
             .stroke(self.color,
-                    style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: self.isDashed ? [5, 10] : []))
+                    style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: self.dash))
             .animation(.easeOut(duration: 0.2))
             .rotationEffect(.degrees(self.isInverted ? 180 : 0), anchor: .center)
             .rotation3DEffect(.degrees(self.isInverted ? 180 : 0), axis: (x: 0, y: 1, z: 0))
@@ -72,7 +72,7 @@ struct XAxisView: View {
         ForEach((0..<self.xAxis.formattedLabels().count), id: \.self) { index in
             VStack(alignment: .center) {
                 GridlineView(points: self.verticalGridlinePoints(index: index),
-                             isDashed: self.xAxis.gridlineIsDashed,
+                             dash: self.xAxis.gridlineDash,
                              color: self.xAxis.gridlineColor,
                              isInverted: false)
                 LabelView(text: self.xAxis.formattedLabels()[index],
@@ -93,7 +93,7 @@ struct XAxisView: View {
     func verticalGridlineX(at index: Int) -> CGFloat {
         let label = self.xAxis.formattedLabels()[index]
         // TODO: Improve x axis label formatting
-        if let indexAtFullRange = self.xAxis.data?.firstIndex(where: { $0 == label }) {
+        if let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == label }) {
             return self.xAxis.barCentre(at: indexAtFullRange)
         }
         return 0
@@ -113,7 +113,7 @@ struct YAxisView: View {
         ForEach((0..<self.yAxis.labels().count), id: \.self) { index in
             HStack(alignment: .center) {
                 GridlineView(points: self.horizontalGridlinePoints(index: index),
-                             isDashed: self.yAxis.labels()[index] == 0 ? false : self.yAxis.gridlineIsDashed,
+                             dash: self.yAxis.labels()[index] == 0 ? [] : self.yAxis.gridlineDash,
                              color: self.yAxis.gridlineColor,
                              isInverted: true)
                 LabelView(text: self.yAxis.formattedLabels()[index],
