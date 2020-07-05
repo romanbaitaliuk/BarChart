@@ -12,16 +12,17 @@ import Foundation
 public struct BarChartCollectionView: View {
     let normalizedValues: [Double]
     let gradient: GradientColor
-    let layout: XAxisLayout
+    let spacing: CGFloat
+    let barWidth: CGFloat
     let centre: CGFloat
     
     public var body: some View {
         HStack(alignment: .bottom,
-               spacing: self.layout.spacing) {
+               spacing: self.spacing) {
                 ForEach(0..<self.normalizedValues.count, id: \.self) { index in
                     BarChartCell(value: self.normalizedValues[index],
                                  index: index,
-                                 width: self.layout.barWidth,
+                                 width: self.barWidth,
                                  gradient: self.gradient)
                         .offset(y: self.centre)
                 }

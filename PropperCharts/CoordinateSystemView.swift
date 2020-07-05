@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct CoordinateSystemView: View {
-    
-    @ObservedObject var data: ChartData
     let xAxis: XAxis
     let yAxis: YAxis
     let frameSize: CGSize
@@ -18,16 +16,11 @@ struct CoordinateSystemView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            // Draw horizontal zero line
-            GridlineView(points: self.zeroHorizontalGridlinePoints(),
-                         isDashed: false,
-                         color: self.yAxis.gridlineColor,
-                         isInverted: true)
             // Draw horizontal dashed gridlines
             ForEach((0..<self.yAxis.labels().count), id: \.self) { index in
                 HStack(alignment: .center) {
                     GridlineView(points: self.horizontalGridlinePoints(index: index),
-                                 isDashed: self.yAxis.gridlineIsDashed,
+                                 isDashed: self.yAxis.labels()[index] == 0 ? false : self.yAxis.gridlineIsDashed,
                                  color: self.yAxis.gridlineColor,
                                  isInverted: true)
                     LabelView(text: self.yAxis.formattedLabels()[index],
@@ -64,8 +57,10 @@ struct CoordinateSystemView: View {
     func verticalGridlineX(at index: Int) -> CGFloat {
         let label = self.xAxis.formattedLabels()[index]
         // TODO: Improve x axis label formatting
-        let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == label })!
-        return self.xAxis.layout.barCentre(at: indexAtFullRange)
+        if let indexAtFullRange = self.xAxis.data?.firstIndex(where: { $0 == label }) {
+            return self.xAxis.barCentre(at: indexAtFullRange)
+        }
+        return 0
     }
     
     func verticalGridlinePoints(index: Int) -> (CGPoint, CGPoint) {
@@ -97,7 +92,7 @@ struct CoordinateSystemView: View {
     }
     
     func horizontalGridlinePoints(y: CGFloat) -> (CGPoint, CGPoint) {
-        return (CGPoint(x: 0, y: y), CGPoint(x: self.xAxis.frameWidth, y: y))
+        return (CGPoint(x: 0, y: y), CGPoint(x: self.xAxis.frameWidth ?? 0, y: y))
     }
 }
 

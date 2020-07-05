@@ -40,8 +40,7 @@ public struct BarChartView : View {
                         radius: self.dropShadow ? 8 : 0)
             Group {
                 GeometryReader { proxy in
-                    CoordinateSystemView(data: self.data,
-                                         xAxis: self.xAxis,
+                    CoordinateSystemView(xAxis: self.xAxis,
                                          yAxis: self.yAxis,
                                          frameSize: proxy.size,
                                          botomPadding: self.bottomPadding())
@@ -52,7 +51,8 @@ public struct BarChartView : View {
                         }
                     BarChartCollectionView(normalizedValues: self.yAxis.normalizedValues(),
                                            gradient: self.currentStyle().gradientColor,
-                                           layout: self.xAxis.layout,
+                                           spacing: self.xAxis.spacing,
+                                           barWidth: self.xAxis.barWidth,
                                            centre: self.yAxis.centre())
                         .padding([.trailing], self.maxYLabelWidth())
                 }
@@ -66,15 +66,15 @@ public struct BarChartView : View {
     }
     
     func maxYLabelWidth() -> CGFloat {
-        return self.yAxis.formattedLabels().map { LabelDimensions.width(text: $0, font: self.yAxis.labelUIFont) }.max() ?? 0
+        return self.yAxis.formattedLabels().map { $0.width(font: self.yAxis.labelUIFont) }.max() ?? 0
     }
     
     func topPadding() -> CGFloat {
-        return LabelDimensions.height(text: "", font: self.yAxis.labelUIFont) / 2
+        return String().height(font: self.yAxis.labelUIFont) / 2
     }
     
     func bottomPadding() -> CGFloat {
-        return self.topPadding() + LabelDimensions.height(text: "", font: self.xAxis.labelUIFont)
+        return self.topPadding() + String().height(font: self.xAxis.labelUIFont)
     }
     
     func currentStyle() -> ChartStyle {
@@ -87,7 +87,7 @@ public struct BarChartView : View {
     
     func updateXAxis(_ proxy: GeometryProxy) {
         let frameWidth = proxy.size.width - self.maxYLabelWidth()
-        if self.xAxis.frameWidth == 0 {
+        if self.xAxis.frameWidth == nil {
             self.xAxis.frameWidth = frameWidth
             
             // TODO: Set data in another place
@@ -97,11 +97,25 @@ public struct BarChartView : View {
     
     func updateYAxis(_ proxy: GeometryProxy) {
         let frameHeight = proxy.size.height
-        if self.yAxis.frameHeight == 0 {
+        if self.yAxis.frameHeight == nil {
             self.yAxis.frameHeight = frameHeight
             
             // TODO: Set data in another place
             self.yAxis.data = self.data.yValues
         }
+    }
+}
+
+extension String {
+    func width(font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.width
+    }
+
+    func height(font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.height
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 struct YValueFormatter {
     static func formatValues(_ values: [Double], step: Double) -> [String] {
-        return values.map { String(format: $0.removeZerosFromEnd(), self.specifier(value: step)) }
+        return values.map { String(format: self.specifier(value: step), $0) }
     }
     
     static func specifier(value: Double) -> String {
@@ -24,15 +24,5 @@ struct YValueFormatter {
         } else {
             return "%.0f"
         }
-    }
-}
-
-private extension Double {
-    func removeZerosFromEnd() -> String {
-        let formatter = NumberFormatter()
-        let number = NSNumber(value: self)
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 16
-        return String(formatter.string(from: number) ?? "")
     }
 }

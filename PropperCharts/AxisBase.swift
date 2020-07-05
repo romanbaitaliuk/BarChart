@@ -26,7 +26,7 @@ extension AxisBase {
     }
     
     var labelCTFont: CTFont {
-        return CTFontCreateUIFontForLanguage(.system, 12, nil)!
+        return CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
     }
     
     var labelUIFont: UIFont {

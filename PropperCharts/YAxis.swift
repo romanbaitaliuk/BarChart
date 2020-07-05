@@ -9,15 +9,15 @@
 import SwiftUI
 
 public struct YAxis: AxisBase {
-    var data: [Double] = []
-    var frameHeight: CGFloat = 0
+    var data: [Double]?
+    var frameHeight: CGFloat?
     
     private var minValue: Double {
-        self.data.min() ?? 0
+        self.data?.min() ?? 0
     }
     
     private var maxValue: Double {
-        self.data.max() ?? 0
+        self.data?.max() ?? 0
     }
     
     private var max: Double {
@@ -45,11 +45,13 @@ public struct YAxis: AxisBase {
     let minGridlineSpacing: CGFloat = 40.0
     
     var maxGridlinesCount: Int {
-        return Int(self.frameHeight / self.minGridlineSpacing)
+        guard let frameHeight = self.frameHeight else { return 0 }
+        return Int(frameHeight / self.minGridlineSpacing)
     }
     
     func pixelsRatio() -> CGFloat {
-        return self.frameHeight / CGFloat(self.verticalDistance())
+        guard let frameHeight = self.frameHeight else { return 0 }
+        return frameHeight / CGFloat(self.verticalDistance())
     }
     
     func step() -> Double {
@@ -99,7 +101,8 @@ public struct YAxis: AxisBase {
     }
     
     func normalizedValues() -> [Double] {
-        return self.data.map { $0 / self.verticalDistance() }
+        guard let data = self.data else { return [] }
+        return data.map { $0 / self.verticalDistance() }
     }
     
     private func verticalDistance() -> Double {
@@ -111,37 +114,23 @@ public struct YAxis: AxisBase {
     }
     
     func labels() -> [Double] {
-        // TODO: Improve this
         var labels = [Double]()
         var count = 0.0
         let step = self.step()
         
-        if self.min > 0 {
-            // Add positive Y values
-            while count < self.max {
-                count += step
-                labels.append(count)
-            }
-        } else if self.max < 0 {
-            // Add negative Y values
-            while count > self.min {
-                count -= step
-                labels.append(count)
-            }
-        } else {
-            // Add positive Y values
-            while count < self.max {
-                count += step
-                labels.append(count)
-            }
-            
-            count = 0.0
-            
-            // Add negative Y values
-            while count > self.min {
-                count -= step
-                labels.append(count)
-            }
+        // Add positive Y values
+        while count < self.max {
+            count += step
+            labels.append(count)
+        }
+        
+        count = 0.0
+        labels.append(count)
+        
+        // Add negative Y values
+        while count > self.min {
+            count -= step
+            labels.append(count)
         }
         return labels
     }
