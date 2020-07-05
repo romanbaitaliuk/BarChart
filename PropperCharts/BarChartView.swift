@@ -17,6 +17,9 @@ public struct BarChartView : View {
     public let dropShadow: Bool
     public let frameSize: CGSize
     
+    @State public var xAxis: XAxis = XAxis()
+    @State public var yAxis: YAxis = YAxis()
+    
     public init(data: ChartData,
                 style: ChartStyle,
                 darkModeStyle: ChartStyle? = nil,
@@ -38,29 +41,40 @@ public struct BarChartView : View {
             Group {
                 GeometryReader { proxy in
                     CoordinateSystemView(data: self.data,
-                                 gridlineColor: self.currentStyle().gridlineColor,
-                                 labelColor: self.currentStyle().labelColor,
-                                 xAxis: self.xAxis(proxy),
-                                 yAxis: self.yAxis(proxy),
-                                 frameSize: proxy.size)
-                    BarChartCollectionView(normalizedValues: self.yAxis(proxy).normalizedValues(),
+                                         xAxis: self.xAxis,
+                                         yAxis: self.yAxis,
+                                         frameSize: proxy.size,
+                                         botomPadding: self.bottomPadding())
+                        .onAppear {
+                            // Recalculate axes in the exact order
+                            self.updateYAxis(proxy)
+                            self.updateXAxis(proxy)
+                        }
+                    BarChartCollectionView(normalizedValues: self.yAxis.normalizedValues(),
                                            gradient: self.currentStyle().gradientColor,
-                                           layout: self.xAxis(proxy).layout,
-                                           centre: self.yAxis(proxy).centre())
-                        .padding([.trailing], self.maxYLabelWidth(proxy))
+                                           layout: self.xAxis.layout,
+                                           centre: self.yAxis.centre())
+                        .padding([.trailing], self.maxYLabelWidth())
                 }
             }
-            .padding([.top], AxisLabelUtils.halfHeight)
-            .padding([.bottom], AxisLabelUtils.height + AxisLabelUtils.halfHeight)
+            .padding([.top], self.topPadding())
+            .padding([.bottom], self.bottomPadding())
         }.frame(minWidth: 0,
                 maxWidth: self.frameSize.width,
                 minHeight: self.frameSize.height,
                 maxHeight: self.frameSize.height)
     }
     
-    func maxYLabelWidth(_ proxy: GeometryProxy) -> CGFloat {
-        return AxisLabelUtils.maxWidth(yValues: self.data.yValues,
-                                       frameHeight: proxy.size.height)
+    func maxYLabelWidth() -> CGFloat {
+        return self.yAxis.formattedLabels().map { LabelDimensions.width(text: $0, font: self.yAxis.labelUIFont) }.max() ?? 0
+    }
+    
+    func topPadding() -> CGFloat {
+        return LabelDimensions.height(text: "", font: self.yAxis.labelUIFont) / 2
+    }
+    
+    func bottomPadding() -> CGFloat {
+        return self.topPadding() + LabelDimensions.height(text: "", font: self.xAxis.labelUIFont)
     }
     
     func currentStyle() -> ChartStyle {
@@ -71,12 +85,23 @@ public struct BarChartView : View {
         }
     }
     
-    func xAxis(_ proxy: GeometryProxy) -> XAxis {
-        let frameWidth = proxy.size.width - self.maxYLabelWidth(proxy)
-        return XAxis(data: self.data.xValues, frameWidth: frameWidth)
+    func updateXAxis(_ proxy: GeometryProxy) {
+        let frameWidth = proxy.size.width - self.maxYLabelWidth()
+        if self.xAxis.frameWidth == 0 {
+            self.xAxis.frameWidth = frameWidth
+            
+            // TODO: Set data in another place
+            self.xAxis.data = self.data.xValues
+        }
     }
     
-    func yAxis(_ proxy: GeometryProxy) -> YAxis {
-        return YAxis(data: self.data.yValues, frameHeight: proxy.size.height)
+    func updateYAxis(_ proxy: GeometryProxy) {
+        let frameHeight = proxy.size.height
+        if self.yAxis.frameHeight == 0 {
+            self.yAxis.frameHeight = frameHeight
+            
+            // TODO: Set data in another place
+            self.yAxis.data = self.data.yValues
+        }
     }
 }

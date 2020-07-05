@@ -8,25 +8,23 @@
 
 import SwiftUI
 
-struct XAxis {
-    let data: [String]
-    let frameWidth: CGFloat
+public struct XAxis: AxisBase {
+    var data: [String] = []
+    var frameWidth: CGFloat = 0
+    
     var layout: XAxisLayout {
         return XAxisLayout(dataCount: self.data.count,
                            frameWidth: self.frameWidth)
     }
     
-    func labels() -> [String] {
-        let totalLabelsWidth = self.data.compactMap { AxisLabelUtils.width(value: $0) }.reduce(0, +)
+    func formattedLabels() -> [String] {
+        guard self.frameWidth != 0 else { return [] }
+        let totalLabelsWidth = self.data.compactMap { LabelDimensions.width(text: $0, font: self.labelUIFont) }.reduce(0, +)
         let averageLabelWidth = totalLabelsWidth / CGFloat(self.data.count)
         let maxNumberOfLabels = Int((self.frameWidth / averageLabelWidth))
         guard maxNumberOfLabels > 0,
             maxNumberOfLabels <= self.data.count else { return self.data }
         return self.calculateLabels(step: 2, max: maxNumberOfLabels)
-    }
-    
-    func label(at index: Int) -> String {
-        return self.labels()[index]
     }
     
     private func calculateLabels(step: Int, max: Int) -> [String] {

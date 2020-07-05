@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct YAxis {
-    let data: [Double]
-    let frameHeight: CGFloat
+public struct YAxis: AxisBase {
+    var data: [Double] = []
+    var frameHeight: CGFloat = 0
     
     private var minValue: Double {
         self.data.min() ?? 0
@@ -57,11 +57,11 @@ struct YAxis {
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
         let distance = absoluteMax + absoluteMin
         let step = distance / Double(self.maxGridlinesCount)
-        let roundedStep = self.roundUp(step)!
+        let roundedStep = self.roundUp(step)
         return roundedStep
     }
     
-    private func roundUp(_ value: Double) -> Double? {
+    private func roundUp(_ value: Double) -> Double {
         if value > 0 && value < 1 {
             let digitsCount = self.zerosCountAfterPoint(value) + 2
             var adj = 100.0
@@ -76,7 +76,7 @@ struct YAxis {
             let adj = Double(truncating: pow(10.0, digitsCount - 2) as NSNumber)
             return ceil(value / adj / 5) * 5 * adj
         } else {
-            return nil
+            return 0
         }
     }
     
@@ -106,7 +106,12 @@ struct YAxis {
         return abs(self.chartMax) + abs(self.chartMin)
     }
     
+    func formattedLabels() -> [String] {
+        return YValueFormatter.formatValues(self.labels(), step: self.step())
+    }
+    
     func labels() -> [Double] {
+        // TODO: Improve this
         var labels = [Double]()
         var count = 0.0
         let step = self.step()
@@ -138,12 +143,7 @@ struct YAxis {
                 labels.append(count)
             }
         }
-        return labels.compactMap { Double($0.removeZerosFromEnd()) }
-    }
-    
-    // TODO: Remove this
-    func label(at index: Int) -> Double {
-        return self.labels()[index]
+        return labels
     }
 }
 
@@ -169,13 +169,5 @@ extension Double {
         let decimalCount = doubleString.count - integerString.count - 1
 
         return decimalCount
-    }
-    
-    func removeZerosFromEnd() -> String {
-        let formatter = NumberFormatter()
-        let number = NSNumber(value: self)
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 16
-        return String(formatter.string(from: number) ?? "")
     }
 }

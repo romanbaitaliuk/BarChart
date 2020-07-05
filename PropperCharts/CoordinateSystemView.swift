@@ -11,44 +11,43 @@ import SwiftUI
 struct CoordinateSystemView: View {
     
     @ObservedObject var data: ChartData
-    let gridlineColor: Color
-    let labelColor: Color
     let xAxis: XAxis
     let yAxis: YAxis
     let frameSize: CGSize
+    let botomPadding: CGFloat
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        ZStack(alignment: .center) {
             // Draw horizontal zero line
             GridlineView(points: self.zeroHorizontalGridlinePoints(),
                          isDashed: false,
-                         color: self.gridlineColor,
+                         color: self.yAxis.gridlineColor,
                          isInverted: true)
             // Draw horizontal dashed gridlines
             ForEach((0..<self.yAxis.labels().count), id: \.self) { index in
                 HStack(alignment: .center) {
                     GridlineView(points: self.horizontalGridlinePoints(index: index),
-                                 isDashed: true,
-                                 color: self.gridlineColor,
+                                 isDashed: self.yAxis.gridlineIsDashed,
+                                 color: self.yAxis.gridlineColor,
                                  isInverted: true)
-                    Text("\(self.yAxis.label(at: index), specifier: AxisLabelUtils.specifier(value: self.yAxis.step()))")
-                        .font(AxisLabelUtils.font)
+                    LabelView(text: self.yAxis.formattedLabels()[index],
+                              font: self.yAxis.labelFont,
+                              color: self.yAxis.labelColor)
                         .offset(y: self.yLabelVerticalOffset(at: index))
-                        .foregroundColor(self.labelColor)
                 }
             }
             // Draw vertical dashed gridlines
-            ForEach((0..<self.xAxis.labels().count), id: \.self) { index in
+            ForEach((0..<self.xAxis.formattedLabels().count), id: \.self) { index in
                 VStack(alignment: .center) {
                     GridlineView(points: self.verticalGridlinePoints(index: index),
-                                 isDashed: true,
-                                 color: self.gridlineColor,
+                                 isDashed: self.xAxis.gridlineIsDashed,
+                                 color: self.xAxis.gridlineColor,
                                  isInverted: false)
-                    Text(self.xAxis.label(at: index))
-                        .font(AxisLabelUtils.font)
+                    LabelView(text: self.xAxis.formattedLabels()[index],
+                              font: self.xAxis.labelFont,
+                              color: self.xAxis.labelColor)
                         .offset(x: self.xLabelHorizontalOffset(index: index),
-                                y: AxisLabelUtils.height + AxisLabelUtils.halfHeight)
-                        .foregroundColor(self.labelColor)
+                                y: self.botomPadding)
                 }
             }
         }
@@ -63,7 +62,8 @@ struct CoordinateSystemView: View {
     }
     
     func verticalGridlineX(at index: Int) -> CGFloat {
-        let label = self.xAxis.label(at: index)
+        let label = self.xAxis.formattedLabels()[index]
+        // TODO: Improve x axis label formatting
         let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == label })!
         return self.xAxis.layout.barCentre(at: indexAtFullRange)
     }
@@ -82,7 +82,7 @@ struct CoordinateSystemView: View {
     }
     
     func horizontalGridlineY(at index: Int) -> CGFloat {
-        let label = self.yAxis.label(at: index)
+        let label = self.yAxis.labels()[index]
         return (CGFloat(label) - CGFloat(self.yAxis.chartMin)) * self.yAxis.pixelsRatio()
     }
     
@@ -125,11 +125,13 @@ struct GridlineView: View {
 }
 
 struct LabelView: View {
-    let label: AxisLabel
+    let text: String
+    let font: Font
+    let color: Color
     
     var body: some View {
-        Text(self.label.text)
-            .font(self.label.font)
-            .foregroundColor(self.label.color)
+        Text(self.text)
+            .font(self.font)
+            .foregroundColor(self.color)
     }
 }
