@@ -8,9 +8,10 @@
 
 import SwiftUI
 
-public struct ChartDataEntry {
-    var x: String
-    var y: Double
+public struct ChartDataEntry: Identifiable {
+    public var id = UUID()
+    public var x: String
+    public var y: Double
     
     public init(x: String, y: Double) {
         self.x = x
@@ -18,10 +19,10 @@ public struct ChartDataEntry {
     }
 }
 
-public struct ChartData {
-    public var entries: [ChartDataEntry]
+public class ChartData: ObservableObject {
+    @Published public var entries: [ChartDataEntry]
     public var gradientColor: GradientColor?
-    public var color: Color = Color("dataColorEnd", bundle: Bundle.current)
+    public var color: Color = Color("dataColor", bundle: Bundle.current)
     
     public init(entries: [ChartDataEntry]) {
         self.entries = entries

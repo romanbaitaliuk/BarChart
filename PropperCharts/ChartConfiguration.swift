@@ -8,34 +8,30 @@
 
 import SwiftUI
 
+public struct AxisBaseSettings {
+    public var labelColor: Color = Color("labelColor", bundle: Bundle.current)
+    public var gridlineColor: Color = Color("gridlineColor", bundle: Bundle.current)
+    public var gridlineDash: [CGFloat] =  [5, 10]
+    public var labelCTFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
+}
+
+public struct YAxisSettings {
+    public var settings = AxisBaseSettings()
+    public var minGridlineSpacing: CGFloat = 40.0
+}
+   
+public struct XAxisSettings {
+    public var settings = AxisBaseSettings()
+}
+
 public struct ChartConfiguration {
-    public var data: ChartData
-    public let frameSize: CGSize
-    public var xAxis: XAxis = XAxis()
-    public var yAxis: YAxis = YAxis()
+    public init() {}
+    
     public var backgroundColor: Color = Color("backgroundColor", bundle: Bundle.current)
     public var dropShadow: Bool = false
     public var dropShadowColor = Color("dropShadowColor", bundle: Bundle.current)
-    
-    public init(data: ChartData, frameSize: CGSize) {
-        self.data = data
-        self.frameSize = frameSize
-    }
-    
-    public struct XAxis {
-        public var labelColor: Color = Color("labelColor", bundle: Bundle.current)
-        public var gridlineColor: Color = Color("gridlineColor", bundle: Bundle.current)
-        public var gridlineDash: [CGFloat] = [5, 10]
-        public var labelFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
-    }
-    
-    public struct YAxis {
-        public var labelColor: Color = Color("labelColor", bundle: Bundle.current)
-        public var gridlineColor: Color = Color("gridlineColor", bundle: Bundle.current)
-        public var gridlineDash: [CGFloat] = [5, 10]
-        public var labelFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
-        public var minGridlineSpacing: CGFloat = 40.0
-    }
+    public var yAxis = YAxisSettings()
+    public var xAxis = XAxisSettings()
 }
 
 extension Bundle {

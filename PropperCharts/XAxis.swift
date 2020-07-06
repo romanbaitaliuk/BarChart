@@ -9,21 +9,19 @@
 import SwiftUI
 
 public struct XAxis: AxisBase {
-    var data: [String]
+    var settings: AxisBaseSettings = AxisBaseSettings()
+    var data: [String] = []
     var frameWidth: CGFloat?
     
-    var labelColor: Color
-    var gridlineColor: Color
-    var labelCTFont: CTFont
-    var gridlineDash: [CGFloat]
-    
     var barWidth: CGFloat {
-        guard let frameWidth = self.frameWidth else { return 0 }
+        guard let frameWidth = self.frameWidth,
+            !self.data.isEmpty else { return 0 }
         return frameWidth / (CGFloat(self.data.count) * 1.5)
     }
     
     var spacing: CGFloat {
-        guard let frameWidth = self.frameWidth else { return 0 }
+        guard let frameWidth = self.frameWidth,
+            !self.data.isEmpty else { return 0 }
         return frameWidth / CGFloat((self.data.count - 1) * 3)
     }
     
@@ -34,7 +32,8 @@ public struct XAxis: AxisBase {
     }
     
     func formattedLabels() -> [String] {
-        guard let frameWidth = self.frameWidth else { return [] }
+        guard let frameWidth = self.frameWidth,
+            !self.data.isEmpty else { return [] }
         let totalLabelsWidth = self.data.compactMap { $0.width(font: self.labelUIFont) }.reduce(0, +)
         let averageLabelWidth = totalLabelsWidth / CGFloat(data.count)
         let maxNumberOfLabels = Int((frameWidth / averageLabelWidth))

@@ -9,23 +9,33 @@
 import SwiftUI
 
 protocol AxisBase {
-    var labelColor: Color { get }
-    var gridlineColor: Color { get }
-    var labelCTFont: CTFont { get }
-    var gridlineDash: [CGFloat] { get }
+    var settings: AxisBaseSettings { get }
     func formattedLabels() -> [String]
 }
 
 extension AxisBase {
     var labelUIFont: UIFont {
-        return UIFont(name: CTFontCopyPostScriptName(self.labelCTFont) as String, size: CTFontGetSize(self.labelCTFont))!
+        return UIFont(name: CTFontCopyPostScriptName(self.settings.labelCTFont) as String,
+                      size: CTFontGetSize(self.settings.labelCTFont))!
     }
     
     var labelFont: Font {
-        return Font(self.labelCTFont)
+        return Font(self.settings.labelCTFont)
     }
     
-    var maxYLabelWidth: CGFloat {
-        return self.formattedLabels().map { $0.width(font: self.labelUIFont) }.max() ?? 0
+    var labelColor: Color {
+        return self.settings.labelColor
+    }
+    
+    var gridlineColor: Color {
+        return self.settings.gridlineColor
+    }
+    
+    var gridlineDash: [CGFloat] {
+        return self.settings.gridlineDash
+    }
+    
+    var labelCTFont: CTFont {
+        return self.settings.labelCTFont
     }
 }

@@ -10,23 +10,20 @@ import SwiftUI
 
 public struct BarChartView : View {
     
-    private let config: ChartConfiguration
-    @State private var xAxis: XAxis
-    @State private var yAxis: YAxis
+    private var config: ChartConfiguration = ChartConfiguration()
     
-    public init(config: ChartConfiguration) {
-        self.config = config
-        self._xAxis = State(initialValue: XAxis(data: config.data.xValues,
-                                                labelColor: config.xAxis.labelColor,
-                                                gridlineColor: config.xAxis.gridlineColor,
-                                                labelCTFont: config.xAxis.labelFont,
-                                                gridlineDash: config.xAxis.gridlineDash))
-        self._yAxis = State(initialValue: YAxis(data: config.data.yValues,
-                                                labelColor: config.yAxis.labelColor,
-                                                gridlineColor: config.yAxis.gridlineColor,
-                                                labelCTFont: config.yAxis.labelFont,
-                                                gridlineDash: config.yAxis.gridlineDash,
-                                                minGridlineSpacing: config.yAxis.minGridlineSpacing))
+    @State var xAxis: XAxis
+    @State var yAxis: YAxis
+    var data: ChartData
+    let frameSize: CGSize
+    
+    public init(data: ChartData, frameSize: CGSize) {
+        self.data = data
+        self.frameSize = frameSize
+        self._xAxis = State(initialValue: XAxis(data: data.xValues,
+                                                frameWidth: nil))
+        self._yAxis = State(initialValue: YAxis(data: data.yValues,
+                                                frameHeight: nil))
     }
     
     public var body: some View {
@@ -46,9 +43,13 @@ public struct BarChartView : View {
                             self.updateYAxis(proxy)
                             self.updateXAxis(proxy)
                         }
+                        .onReceive(self.data.objectWillChange) { newData in
+                            self.xAxis.data = self.data.xValues
+                            self.yAxis.data = self.data.yValues
+                        }
                     BarChartCollectionView(normalizedValues: self.yAxis.normalizedValues(),
-                                           gradient: self.config.data.gradientColor,
-                                           color: self.config.data.color,
+                                           gradient: self.data.gradientColor,
+                                           color: self.data.color,
                                            spacing: self.xAxis.spacing,
                                            barWidth: self.xAxis.barWidth,
                                            centre: self.yAxis.centre())
@@ -58,9 +59,9 @@ public struct BarChartView : View {
             .padding([.top], self.topPadding())
             .padding([.bottom], self.bottomPadding())
         }.frame(minWidth: 0,
-                maxWidth: self.config.frameSize.width,
-                minHeight: self.config.frameSize.height,
-                maxHeight: self.config.frameSize.height)
+                maxWidth: self.frameSize.width,
+                minHeight: self.frameSize.height,
+                maxHeight: self.frameSize.height)
     }
     
     func topPadding() -> CGFloat {

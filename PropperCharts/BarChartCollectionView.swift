@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Foundation
 
 public struct BarChartCollectionView: View {
     let normalizedValues: [Double]

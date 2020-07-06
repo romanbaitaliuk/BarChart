@@ -18,7 +18,6 @@ struct CoordinateSystemView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            // Draw horizontal dashed gridlines
             YAxisView(yAxis: self.yAxis,
                       frameSize: self.frameSize)
             XAxisView(xAxis: self.xAxis,

@@ -19,9 +19,9 @@
 		D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */; };
 		D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7124A5696800298011 /* BarChartView.swift */; };
 		D3C0DC7D24A5696800298011 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7224A5696800298011 /* ChartData.swift */; };
-		D3C0DC7F24A5696800298011 /* XAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7424A5696800298011 /* XAxis.swift */; };
 		D3C0DC8024A5696800298011 /* BarChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC7524A5696800298011 /* BarChartCell.swift */; };
 		D3C0DC8924A593F700298011 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC8824A593F700298011 /* GradientColor.swift */; };
+		D3F92E4D24B2B0330058F3B0 /* XAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F92E4C24B2B0330058F3B0 /* XAxis.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +50,9 @@
 		D3C0DC7024A5696800298011 /* BarChartCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartCollectionView.swift; sourceTree = "<group>"; };
 		D3C0DC7124A5696800298011 /* BarChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		D3C0DC7224A5696800298011 /* ChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
-		D3C0DC7424A5696800298011 /* XAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XAxis.swift; sourceTree = "<group>"; };
 		D3C0DC7524A5696800298011 /* BarChartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartCell.swift; sourceTree = "<group>"; };
 		D3C0DC8824A593F700298011 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
+		D3F92E4C24B2B0330058F3B0 /* XAxis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XAxis.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +103,8 @@
 				D3C0DC7524A5696800298011 /* BarChartCell.swift */,
 				D3C0DC8824A593F700298011 /* GradientColor.swift */,
 				D3BC428424B12E1700B36923 /* AxisBase.swift */,
-				D3C0DC7424A5696800298011 /* XAxis.swift */,
 				D3C0DC6C24A5696800298011 /* YAxis.swift */,
+				D3F92E4C24B2B0330058F3B0 /* XAxis.swift */,
 				D3BC428624B131A400B36923 /* YValueFormatter.swift */,
 				D3C0DC3A24A5675C00298011 /* PropperCharts.h */,
 				D3BC428D24B1D49000B36923 /* DefaultColors.xcassets */,
@@ -235,12 +235,12 @@
 			files = (
 				D3C0DC7724A5696800298011 /* YAxis.swift in Sources */,
 				D3BC428724B131A400B36923 /* YValueFormatter.swift in Sources */,
-				D3C0DC7F24A5696800298011 /* XAxis.swift in Sources */,
 				D3C0DC7624A5696800298011 /* CoordinateSystemView.swift in Sources */,
 				D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */,
 				D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */,
 				D3C0DC7D24A5696800298011 /* ChartData.swift in Sources */,
 				D3C0DC8924A593F700298011 /* GradientColor.swift in Sources */,
+				D3F92E4D24B2B0330058F3B0 /* XAxis.swift in Sources */,
 				D3BC428C24B1BDC900B36923 /* ChartConfiguration.swift in Sources */,
 				D3BC428524B12E1700B36923 /* AxisBase.swift in Sources */,
 				D3C0DC8024A5696800298011 /* BarChartCell.swift in Sources */,

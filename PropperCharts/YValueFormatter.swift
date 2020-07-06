@@ -6,8 +6,6 @@
 //  Copyright © 2020 Roman Baitaliuk. All rights reserved.
 //
 
-import Foundation
-
 struct YValueFormatter {
     static func formatValues(_ values: [Double], step: Double) -> [String] {
         return values.map { String(format: self.specifier(value: step), $0) }

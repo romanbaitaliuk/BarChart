@@ -9,14 +9,14 @@
 import SwiftUI
 
 public struct YAxis: AxisBase {
-    var data: [Double]
+    var settings: AxisBaseSettings = AxisBaseSettings()
+    var data: [Double] = []
     var frameHeight: CGFloat?
+    let minGridlineSpacing: CGFloat = 40.0
     
-    var labelColor: Color
-    var gridlineColor: Color
-    var labelCTFont: CTFont
-    var gridlineDash: [CGFloat]
-    let minGridlineSpacing: CGFloat
+    var maxYLabelWidth: CGFloat {
+        return self.formattedLabels().map { $0.width(font: self.labelUIFont) }.max() ?? 0
+    }
     
     private var minValue: Double {
         self.data.min() ?? 0
@@ -59,7 +59,8 @@ public struct YAxis: AxisBase {
     }
     
     func step() -> Double {
-        guard frameHeight != nil else { return 0 }
+        guard self.frameHeight != nil,
+            !self.data.isEmpty else { return 0 }
         let absoluteMax = Swift.max(abs(self.max), abs(self.min))
         let absoluteMin = Swift.min(abs(self.max), abs(self.min))
         let distance = absoluteMax + absoluteMin
@@ -106,7 +107,8 @@ public struct YAxis: AxisBase {
     }
     
     func normalizedValues() -> [Double] {
-        guard self.frameHeight != nil else { return [] }
+        guard self.frameHeight != nil,
+            !self.data.isEmpty else { return [] }
         return self.data.map { $0 / self.verticalDistance() }
     }
     
@@ -119,7 +121,8 @@ public struct YAxis: AxisBase {
     }
     
     func labels() -> [Double] {
-        guard self.frameHeight != nil else { return [] }
+        guard self.frameHeight != nil,
+            !self.data.isEmpty else { return [] }
         var labels = [Double]()
         var count = 0.0
         let step = self.step()
