@@ -32,29 +32,28 @@ public struct BarChartView : View {
                 .fill(self.config.backgroundColor)
                 .shadow(color: self.config.dropShadowColor,
                         radius: self.config.dropShadow ? 8 : 0)
-            Group {
-                GeometryReader { proxy in
-                    CoordinateSystemView(xAxis: self.xAxis,
-                                         yAxis: self.yAxis,
-                                         frameSize: proxy.size,
-                                         labelOffsetY: self.bottomPadding())
-                        .onAppear {
-                            // Recalculate axes in the exact order
-                            self.updateYAxis(proxy)
-                            self.updateXAxis(proxy)
-                        }
-                        .onReceive(self.data.objectWillChange) { newData in
-                            self.xAxis.data = self.data.xValues
-                            self.yAxis.data = self.data.yValues
-                        }
-                    BarChartCollectionView(normalizedValues: self.yAxis.normalizedValues(),
-                                           gradient: self.data.gradientColor,
-                                           color: self.data.color,
-                                           spacing: self.xAxis.spacing,
-                                           barWidth: self.xAxis.barWidth,
-                                           centre: self.yAxis.centre())
-                        .padding([.trailing], self.yAxis.maxYLabelWidth)
-                }
+            GeometryReader { proxy in
+                CoordinateSystemView(xAxis: self.xAxis,
+                                     yAxis: self.yAxis,
+                                     frameSize: proxy.size,
+                                     labelOffsetY: self.bottomPadding())
+                    .onAppear {
+                        // Recalculate axes in the exact order
+                        self.updateYAxis(proxy)
+                        self.updateXAxis(proxy)
+                    }
+                    .onReceive(self.data.objectWillChange) { newData in
+                        self.xAxis.data = self.data.xValues
+                        self.yAxis.data = self.data.yValues
+                        
+                        self.updateYAxis(proxy)
+                        self.updateXAxis(proxy)
+                    }
+                BarChartCollectionView(xAxis: self.xAxis,
+                                       yAxis: self.yAxis,
+                                       gradient: self.data.gradientColor,
+                                       color: self.data.color,
+                                       frameHeight: proxy.size.height)
             }
             .padding([.top], self.topPadding())
             .padding([.bottom], self.bottomPadding())
@@ -74,16 +73,12 @@ public struct BarChartView : View {
     
     func updateXAxis(_ proxy: GeometryProxy) {
         let frameWidth = proxy.size.width - self.yAxis.maxYLabelWidth
-        if self.xAxis.frameWidth == nil {
-            self.xAxis.frameWidth = frameWidth
-        }
+        self.xAxis.frameWidth = frameWidth
     }
     
     func updateYAxis(_ proxy: GeometryProxy) {
         let frameHeight = proxy.size.height
-        if self.yAxis.frameHeight == nil {
-            self.yAxis.frameHeight = frameHeight
-        }
+        self.yAxis.frameHeight = frameHeight
     }
 }
 

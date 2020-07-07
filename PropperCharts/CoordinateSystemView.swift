@@ -37,7 +37,6 @@ struct GridlineView: View {
         self.verticalGridlinePath()
             .stroke(self.color,
                     style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: self.dash))
-            .animation(.easeOut(duration: 0.2))
             .rotationEffect(.degrees(self.isInverted ? 180 : 0), anchor: .center)
             .rotation3DEffect(.degrees(self.isInverted ? 180 : 0), axis: (x: 0, y: 1, z: 0))
     }
@@ -91,7 +90,6 @@ struct XAxisView: View {
     
     func verticalGridlineX(at index: Int) -> CGFloat {
         let label = self.xAxis.formattedLabels()[index]
-        // TODO: Improve x axis label formatting
         if let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == label }) {
             return self.xAxis.barCentre(at: indexAtFullRange)
         }

@@ -9,28 +9,19 @@
 import SwiftUI
 
 struct BarChartCell: View {
-    let value: Double
-    let index: Int
     let width: CGFloat
+    let height: CGFloat
     let gradient: GradientColor?
     let color: Color
     
-    @State var scaleValue: Double = 0
-    
     var body: some View {
-        ZStack {
+        Group {
             if self.gradient != nil {
-                    GradientColorRectangle(gradient: self.gradient!)
-                } else {
-                    SolidColorRectangle(color: self.color)
-                }
+                GradientColorRectangle(gradient: self.gradient!)
+            } else {
+                SolidColorRectangle(color: self.color)
             }
-            .frame(width: self.width)
-            .scaleEffect(CGSize(width: 1, height: self.scaleValue), anchor: .bottom)
-            .onAppear() {
-                self.scaleValue = self.value
-            }
-//            .animation(Animation.spring().delay(Double(self.index) * 0.04))
+        }.frame(width: self.width, height: self.height)
     }
 }
 
@@ -38,7 +29,7 @@ struct SolidColorRectangle: View {
     let color: Color
     var body: some View {
         RoundedRectangle(cornerRadius: 4)
-            .fill(color)
+            .fill(self.color)
     }
 }
 

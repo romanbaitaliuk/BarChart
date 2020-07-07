@@ -9,24 +9,33 @@
 import SwiftUI
 
 public struct BarChartCollectionView: View {
-    let normalizedValues: [Double]
+    let xAxis: XAxis
+    let yAxis: YAxis
     let gradient: GradientColor?
     let color: Color
-    let spacing: CGFloat
-    let barWidth: CGFloat
-    let centre: CGFloat
+    let frameHeight: CGFloat
     
     public var body: some View {
         HStack(alignment: .bottom,
-               spacing: self.spacing) {
-                ForEach(0..<self.normalizedValues.count, id: \.self) { index in
-                    BarChartCell(value: self.normalizedValues[index],
-                                 index: index,
-                                 width: self.barWidth,
+               spacing: self.xAxis.spacing) {
+                ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
+                    BarChartCell(width: self.xAxis.barWidth,
+                                 height: self.barHeight(at: index),
                                  gradient: self.gradient,
                                  color: self.color)
-                        .offset(y: self.centre)
                 }
-        }
+        }.offset(y: self.offsetY())
+    }
+    
+    func offsetY() -> CGFloat {
+        let maxNormalizedValue = self.yAxis.normalizedValues().max() ?? 0
+        let chartNormalisedMax = maxNormalizedValue > 0 ? maxNormalizedValue : 0
+        let absoluteMax = abs(CGFloat(chartNormalisedMax))
+        let positivePart = absoluteMax * self.frameHeight
+        return self.frameHeight-abs(self.yAxis.centre()) - positivePart
+    }
+    
+    func barHeight(at index: Int) -> CGFloat {
+        return CGFloat(self.yAxis.normalizedValues()[index]) * self.frameHeight
     }
 }
