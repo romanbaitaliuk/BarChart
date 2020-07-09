@@ -21,8 +21,12 @@ public struct ChartDataEntry: Identifiable {
 
 public class ChartData: ObservableObject {
     @Published public var entries: [ChartDataEntry]
-    public var gradientColor: GradientColor?
-    public var color: Color = Color("dataColor", bundle: Bundle.current)
+    @Published public var gradientColor: GradientColor?
+    @Published public var color: Color = .red
+    
+    public convenience init() {
+        self.init(entries: [])
+    }
     
     public init(entries: [ChartDataEntry]) {
         self.entries = entries

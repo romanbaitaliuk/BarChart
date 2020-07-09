@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D389DC8F24B6AF5F00B8CD6C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D389DC8E24B6AF5F00B8CD6C /* Extensions.swift */; };
 		D3BC428524B12E1700B36923 /* AxisBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428424B12E1700B36923 /* AxisBase.swift */; };
 		D3BC428724B131A400B36923 /* YValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428624B131A400B36923 /* YValueFormatter.swift */; };
 		D3BC428C24B1BDC900B36923 /* ChartConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D389DC8E24B6AF5F00B8CD6C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D3BC428424B12E1700B36923 /* AxisBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisBase.swift; sourceTree = "<group>"; };
 		D3BC428624B131A400B36923 /* YValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YValueFormatter.swift; sourceTree = "<group>"; };
 		D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartConfiguration.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				D3C0DC6C24A5696800298011 /* YAxis.swift */,
 				D3F92E4C24B2B0330058F3B0 /* XAxis.swift */,
 				D3BC428624B131A400B36923 /* YValueFormatter.swift */,
+				D389DC8E24B6AF5F00B8CD6C /* Extensions.swift */,
 				D3C0DC3A24A5675C00298011 /* PropperCharts.h */,
 				D3BC428D24B1D49000B36923 /* DefaultColors.xcassets */,
 				D3C0DC3B24A5675C00298011 /* Info.plist */,
@@ -240,6 +243,7 @@
 				D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */,
 				D3C0DC7D24A5696800298011 /* ChartData.swift in Sources */,
 				D3C0DC8924A593F700298011 /* GradientColor.swift in Sources */,
+				D389DC8F24B6AF5F00B8CD6C /* Extensions.swift in Sources */,
 				D3F92E4D24B2B0330058F3B0 /* XAxis.swift in Sources */,
 				D3BC428C24B1BDC900B36923 /* ChartConfiguration.swift in Sources */,
 				D3BC428524B12E1700B36923 /* AxisBase.swift in Sources */,

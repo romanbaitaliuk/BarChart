@@ -10,7 +10,9 @@ import SwiftUI
 
 public struct XAxis: AxisBase {
     var settings: AxisBaseSettings = AxisBaseSettings()
+    
     var data: [String] = []
+    
     var frameWidth: CGFloat?
     
     var barWidth: CGFloat {

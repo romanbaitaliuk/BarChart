@@ -25,18 +25,12 @@ public struct XAxisSettings {
 }
 
 public struct ChartConfiguration {
+    
     public init() {}
     
-    public var backgroundColor: Color = Color("backgroundColor", bundle: Bundle.current)
-    public var dropShadow: Bool = false
-    public var dropShadowColor = Color("dropShadowColor", bundle: Bundle.current)
+    public var data = ChartData()
+    
     public var yAxis = YAxisSettings()
+    
     public var xAxis = XAxisSettings()
-}
-
-extension Bundle {
-    static var current: Bundle {
-        class __ { }
-        return Bundle(for: __.self)
-    }
 }

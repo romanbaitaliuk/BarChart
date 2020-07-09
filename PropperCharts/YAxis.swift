@@ -10,8 +10,11 @@ import SwiftUI
 
 public struct YAxis: AxisBase {
     var settings: AxisBaseSettings = AxisBaseSettings()
+    
     var data: [Double] = []
+    
     var frameHeight: CGFloat?
+    
     let minGridlineSpacing: CGFloat = 40.0
     
     var maxYLabelWidth: CGFloat {
@@ -142,30 +145,5 @@ public struct YAxis: AxisBase {
             labels.append(count)
         }
         return labels
-    }
-}
-
-
-extension Int {
-    func digitsCount() -> Int {
-        if abs(self) < 10 {
-            return 1
-        } else {
-            return 1 + (self/10).digitsCount()
-        }
-    }
-}
-
-extension Double {
-    func decimalsCount() -> Int {
-        if self == Double(Int(self)) {
-            return 0
-        }
-
-        let integerString = String(Int(self))
-        let doubleString = String(Double(self))
-        let decimalCount = doubleString.count - integerString.count - 1
-
-        return decimalCount
     }
 }
