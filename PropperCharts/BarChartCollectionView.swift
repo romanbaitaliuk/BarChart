@@ -9,8 +9,8 @@
 import SwiftUI
 
 public struct BarChartCollectionView: View {
-    let xAxis: XAxis
-    let yAxis: YAxis
+    @ObservedObject var xAxis: XAxis
+    @ObservedObject var yAxis: YAxis
     let gradient: GradientColor?
     let color: Color
     let frameHeight: CGFloat

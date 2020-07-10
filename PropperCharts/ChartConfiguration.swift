@@ -7,30 +7,43 @@
 //
 
 import SwiftUI
+import Combine
 
-public struct AxisBaseSettings {
-    public var labelColor: Color = Color("labelColor", bundle: Bundle.current)
-    public var gridlineColor: Color = Color("gridlineColor", bundle: Bundle.current)
-    public var gridlineDash: [CGFloat] =  [5, 10]
-    public var labelCTFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
-}
-
-public struct YAxisSettings {
-    public var settings = AxisBaseSettings()
-    public var minGridlineSpacing: CGFloat = 40.0
-}
-   
-public struct XAxisSettings {
-    public var settings = AxisBaseSettings()
-}
-
-public struct ChartConfiguration {
-    
-    public init() {}
-    
+public class ChartConfiguration: ObservableObject {
     public var data = ChartData()
+    public var xAxis = XAxis()
+    public var yAxis = YAxis()
     
-    public var yAxis = YAxisSettings()
+    private var disposeBag: AnyCancellable?
     
-    public var xAxis = XAxisSettings()
+    private var disposeBag1: AnyCancellable?
+    
+    private var disposeBag2: AnyCancellable?
+    
+    public init() {
+        self.disposeBag = self.data.objectWillChange.sink(receiveValue: { _ in
+            self.updateAxesData()
+            self.objectWillChange.send()
+        })
+        
+        self.disposeBag1 = self.xAxis.objectWillChange.sink(receiveValue: { _ in
+            self.objectWillChange.send()
+        })
+        
+        self.disposeBag2 = self.yAxis.objectWillChange.sink(receiveValue: { _ in
+            self.objectWillChange.send()
+        })
+    }
+    
+    /// Updating axes in the exact order
+    func updateAxes(frameSize: CGSize) {
+        self.yAxis.frameHeight = frameSize.height
+        let frameWidth = frameSize.width - self.yAxis.maxYLabelWidth
+        self.xAxis.frameWidth = frameWidth
+    }
+    
+    func updateAxesData() {
+        self.yAxis.data = self.data.yValues
+        self.xAxis.data = self.data.xValues
+    }
 }

@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct CoordinateSystemView: View {
-    let xAxis: XAxis
-    let yAxis: YAxis
+    @ObservedObject var xAxis: XAxis
+    @ObservedObject var yAxis: YAxis
     let frameSize: CGSize
     
     // Offset for x labels to draw outside of the given size
@@ -62,7 +62,7 @@ struct LabelView: View {
 }
 
 struct XAxisView: View {
-    let xAxis: XAxis
+    @ObservedObject var xAxis: XAxis
     let frameSize: CGSize
     let labelOffsetY: CGFloat
     
@@ -103,7 +103,7 @@ struct XAxisView: View {
 }
 
 struct YAxisView: View {
-    let yAxis: YAxis
+    @ObservedObject var yAxis: YAxis
     let frameSize: CGSize
     
     var body: some View {

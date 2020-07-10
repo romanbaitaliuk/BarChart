@@ -8,14 +8,12 @@
 
 import SwiftUI
 
-public struct YAxis: AxisBase {
-    var settings: AxisBaseSettings = AxisBaseSettings()
+public class YAxis: AxisBase {
+    @Published var data: [Double] = []
     
-    var data: [Double] = []
+    @Published var frameHeight: CGFloat?
     
-    var frameHeight: CGFloat?
-    
-    let minGridlineSpacing: CGFloat = 40.0
+    @Published public var minGridlineSpacing: CGFloat = 40.0
     
     var maxYLabelWidth: CGFloat {
         return self.formattedLabels().map { $0.width(font: self.labelUIFont) }.max() ?? 0

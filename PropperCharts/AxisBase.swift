@@ -8,34 +8,18 @@
 
 import SwiftUI
 
-protocol AxisBase {
-    var settings: AxisBaseSettings { get }
-    func formattedLabels() -> [String]
-}
-
-extension AxisBase {
+public class AxisBase: ObservableObject {
+    @Published public var labelColor: Color = Color("labelColor", bundle: Bundle.current)
+    @Published public var gridlineColor: Color = Color("gridlineColor", bundle: Bundle.current)
+    @Published public var gridlineDash: [CGFloat] =  [5, 10]
+    @Published public var labelCTFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
+    
     var labelUIFont: UIFont {
-        return UIFont(name: CTFontCopyPostScriptName(self.settings.labelCTFont) as String,
-                      size: CTFontGetSize(self.settings.labelCTFont))!
+        return UIFont(name: CTFontCopyPostScriptName(self.labelCTFont) as String,
+                      size: CTFontGetSize(self.labelCTFont))!
     }
     
     var labelFont: Font {
-        return Font(self.settings.labelCTFont)
-    }
-    
-    var labelColor: Color {
-        return self.settings.labelColor
-    }
-    
-    var gridlineColor: Color {
-        return self.settings.gridlineColor
-    }
-    
-    var gridlineDash: [CGFloat] {
-        return self.settings.gridlineDash
-    }
-    
-    var labelCTFont: CTFont {
-        return self.settings.labelCTFont
+        return Font(self.labelCTFont)
     }
 }

@@ -8,12 +8,10 @@
 
 import SwiftUI
 
-public struct XAxis: AxisBase {
-    var settings: AxisBaseSettings = AxisBaseSettings()
+public class XAxis: AxisBase {    
+    @Published var data: [String] = []
     
-    var data: [String] = []
-    
-    var frameWidth: CGFloat?
+    @Published var frameWidth: CGFloat?
     
     var barWidth: CGFloat {
         guard let frameWidth = self.frameWidth,
