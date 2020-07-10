@@ -89,8 +89,8 @@ struct XAxisView: View {
     }
     
     func verticalGridlineX(at index: Int) -> CGFloat {
-        let label = self.xAxis.formattedLabels()[index]
-        if let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == label }) {
+        let chartEntry = self.xAxis.chartEntry(at: index)
+        if let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == chartEntry }) {
             return self.xAxis.barCentre(at: indexAtFullRange)
         }
         return 0
@@ -107,10 +107,10 @@ struct YAxisView: View {
     let frameSize: CGSize
     
     var body: some View {
-        ForEach((0..<self.yAxis.labels().count), id: \.self) { index in
+        ForEach((0..<self.yAxis.formattedLabels().count), id: \.self) { index in
             HStack(alignment: .center) {
                 GridlineView(points: self.horizontalGridlinePoints(index: index),
-                             dash: self.yAxis.labels()[index] == 0 ? [] : self.yAxis.gridlineDash,
+                             dash: self.yAxis.labelValue(at: index) == 0 ? [] : self.yAxis.gridlineDash,
                              color: self.yAxis.gridlineColor,
                              isInverted: true)
                 LabelView(text: self.yAxis.formattedLabels()[index],
@@ -128,7 +128,7 @@ struct YAxisView: View {
     }
     
     func horizontalGridlineY(at index: Int) -> CGFloat {
-        let label = self.yAxis.labels()[index]
+        let label = self.yAxis.labelValue(at: index)
         return (CGFloat(label) - CGFloat(self.yAxis.chartMin)) * self.yAxis.pixelsRatio()
     }
     
@@ -138,7 +138,7 @@ struct YAxisView: View {
     }
     
     func horizontalGridlinePoints(y: CGFloat) -> (CGPoint, CGPoint) {
-        let endPointX = self.frameSize.width - self.yAxis.maxYLabelWidth
+        let endPointX = self.frameSize.width - self.yAxis.maxLabelWidth
         return (CGPoint(x: 0, y: y), CGPoint(x: endPointX, y: y))
     }
 }

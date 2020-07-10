@@ -9,9 +9,11 @@
 import SwiftUI
 
 public class XAxis: AxisBase {    
-    @Published var data: [String] = []
+    @Published var data: [ChartDataEntry] = []
     
     @Published var frameWidth: CGFloat?
+    
+    @Published public var labelInterval: Int?
     
     var barWidth: CGFloat {
         guard let frameWidth = self.frameWidth,
@@ -31,25 +33,41 @@ public class XAxis: AxisBase {
         return self.barWidth * CGFloat(index + 1) + self.spacing * CGFloat(index) - centre
     }
     
-    func formattedLabels() -> [String] {
-        guard let frameWidth = self.frameWidth,
-            !self.data.isEmpty else { return [] }
-        let totalLabelsWidth = self.data.compactMap { $0.width(font: self.labelUIFont) }.reduce(0, +)
-        let averageLabelWidth = totalLabelsWidth / CGFloat(data.count)
-        let maxNumberOfLabels = Int((frameWidth / averageLabelWidth))
-        guard maxNumberOfLabels > 0,
-            maxNumberOfLabels <= self.data.count else { return self.data }
-        return self.calculateLabels(step: 2, max: maxNumberOfLabels)
+    func chartEntry(at index: Int) -> ChartDataEntry {
+        return self.labels()[index]
     }
     
-    private func calculateLabels(step: Int, max: Int) -> [String] {
+    override func formattedLabels() -> [String] {
+        return self.labels().map { $0.x }
+    }
+    
+    private func labels() -> [ChartDataEntry] {
+        guard let frameWidth = self.frameWidth,
+            !self.data.isEmpty else { return [] }
+        let totalLabelsWidth = self.data.compactMap { $0.x.width(font: self.labelUIFont) }.reduce(0, +)
+        let averageLabelWidth = totalLabelsWidth / CGFloat(data.count)
+        let maxNumberOfLabels = Int((frameWidth / averageLabelWidth))
+        
+        if let labelInterval = self.labelInterval {
+            return self.calculateLabels(step: labelInterval, max: maxNumberOfLabels)
+        }
+        
+        if maxNumberOfLabels > 0, maxNumberOfLabels < self.data.count {
+            return self.calculateLabels(step: 2, max: maxNumberOfLabels)
+        } else {
+            return self.data
+        }
+    }
+    
+    private func calculateLabels(step: Int, max: Int) -> [ChartDataEntry] {
         let reversedData = Array(self.data.reversed())
-        var finalLabels = [String]()
+        var finalLabels = [ChartDataEntry]()
         for index in stride(from: 0, through: self.data.count - 1, by: step) {
             finalLabels.append(reversedData[index])
         }
         if finalLabels.count > max {
-            return self.calculateLabels(step: step + 1, max: max)
+            let adj = self.labelInterval ?? 1
+            return self.calculateLabels(step: step + adj, max: max)
         }
         return Array(finalLabels.reversed())
     }

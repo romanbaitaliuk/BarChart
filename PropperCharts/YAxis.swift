@@ -15,10 +15,6 @@ public class YAxis: AxisBase {
     
     @Published public var minGridlineSpacing: CGFloat = 40.0
     
-    var maxYLabelWidth: CGFloat {
-        return self.formattedLabels().map { $0.width(font: self.labelUIFont) }.max() ?? 0
-    }
-    
     private var minValue: Double {
         self.data.min() ?? 0
     }
@@ -117,11 +113,15 @@ public class YAxis: AxisBase {
         return abs(self.chartMax) + abs(self.chartMin)
     }
     
-    func formattedLabels() -> [String] {
+    override func formattedLabels() -> [String] {
         return YValueFormatter.formatValues(self.labels(), step: self.step())
     }
     
-    func labels() -> [Double] {
+    func labelValue(at index: Int) -> Double {
+        return self.labels()[index]
+    }
+    
+    private func labels() -> [Double] {
         guard self.frameHeight != nil,
             !self.data.isEmpty else { return [] }
         var labels = [Double]()

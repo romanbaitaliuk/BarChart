@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public struct ChartDataEntry: Identifiable {
+public struct ChartDataEntry: Identifiable, Equatable {
     public var id = UUID()
     public var x: String
     public var y: Double

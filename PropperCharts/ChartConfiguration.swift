@@ -38,12 +38,12 @@ public class ChartConfiguration: ObservableObject {
     /// Updating axes in the exact order
     func updateAxes(frameSize: CGSize) {
         self.yAxis.frameHeight = frameSize.height
-        let frameWidth = frameSize.width - self.yAxis.maxYLabelWidth
+        let frameWidth = frameSize.width - self.yAxis.maxLabelWidth
         self.xAxis.frameWidth = frameWidth
     }
     
     func updateAxesData() {
         self.yAxis.data = self.data.yValues
-        self.xAxis.data = self.data.xValues
+        self.xAxis.data = self.data.entries
     }
 }
