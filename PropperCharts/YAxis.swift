@@ -9,62 +9,97 @@
 import SwiftUI
 
 public class YAxis: AxisBase {
+    
+    // MARK: - Internal Properties
+    
     @Published var data: [Double] = []
     
     @Published var frameHeight: CGFloat?
     
-    @Published public var minGridlineSpacing: CGFloat = 40.0
-    
-    private var minValue: Double {
-        self.data.min() ?? 0
-    }
-    
-    private var maxValue: Double {
-        self.data.max() ?? 0
-    }
-    
-    private var max: Double {
-        self.maxValue < 0 ? 0 : self.maxValue
-    }
-    
-    private var min: Double {
-        self.minValue < 0 ? self.minValue : 0
-    }
-    
-    var chartMin: Double {
-        guard let min = self.labels().min() else {
-            return 0
-        }
+    var chartMin: Double? {
+        guard let min = self.labels().min() else { return nil }
         return min < 0 ? min : 0
     }
     
-    var chartMax: Double {
-        guard let max = self.labels().max() else {
-            return 0
-        }
+    var chartMax: Double? {
+        guard let max = self.labels().max() else { return nil }
         return max < 0 ? 0 : max
     }
     
-    var maxGridlinesCount: Int {
-        guard let frameHeight = self.frameHeight else { return 0 }
+    // MARK: - Public Properties
+    
+    @Published public var minGridlineSpacing: CGFloat = 40.0
+    
+    // MARK: - Private Properties
+    
+    private var minValue: Double? {
+        self.data.min() ?? nil
+    }
+    
+    private var maxValue: Double? {
+        self.data.max() ?? nil
+    }
+    
+    private var max: Double? {
+        guard let maxValue = self.maxValue else { return nil }
+        return maxValue < 0 ? 0 : maxValue
+    }
+    
+    private var min: Double? {
+        guard let minValue = self.minValue else { return nil }
+        return minValue < 0 ? minValue : 0
+    }
+    
+    private var maxGridlinesCount: Int? {
+        guard let frameHeight = self.frameHeight,
+            self.minGridlineSpacing != 0 else { return nil }
         return Int(frameHeight / self.minGridlineSpacing)
     }
     
-    func pixelsRatio() -> CGFloat {
-        guard let frameHeight = self.frameHeight else { return 0 }
-        return frameHeight / CGFloat(self.verticalDistance())
+    // MARK: - Internal Methods
+    
+    override func formattedLabels() -> [String] {
+        guard let step = self.step() else { return [] }
+        return YValueFormatter.formatValues(self.labels(), step: step)
     }
     
-    func step() -> Double {
-        guard self.frameHeight != nil,
-            !self.data.isEmpty else { return 0 }
-        let absoluteMax = Swift.max(abs(self.max), abs(self.min))
-        let absoluteMin = Swift.min(abs(self.max), abs(self.min))
+    func labelValue(at index: Int) -> Double {
+        return self.labels()[index]
+    }
+    
+    func pixelsRatio() -> CGFloat? {
+        guard let frameHeight = self.frameHeight,
+            let verticalDistance = self.verticalDistance(),
+            verticalDistance != 0 else { return nil }
+        return frameHeight / CGFloat(verticalDistance)
+    }
+    
+    func step() -> Double? {
+        guard let min = self.min,
+            let max = self.max,
+            let maxGridlinesCount = self.maxGridlinesCount,
+            maxGridlinesCount != 0 else { return nil }
+        let absoluteMax = Swift.max(abs(max), abs(min))
+        let absoluteMin = Swift.min(abs(max), abs(min))
         let distance = absoluteMax + absoluteMin
         let step = distance / Double(maxGridlinesCount)
         let roundedStep = self.roundUp(step)
         return roundedStep
     }
+    
+    func centre() -> CGFloat? {
+        guard let chartMin = self.chartMin,
+            let pixelsRatio = self.pixelsRatio() else { return nil }
+        return CGFloat(chartMin) * pixelsRatio
+    }
+       
+    func normalizedValues() -> [Double] {
+        guard let verticalDistance = self.verticalDistance(),
+            verticalDistance != 0 else { return [] }
+        return self.data.map { $0 / verticalDistance }
+    }
+    
+    // MARK: - Private Methods
     
     private func roundUp(_ value: Double) -> Double {
         if value > 0 && value < 1 {
@@ -99,37 +134,21 @@ public class YAxis: AxisBase {
         return count
     }
     
-    func centre() -> CGFloat {
-        return CGFloat(self.chartMin) * self.pixelsRatio()
-    }
-    
-    func normalizedValues() -> [Double] {
-        guard self.frameHeight != nil,
-            !self.data.isEmpty else { return [] }
-        return self.data.map { $0 / self.verticalDistance() }
-    }
-    
-    private func verticalDistance() -> Double {
-        return abs(self.chartMax) + abs(self.chartMin)
-    }
-    
-    override func formattedLabels() -> [String] {
-        return YValueFormatter.formatValues(self.labels(), step: self.step())
-    }
-    
-    func labelValue(at index: Int) -> Double {
-        return self.labels()[index]
+    private func verticalDistance() -> Double? {
+        guard let chartMax = self.chartMax,
+            let chartMin = self.chartMin else { return nil }
+        return abs(chartMax) + abs(chartMin)
     }
     
     private func labels() -> [Double] {
-        guard self.frameHeight != nil,
-            !self.data.isEmpty else { return [] }
+        guard let step = self.step(),
+            let min = self.min,
+            let max = self.max else { return [] }
         var labels = [Double]()
         var count = 0.0
-        let step = self.step()
         
         // Add positive Y values
-        while count < self.max {
+        while count < max {
             count += step
             labels.append(count)
         }
@@ -138,7 +157,7 @@ public class YAxis: AxisBase {
         labels.append(count)
         
         // Add negative Y values
-        while count > self.min {
+        while count > min {
             count -= step
             labels.append(count)
         }

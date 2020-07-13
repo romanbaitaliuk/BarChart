@@ -24,11 +24,11 @@ public class ChartData: ObservableObject {
     @Published public var gradientColor: GradientColor?
     @Published public var color: Color = .red
     
-    public convenience init() {
+    convenience init() {
         self.init(entries: [])
     }
     
-    public init(entries: [ChartDataEntry]) {
+    init(entries: [ChartDataEntry]) {
         self.entries = entries
     }
     

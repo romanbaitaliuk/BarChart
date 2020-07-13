@@ -18,11 +18,13 @@ struct CoordinateSystemView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            YAxisView(yAxis: self.yAxis,
-                      frameSize: self.frameSize)
-            XAxisView(xAxis: self.xAxis,
-                      frameSize: self.frameSize,
-                      labelOffsetY: self.labelOffsetY)
+            if !self.yAxis.formattedLabels().isEmpty {
+                YAxisView(yAxis: self.yAxis,
+                          frameSize: self.frameSize)
+                XAxisView(xAxis: self.xAxis,
+                          frameSize: self.frameSize,
+                          labelOffsetY: self.labelOffsetY)
+            }
         }
     }
 }
@@ -90,10 +92,9 @@ struct XAxisView: View {
     
     func verticalGridlineX(at index: Int) -> CGFloat {
         let chartEntry = self.xAxis.chartEntry(at: index)
-        if let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == chartEntry }) {
-            return self.xAxis.barCentre(at: indexAtFullRange)
-        }
-        return 0
+        guard let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == chartEntry }),
+            let centre = self.xAxis.barCentre(at: indexAtFullRange) else { return 0 }
+        return centre
     }
     
     func verticalGridlinePoints(index: Int) -> (CGPoint, CGPoint) {
@@ -128,8 +129,10 @@ struct YAxisView: View {
     }
     
     func horizontalGridlineY(at index: Int) -> CGFloat {
+        guard let chartMin = self.yAxis.chartMin,
+            let pixelsRatio = self.yAxis.pixelsRatio() else { return 0 }
         let label = self.yAxis.labelValue(at: index)
-        return (CGFloat(label) - CGFloat(self.yAxis.chartMin)) * self.yAxis.pixelsRatio()
+        return (CGFloat(label) - CGFloat(chartMin)) * pixelsRatio
     }
     
     func horizontalGridlinePoints(index: Int) -> (CGPoint, CGPoint) {

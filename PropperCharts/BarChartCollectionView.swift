@@ -18,21 +18,31 @@ public struct BarChartCollectionView: View {
     public var body: some View {
         HStack(alignment: .bottom,
                spacing: self.xAxis.spacing) {
-                ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
-                    BarChartCell(width: self.xAxis.barWidth,
-                                 height: self.barHeight(at: index),
-                                 gradient: self.gradient,
-                                 color: self.color)
+                if self.xAxis.barWidth != nil {
+                    ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
+                        BarChartCell(width: self.xAxis.barWidth!,
+                                     height: self.barHeight(at: index),
+                                     gradient: self.gradient,
+                                     color: self.color)
+                        .offset(y: self.offsetY())
+                        .offset(x: self.offsetX())
+                    }
                 }
-        }.offset(y: self.offsetY())
+        }
     }
     
     func offsetY() -> CGFloat {
-        let maxNormalizedValue = self.yAxis.normalizedValues().max() ?? 0
+        guard let maxNormalizedValue = self.yAxis.normalizedValues().max(),
+            let centre = self.yAxis.centre() else { return 0 }
         let chartNormalisedMax = maxNormalizedValue > 0 ? maxNormalizedValue : 0
         let absoluteMax = abs(CGFloat(chartNormalisedMax))
         let positivePart = absoluteMax * self.frameHeight
-        return self.frameHeight-abs(self.yAxis.centre()) - positivePart
+        return self.frameHeight-abs(centre) - positivePart
+    }
+    
+    func offsetX() -> CGFloat {
+        guard let spacing = self.xAxis.spacing else { return 0 }
+        return self.xAxis.data.count == 1 ? spacing : 0
     }
     
     func barHeight(at index: Int) -> CGFloat {
