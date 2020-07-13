@@ -23,11 +23,11 @@ public class AxisBase: ObservableObject {
         return Font(self.labelCTFont)
     }
     
-    func formattedLabels() -> [String] {
-        fatalError("Needs to be overridden")
-    }
-    
     var maxLabelWidth: CGFloat {
         return self.formattedLabels().map { $0.width(font: self.labelUIFont) }.max() ?? 0
+    }
+    
+    func formattedLabels() -> [String] {
+        fatalError("Needs to be overridden")
     }
 }

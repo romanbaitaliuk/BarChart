@@ -8,12 +8,17 @@
 
 import SwiftUI
 
-public class XAxis: AxisBase {    
+public class XAxis: AxisBase {
+    
+    // MARK: - Public Properties
+    
+    @Published public var labelInterval: Int?
+    
+    // MARK: - Internal Properties
+    
     @Published var data: [ChartDataEntry] = []
     
     @Published var frameWidth: CGFloat?
-    
-    @Published public var labelInterval: Int?
     
     var barWidth: CGFloat? {
         guard let frameWidth = self.frameWidth,
@@ -30,6 +35,8 @@ public class XAxis: AxisBase {
             return frameWidth / CGFloat((self.data.count - 1) * 3)
         }
     }
+    
+    // MARK: - Internal Methods
     
     func barCentre(at index: Int) -> CGFloat? {
         guard let barWidth = self.barWidth,
@@ -49,6 +56,8 @@ public class XAxis: AxisBase {
     override func formattedLabels() -> [String] {
         return self.labels().map { $0.x }
     }
+    
+    // MARK: - Private Methods
     
     private func labels() -> [ChartDataEntry] {
         guard let frameWidth = self.frameWidth,

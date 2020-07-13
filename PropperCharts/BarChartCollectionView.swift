@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-public struct BarChartCollectionView: View {
+struct BarChartCollectionView: View {
     @ObservedObject var xAxis: XAxis
     @ObservedObject var yAxis: YAxis
-    let gradient: GradientColor?
+    let gradient: Gradient?
     let color: Color
     let frameHeight: CGFloat
     
-    public var body: some View {
+    var body: some View {
         HStack(alignment: .bottom,
                spacing: self.xAxis.spacing) {
                 if self.xAxis.barWidth != nil {

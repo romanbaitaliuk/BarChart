@@ -14,23 +14,21 @@ public class ChartConfiguration: ObservableObject {
     public var xAxis = XAxis()
     public var yAxis = YAxis()
     
-    private var disposeBag: AnyCancellable?
-    
-    private var disposeBag1: AnyCancellable?
-    
-    private var disposeBag2: AnyCancellable?
+    private var dataCancellable: AnyCancellable?
+    private var xAxisCancellable: AnyCancellable?
+    private var yAxisCancellable: AnyCancellable?
     
     public init() {
-        self.disposeBag = self.data.objectWillChange.sink(receiveValue: { _ in
+        self.dataCancellable = self.data.objectWillChange.sink(receiveValue: { _ in
             self.updateAxesData()
             self.objectWillChange.send()
         })
         
-        self.disposeBag1 = self.xAxis.objectWillChange.sink(receiveValue: { _ in
+        self.xAxisCancellable = self.xAxis.objectWillChange.sink(receiveValue: { _ in
             self.objectWillChange.send()
         })
         
-        self.disposeBag2 = self.yAxis.objectWillChange.sink(receiveValue: { _ in
+        self.yAxisCancellable = self.yAxis.objectWillChange.sink(receiveValue: { _ in
             self.objectWillChange.send()
         })
     }

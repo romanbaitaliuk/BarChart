@@ -11,7 +11,7 @@ import SwiftUI
 struct BarChartCell: View {
     let width: CGFloat
     let height: CGFloat
-    let gradient: GradientColor?
+    let gradient: Gradient?
     let color: Color
     
     var body: some View {
@@ -34,10 +34,10 @@ struct SolidColorRectangle: View {
 }
 
 struct GradientColorRectangle: View {
-    let gradient: GradientColor
+    let gradient: Gradient
     var body: some View {
         RoundedRectangle(cornerRadius: 4)
-            .fill(LinearGradient(gradient: self.gradient.getGradient(),
+            .fill(LinearGradient(gradient: self.gradient,
                                  startPoint: .bottom,
                                  endPoint: .top))
     }

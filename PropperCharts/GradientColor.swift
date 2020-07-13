@@ -17,7 +17,7 @@ public struct GradientColor {
         self.end = end
     }
     
-    public func getGradient() -> Gradient {
+    public func gradient() -> Gradient {
         return Gradient(colors: [start, end])
     }
 }

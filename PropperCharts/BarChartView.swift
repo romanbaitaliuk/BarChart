@@ -30,7 +30,7 @@ public struct BarChartView : View {
                     }
                 BarChartCollectionView(xAxis: self.config.xAxis,
                                        yAxis: self.config.yAxis,
-                                       gradient: self.config.data.gradientColor,
+                                       gradient: self.config.data.gradientColor?.gradient(),
                                        color: self.config.data.color,
                                        frameHeight: proxy.size.height)
             }
@@ -39,11 +39,11 @@ public struct BarChartView : View {
         }
     }
     
-    func topPadding() -> CGFloat {
+    private func topPadding() -> CGFloat {
         return String().height(font: self.config.yAxis.labelUIFont) / 2
     }
     
-    func bottomPadding() -> CGFloat {
+    private func bottomPadding() -> CGFloat {
         return self.topPadding() + String().height(font: self.config.xAxis.labelUIFont)
     }
 }

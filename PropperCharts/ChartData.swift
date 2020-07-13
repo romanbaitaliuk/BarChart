@@ -32,16 +32,6 @@ public class ChartData: ObservableObject {
         self.entries = entries
     }
     
-    public init(entries: [ChartDataEntry], gradientColor: GradientColor) {
-        self.entries = entries
-        self.gradientColor = gradientColor
-    }
-    
-    public init(entries: [ChartDataEntry], color: Color) {
-        self.entries = entries
-        self.color = color
-    }
-    
     var yValues: [Double] {
         return self.entries.map { $0.y }
     }
