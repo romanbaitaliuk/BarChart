@@ -17,7 +17,6 @@ public class XAxis: AxisBase {
     // MARK: - Internal Properties
     
     @Published var data: [ChartDataEntry] = []
-    
     @Published var frameWidth: CGFloat?
     
     var barWidth: CGFloat? {

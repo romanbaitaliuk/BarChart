@@ -9,7 +9,6 @@
 import SwiftUI
 
 public struct BarChartView : View {
-    
     @ObservedObject public var config = ChartConfiguration()
     
     public init() {}

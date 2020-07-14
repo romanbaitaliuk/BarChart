@@ -9,8 +9,8 @@
 import SwiftUI
 
 public class AxisBase: ObservableObject {
-    @Published public var labelColor: Color = Color("labelColor", bundle: Bundle.current)
-    @Published public var gridlineColor: Color = Color("gridlineColor", bundle: Bundle.current)
+    @Published public var labelColor: Color = .black
+    @Published public var gridlineColor: Color = .black
     @Published public var gridlineDash: [CGFloat] =  [5, 10]
     @Published public var labelCTFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
     

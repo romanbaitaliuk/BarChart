@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D389DC8F24B6AF5F00B8CD6C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D389DC8E24B6AF5F00B8CD6C /* Extensions.swift */; };
+		D3484C5724BD7F8A002C7852 /* Extension+StringSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3484C5624BD7F8A002C7852 /* Extension+StringSize.swift */; };
+		D357814024BD5FC700547396 /* YAxisScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357813F24BD5FC700547396 /* YAxisScaler.swift */; };
+		D389DC8F24B6AF5F00B8CD6C /* Extension+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D389DC8E24B6AF5F00B8CD6C /* Extension+ViewModifier.swift */; };
 		D3BC428524B12E1700B36923 /* AxisBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428424B12E1700B36923 /* AxisBase.swift */; };
-		D3BC428724B131A400B36923 /* YValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428624B131A400B36923 /* YValueFormatter.swift */; };
 		D3BC428C24B1BDC900B36923 /* ChartConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */; };
-		D3BC428E24B1D49000B36923 /* DefaultColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3BC428D24B1D49000B36923 /* DefaultColors.xcassets */; };
 		D3C0DC4124A5675C00298011 /* PropperCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C0DC3724A5675C00298011 /* PropperCharts.framework */; };
 		D3C0DC4624A5675C00298011 /* YAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C0DC4524A5675C00298011 /* YAxisTests.swift */; };
 		D3C0DC4824A5675C00298011 /* PropperCharts.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0DC3A24A5675C00298011 /* PropperCharts.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,11 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D389DC8E24B6AF5F00B8CD6C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D3484C5624BD7F8A002C7852 /* Extension+StringSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+StringSize.swift"; sourceTree = "<group>"; };
+		D357813F24BD5FC700547396 /* YAxisScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisScaler.swift; sourceTree = "<group>"; };
+		D389DC8E24B6AF5F00B8CD6C /* Extension+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+ViewModifier.swift"; sourceTree = "<group>"; };
 		D3BC428424B12E1700B36923 /* AxisBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisBase.swift; sourceTree = "<group>"; };
-		D3BC428624B131A400B36923 /* YValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YValueFormatter.swift; sourceTree = "<group>"; };
 		D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartConfiguration.swift; sourceTree = "<group>"; };
-		D3BC428D24B1D49000B36923 /* DefaultColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DefaultColors.xcassets; sourceTree = "<group>"; };
 		D3C0DC3724A5675C00298011 /* PropperCharts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PropperCharts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C0DC3A24A5675C00298011 /* PropperCharts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropperCharts.h; sourceTree = "<group>"; };
 		D3C0DC3B24A5675C00298011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,11 +106,11 @@
 				D3C0DC8824A593F700298011 /* GradientColor.swift */,
 				D3BC428424B12E1700B36923 /* AxisBase.swift */,
 				D3C0DC6C24A5696800298011 /* YAxis.swift */,
+				D357813F24BD5FC700547396 /* YAxisScaler.swift */,
 				D3F92E4C24B2B0330058F3B0 /* XAxis.swift */,
-				D3BC428624B131A400B36923 /* YValueFormatter.swift */,
-				D389DC8E24B6AF5F00B8CD6C /* Extensions.swift */,
+				D389DC8E24B6AF5F00B8CD6C /* Extension+ViewModifier.swift */,
+				D3484C5624BD7F8A002C7852 /* Extension+StringSize.swift */,
 				D3C0DC3A24A5675C00298011 /* PropperCharts.h */,
-				D3BC428D24B1D49000B36923 /* DefaultColors.xcassets */,
 				D3C0DC3B24A5675C00298011 /* Info.plist */,
 			);
 			path = PropperCharts;
@@ -218,7 +218,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3BC428E24B1D49000B36923 /* DefaultColors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,13 +236,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3C0DC7724A5696800298011 /* YAxis.swift in Sources */,
-				D3BC428724B131A400B36923 /* YValueFormatter.swift in Sources */,
 				D3C0DC7624A5696800298011 /* CoordinateSystemView.swift in Sources */,
 				D3C0DC7B24A5696800298011 /* BarChartCollectionView.swift in Sources */,
 				D3C0DC7C24A5696800298011 /* BarChartView.swift in Sources */,
+				D3484C5724BD7F8A002C7852 /* Extension+StringSize.swift in Sources */,
 				D3C0DC7D24A5696800298011 /* ChartData.swift in Sources */,
 				D3C0DC8924A593F700298011 /* GradientColor.swift in Sources */,
-				D389DC8F24B6AF5F00B8CD6C /* Extensions.swift in Sources */,
+				D357814024BD5FC700547396 /* YAxisScaler.swift in Sources */,
+				D389DC8F24B6AF5F00B8CD6C /* Extension+ViewModifier.swift in Sources */,
 				D3F92E4D24B2B0330058F3B0 /* XAxis.swift in Sources */,
 				D3BC428C24B1BDC900B36923 /* ChartConfiguration.swift in Sources */,
 				D3BC428524B12E1700B36923 /* AxisBase.swift in Sources */,

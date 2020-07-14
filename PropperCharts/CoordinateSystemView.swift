@@ -129,9 +129,9 @@ struct YAxisView: View {
     }
     
     func horizontalGridlineY(at index: Int) -> CGFloat {
-        guard let chartMin = self.yAxis.chartMin,
-            let pixelsRatio = self.yAxis.pixelsRatio() else { return 0 }
-        let label = self.yAxis.labelValue(at: index)
+        guard let chartMin = self.yAxis.scaler?.scaledMin,
+            let pixelsRatio = self.yAxis.pixelsRatio(),
+            let label = self.yAxis.labelValue(at: index) else { return 0 }
         return (CGFloat(label) - CGFloat(chartMin)) * pixelsRatio
     }
     
