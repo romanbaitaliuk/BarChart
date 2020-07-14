@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-// MARK: - Public
-
 public extension View {
     func modifying<T>(_ keyPath: WritableKeyPath<Self, T>, value: T) -> Self {
         var copy = self

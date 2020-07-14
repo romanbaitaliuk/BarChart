@@ -17,15 +17,15 @@ struct BarChartCollectionView: View {
     
     var body: some View {
         HStack(alignment: .bottom,
-               spacing: self.xAxis.spacing) {
-                if self.xAxis.barWidth != nil {
+               spacing: self.xAxis.layout?.spacing) {
+                if self.xAxis.layout?.barWidth != nil {
                     ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
-                        BarChartCell(width: self.xAxis.barWidth!,
+                        BarChartCell(width: self.xAxis.layout!.barWidth!,
                                      height: self.barHeight(at: index),
                                      gradient: self.gradient,
                                      color: self.color)
-                        .offset(y: self.offsetY())
-                        .offset(x: self.offsetX())
+                            .offset(x: self.offsetX(),
+                                    y: self.offsetY())
                     }
                 }
         }
@@ -41,7 +41,8 @@ struct BarChartCollectionView: View {
     }
     
     func offsetX() -> CGFloat {
-        guard let spacing = self.xAxis.spacing else { return 0 }
+        guard let spacing = self.xAxis.layout?.spacing else { return 0 }
+        // Getting offset when only one entry is shown
         return self.xAxis.data.count == 1 ? spacing : 0
     }
     

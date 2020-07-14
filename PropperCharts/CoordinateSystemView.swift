@@ -93,7 +93,7 @@ struct XAxisView: View {
     func verticalGridlineX(at index: Int) -> CGFloat {
         let chartEntry = self.xAxis.chartEntry(at: index)
         guard let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == chartEntry }),
-            let centre = self.xAxis.barCentre(at: indexAtFullRange) else { return 0 }
+            let centre = self.xAxis.layout?.barCentre(at: indexAtFullRange) else { return 0 }
         return centre
     }
     
