@@ -77,7 +77,10 @@ public class XAxis: AxisBase {
     }
     
     private func updateLayout() {
-        guard let frameWidth = self.frameWidth else { return }
+        guard let frameWidth = self.frameWidth else {
+            self.layout = nil
+            return
+        }
         self.layout = XAxisLayout(frameWidth: frameWidth, dataCount: self.data.count)
     }
 }

@@ -77,7 +77,10 @@ public class YAxis: AxisBase {
     private func updateScaler() {
         guard let minValue = self.data.min(),
             let maxValue = self.data.max(),
-            let maxTicks = self.maxTicks else { return }
+            let maxTicks = self.maxTicks else {
+                self.scaler = nil
+                return
+        }
         let adjustedMin = minValue > 0 ? 0 : minValue
         let adjustedMax = maxValue < 0 ? 0 : maxValue
         self.scaler = YAxisScaler(min: adjustedMin, max: adjustedMax, maxTicks: maxTicks)

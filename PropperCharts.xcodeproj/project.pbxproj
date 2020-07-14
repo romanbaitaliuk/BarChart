@@ -11,6 +11,7 @@
 		D3484C5924BD8653002C7852 /* Extension+Decimals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3484C5824BD8653002C7852 /* Extension+Decimals.swift */; };
 		D357814024BD5FC700547396 /* YAxisScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D357813F24BD5FC700547396 /* YAxisScaler.swift */; };
 		D35BEDEE24BD9BA000525D78 /* XAxisLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35BEDED24BD9BA000525D78 /* XAxisLayout.swift */; };
+		D35BEDF024BDA8E800525D78 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35BEDEF24BDA8E800525D78 /* TestData.swift */; };
 		D389DC8F24B6AF5F00B8CD6C /* Extension+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D389DC8E24B6AF5F00B8CD6C /* Extension+ViewModifier.swift */; };
 		D3BC428524B12E1700B36923 /* AxisBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428424B12E1700B36923 /* AxisBase.swift */; };
 		D3BC428C24B1BDC900B36923 /* ChartConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */; };
@@ -42,6 +43,7 @@
 		D3484C5824BD8653002C7852 /* Extension+Decimals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Decimals.swift"; sourceTree = "<group>"; };
 		D357813F24BD5FC700547396 /* YAxisScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisScaler.swift; sourceTree = "<group>"; };
 		D35BEDED24BD9BA000525D78 /* XAxisLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAxisLayout.swift; sourceTree = "<group>"; };
+		D35BEDEF24BDA8E800525D78 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		D389DC8E24B6AF5F00B8CD6C /* Extension+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+ViewModifier.swift"; sourceTree = "<group>"; };
 		D3BC428424B12E1700B36923 /* AxisBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisBase.swift; sourceTree = "<group>"; };
 		D3BC428B24B1BDC900B36923 /* ChartConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartConfiguration.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		D3C0DC4424A5675C00298011 /* PropperChartsTests */ = {
 			isa = PBXGroup;
 			children = (
+				D35BEDEF24BDA8E800525D78 /* TestData.swift */,
 				D3C0DC4524A5675C00298011 /* YAxisTests.swift */,
 				D3C0DC4724A5675C00298011 /* Info.plist */,
 			);
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3C0DC4624A5675C00298011 /* YAxisTests.swift in Sources */,
+				D35BEDF024BDA8E800525D78 /* TestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
