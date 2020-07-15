@@ -21,7 +21,6 @@ public struct BarChartView : View {
                                      frameSize: proxy.size,
                                      labelOffsetY: self.bottomPadding())
                     .onAppear {
-                        self.config.updateAxesData()
                         self.config.updateAxes(frameSize: proxy.size)
                     }
                     .onReceive(self.config.data.objectWillChange) { newData in

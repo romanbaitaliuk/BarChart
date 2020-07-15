@@ -14,7 +14,7 @@ struct ContentView: View {
     let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
     let config = ChartConfiguration()
     @State var dataColor: Color = .red
-    @State var isDataUpdated: Bool = false
+    @State var entries: [ChartDataEntry] = []
     
     var body: some View {
         GeometryReader { geometry in
@@ -26,11 +26,12 @@ struct ContentView: View {
                                 .foregroundColor(.white)
                                 .padding(5)
                                 .shadow(color: .black, radius: 5)
-                            if !self.isDataUpdated {
+                            if self.entries.isEmpty {
                                 Text("No data")
                             } else {
                                 BarChartView()
                                 .modifying(\.config, value: self.config)
+                                .modifying(\.config.data.entries, value: self.entries)
                                 .modifying(\.config.data.color, value: self.dataColor)
                                 .modifying(\.config.xAxis.ticksInterval, value: 4)
                                 .modifying(\.config.xAxis.labelColor, value: Color.gray)
@@ -52,8 +53,7 @@ struct ContentView: View {
                         }.frame(height: self.chartHeight)
                         Button(action: {
                             let newEntries = self.generateNewData()
-                            self.config.data.entries = newEntries
-                            self.isDataUpdated = true
+                            self.entries = newEntries
                         }) {
                             Text("Generate data")
                         }

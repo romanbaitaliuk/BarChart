@@ -17,12 +17,17 @@ public class ChartConfiguration: ObservableObject {
     private var dataCancellable: AnyCancellable?
     private var xAxisCancellable: AnyCancellable?
     private var yAxisCancellable: AnyCancellable?
+    private var dataEntriesCancellable: AnyCancellable?
     
     public init() {
-        self.dataCancellable = self.data.objectWillChange.sink(receiveValue: { _ in
-            self.updateAxesData()
+        self.dataCancellable = self.data.objectWillChange.sink { value in
             self.objectWillChange.send()
-        })
+        }
+        
+        self.dataEntriesCancellable = self.data.$entries.sink { newEntries in
+            self.updateAxesData(entries: newEntries)
+            self.objectWillChange.send()
+        }
         
         self.xAxisCancellable = self.xAxis.objectWillChange.sink(receiveValue: { _ in
             self.objectWillChange.send()
@@ -40,8 +45,8 @@ public class ChartConfiguration: ObservableObject {
         self.xAxis.frameWidth = frameWidth
     }
     
-    func updateAxesData() {
-        self.yAxis.data = self.data.yValues
-        self.xAxis.data = self.data.entries
+    func updateAxesData(entries: [ChartDataEntry]) {
+        self.yAxis.data = entries.map { $0.y }
+        self.xAxis.data = entries
     }
 }
