@@ -11,43 +11,66 @@ import BarChart
 
 struct ContentView: View {
     let chartHeight: CGFloat = 300
+    let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
     let config = ChartConfiguration()
+    @State var dataColor: Color = .red
+    @State var isDataUpdated: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
-                VStack {
-                    ScrollView {
+                ScrollView {
+                    VStack(spacing: 20) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 5)
                                 .foregroundColor(.white)
                                 .padding(5)
                                 .shadow(color: .black, radius: 5)
-                            BarChartView()
+                            if !self.isDataUpdated {
+                                Text("No data")
+                            } else {
+                                BarChartView()
                                 .modifying(\.config, value: self.config)
+                                .modifying(\.config.data.color, value: self.dataColor)
                                 .modifying(\.config.xAxis.ticksInterval, value: 4)
                                 .modifying(\.config.xAxis.labelColor, value: Color.gray)
                                 .modifying(\.config.xAxis.gridlineColor, value: Color.gray)
+                                .modifying(\.config.xAxis.labelCTFont, value: self.labelsFont)
+                                .modifying(\.config.xAxis.gridlineDash, value: [2, 4])
                                 .modifying(\.config.yAxis.labelColor, value: Color.gray)
                                 .modifying(\.config.yAxis.gridlineColor, value: Color.gray)
-                                .modifying(\.config.data.entries, value: self.generateNewData())
+                                .modifying(\.config.yAxis.labelCTFont, value: self.labelsFont)
+                                .modifying(\.config.yAxis.gridlineDash, value: [3, 6])
+                                    .modifying(\.config.yAxis.minGridlineSpacing, value: 30.0)
                                 .modifying(\.config.yAxis.formatter, value: { (value, decimals) in
                                     let format = value == 0 ? "" : "b"
                                     return String(format: "%.\(decimals)f\(format)", value)
                                 })
-                                .frame(height: self.chartHeight)
                                 .padding(15)
                                 .foregroundColor(.white)
-                        }
-                        Spacer(minLength: 15)
+                            }
+                        }.frame(height: self.chartHeight)
                         Button(action: {
                             let newEntries = self.generateNewData()
                             self.config.data.entries = newEntries
-                            self.config.data.color = Color.random
+                            self.isDataUpdated = true
                         }) {
                             Text("Generate data")
-                        }.navigationBarTitle(Text("BarChart"))
-                    }.padding()
+                        }
+                        Button(action: {
+                            self.config.data.gradientColor = nil
+                            self.dataColor = Color.random
+                        }) {
+                            Text("Generate solid color")
+                        }
+                        Button(action: {
+                            self.config.data.gradientColor = GradientColor(start: Color.random, end: Color.random)
+                        }) {
+                            Text("Generate gradient")
+                        }
+                        .navigationBarTitle(Text("BarChart"))
+                    }
+                    .padding(5)
                 }
             }.navigationViewStyle(StackNavigationViewStyle())
         }
