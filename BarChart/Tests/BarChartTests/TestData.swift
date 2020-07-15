@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import PropperCharts
+@testable import BarChart
 
 struct TestData {
     

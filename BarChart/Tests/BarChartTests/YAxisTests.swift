@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import PropperCharts
+@testable import BarChart
 
 class YAxisTests: XCTestCase {
     
