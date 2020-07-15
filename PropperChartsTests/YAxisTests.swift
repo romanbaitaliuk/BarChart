@@ -40,6 +40,7 @@ class YAxisTests: XCTestCase {
         XCTAssert(self.yAxis.scaler?.tickSpacing == nil)
         XCTAssert(self.yAxis.scaler?.scaledMin == nil)
         XCTAssert(self.yAxis.scaler?.scaledMax == nil)
+        XCTAssert(self.yAxis.formattedLabels().count == 0)
     }
     
     func testScaler2() {
@@ -48,6 +49,7 @@ class YAxisTests: XCTestCase {
         XCTAssert(self.yAxis.scaler?.tickSpacing == 1)
         XCTAssert(self.yAxis.scaler?.scaledMin == 0)
         XCTAssert(self.yAxis.scaler?.scaledMax == 10)
+        XCTAssert(self.yAxis.formattedLabels().count == 11)
     }
     
     func testScaler3() {
@@ -57,30 +59,42 @@ class YAxisTests: XCTestCase {
         XCTAssert(self.yAxis.scaler?.tickSpacing == 5)
         XCTAssert(self.yAxis.scaler?.scaledMin == 0)
         XCTAssert(self.yAxis.scaler?.scaledMax == 15)
+        XCTAssert(self.yAxis.formattedLabels().count == 4)
     }
     
     func testMaxTicks1() {
         let frameHeight: CGFloat = 400
-        let minGridlineSpacing: CGFloat = 50
+        let minGridlineSpacing: CGFloat = 60
         
         self.yAxis.frameHeight = frameHeight
         self.yAxis.minGridlineSpacing = minGridlineSpacing
-        self.yAxis.data = [1, 2, 3, 4]
+        self.yAxis.data = TestData.Values.Positive.Small.values1
         
-        let maxTicksCount = Int(frameHeight / minGridlineSpacing)
-        XCTAssert(self.yAxis.scaler!.scaledValues().count <= maxTicksCount)
+        let expectedLabels = ["0.0", "0.1", "0.2", "0.3"]
+        XCTAssert(self.yAxis.formattedLabels() == expectedLabels)
     }
     
     func testMaxTicks2() {
-        let frameHeight: CGFloat = 200
-        let minGridlineSpacing: CGFloat = 70
+        let frameHeight: CGFloat = 400
+        let minGridlineSpacing: CGFloat = 20
         
         self.yAxis.frameHeight = frameHeight
         self.yAxis.minGridlineSpacing = minGridlineSpacing
-        self.yAxis.data = [1, 2, 3, 4]
+        self.yAxis.data = TestData.Values.Positive.Small.values1
         
-        let maxTicksCount = Int(frameHeight / minGridlineSpacing)
-        XCTAssert(self.yAxis.scaler!.scaledValues().count <= maxTicksCount)
+        let expectedLabels = ["0.00", "0.02", "0.04", "0.06", "0.08", "0.10", "0.12", "0.14", "0.16", "0.18", "0.20", "0.22", "0.24"]
+        XCTAssert(self.yAxis.formattedLabels() == expectedLabels)
+    }
+    
+    func testFormatter() {
+        self.yAxis.frameHeight = 400
+        self.yAxis.data = TestData.Values.Positive.Small.values1
+        self.yAxis.formatter = { value, decimals in
+            let billions = value == 0 ? "" :"b"
+            return String(format: "%.\(decimals)f\(billions)", value)
+        }
+        let expectedLabels = ["0.00", "0.05b", "0.10b", "0.15b", "0.20b", "0.25b"]
+        XCTAssert(self.yAxis.formattedLabels() == expectedLabels)
     }
     
     // MARK: - Positive values
