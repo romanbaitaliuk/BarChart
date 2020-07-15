@@ -29,26 +29,26 @@ struct ContentView: View {
                             if self.entries.isEmpty {
                                 Text("No data")
                             } else {
-                                BarChartView()
-                                .modifying(\.config, value: self.config)
-                                .modifying(\.config.data.entries, value: self.entries)
-                                .modifying(\.config.data.color, value: self.dataColor)
-                                .modifying(\.config.xAxis.ticksInterval, value: 4)
-                                .modifying(\.config.xAxis.labelColor, value: Color.gray)
-                                .modifying(\.config.xAxis.gridlineColor, value: Color.gray)
-                                .modifying(\.config.xAxis.labelCTFont, value: self.labelsFont)
-                                .modifying(\.config.xAxis.gridlineDash, value: [2, 4])
-                                .modifying(\.config.yAxis.labelColor, value: Color.gray)
-                                .modifying(\.config.yAxis.gridlineColor, value: Color.gray)
-                                .modifying(\.config.yAxis.labelCTFont, value: self.labelsFont)
-                                .modifying(\.config.yAxis.gridlineDash, value: [3, 6])
-                                    .modifying(\.config.yAxis.minGridlineSpacing, value: 30.0)
-                                .modifying(\.config.yAxis.formatter, value: { (value, decimals) in
-                                    let format = value == 0 ? "" : "b"
-                                    return String(format: "%.\(decimals)f\(format)", value)
-                                })
-                                .padding(15)
-                                .foregroundColor(.white)
+                                BarChartView()                                    
+                                    .modifying(\.config, value: self.config)
+                                    .modifying(\.config.data.entries, value: self.entries)
+                                    .modifying(\.config.data.color, value: self.dataColor)
+                                    .modifying(\.config.xAxis.ticksInterval, value: 4)
+                                    .modifying(\.config.xAxis.labelColor, value: Color.gray)
+                                    .modifying(\.config.xAxis.gridlineColor, value: Color.gray)
+                                    .modifying(\.config.xAxis.labelCTFont, value: self.labelsFont)
+                                    .modifying(\.config.xAxis.gridlineDash, value: [2, 4])
+                                    .modifying(\.config.yAxis.labelColor, value: Color.gray)
+                                    .modifying(\.config.yAxis.gridlineColor, value: Color.gray)
+                                    .modifying(\.config.yAxis.labelCTFont, value: self.labelsFont)
+                                    .modifying(\.config.yAxis.gridlineDash, value: [3, 6])
+                                        .modifying(\.config.yAxis.minGridlineSpacing, value: 30.0)
+                                    .modifying(\.config.yAxis.formatter, value: { (value, decimals) in
+                                        let format = value == 0 ? "" : "b"
+                                        return String(format: "%.\(decimals)f\(format)", value)
+                                    })
+                                    .padding(15)
+                                    .foregroundColor(.white)
                             }
                         }.frame(height: self.chartHeight)
                         Button(action: {
