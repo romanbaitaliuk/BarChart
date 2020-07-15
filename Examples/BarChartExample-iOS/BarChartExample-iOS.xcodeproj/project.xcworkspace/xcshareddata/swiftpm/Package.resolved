@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "BarChart",
+        "repositoryURL": "https://github.com/dawigr/BarChart.git",
+        "state": {
+          "branch": null,
+          "revision": "0e964d9ca71da63bafa77cc0043a45cb2cacf858",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

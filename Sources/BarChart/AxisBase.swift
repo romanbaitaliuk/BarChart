@@ -1,6 +1,6 @@
 //
 //  AxisBase.swift
-//  PropperCharts
+//  BarChart
 //
 //  Created by Roman Baitaliuk on 5/07/20.
 //  Copyright © 2020 Roman Baitaliuk. All rights reserved.

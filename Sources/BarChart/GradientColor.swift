@@ -1,6 +1,6 @@
 //
 //  GradientColor.swift
-//  ProperCharts
+//  BarChart
 //
 //  Created by Roman Baitaliuk on 26/06/20.
 //  Copyright © 2020 Roman Baitaliuk. All rights reserved.

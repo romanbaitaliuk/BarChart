@@ -1,6 +1,6 @@
 //
 //  XAxis.swift
-//  ProperCharts
+//  BarChart
 //
 //  Created by Roman Baitaliuk on 21/06/20.
 //  Copyright © 2020 Roman Baitaliuk. All rights reserved.
