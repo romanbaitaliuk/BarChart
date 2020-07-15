@@ -9,22 +9,22 @@
 import SwiftUI
 
 public class AxisBase: ObservableObject {
-    @Published public var labelColor: Color = .black
-    @Published public var gridlineColor: Color = .black
-    @Published public var gridlineDash: [CGFloat] =  [5, 10]
-    @Published public var labelCTFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
+    @Published public var labelsColor: Color = .black
+    @Published public var ticksColor: Color = .black
+    @Published public var ticksDash: [CGFloat] =  [5, 10]
+    @Published public var labelsCTFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
     
-    var labelUIFont: UIFont {
-        return UIFont(name: CTFontCopyPostScriptName(self.labelCTFont) as String,
-                      size: CTFontGetSize(self.labelCTFont))!
+    var labelsUIFont: UIFont {
+        return UIFont(name: CTFontCopyPostScriptName(self.labelsCTFont) as String,
+                      size: CTFontGetSize(self.labelsCTFont))!
     }
     
-    var labelFont: Font {
-        return Font(self.labelCTFont)
+    var labelsFont: Font {
+        return Font(self.labelsCTFont)
     }
     
     var maxLabelWidth: CGFloat {
-        return self.formattedLabels().map { $0.width(font: self.labelUIFont) }.max() ?? 0
+        return self.formattedLabels().map { $0.width(font: self.labelsUIFont) }.max() ?? 0
     }
     
     func formattedLabels() -> [String] {

@@ -12,7 +12,7 @@ public class YAxis: AxisBase {
     
     // MARK: - Public Properties
     
-    @Published public var minGridlineSpacing: CGFloat = 40.0
+    @Published public var minTicksSpacing: CGFloat = 40.0
     
     @Published public var formatter: ((Double, Int) -> String) = {
         return { return String(format: "%.\($1)f", $0) }
@@ -38,8 +38,8 @@ public class YAxis: AxisBase {
     
     private var maxTicks: Int? {
         guard let frameHeight = self.frameHeight,
-            self.minGridlineSpacing != 0 else { return nil }
-        return Int(frameHeight / self.minGridlineSpacing)
+            self.minTicksSpacing != 0 else { return nil }
+        return Int(frameHeight / self.minTicksSpacing)
     }
     
     // MARK: - Internal Methods

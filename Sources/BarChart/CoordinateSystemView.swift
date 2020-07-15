@@ -29,21 +29,21 @@ struct CoordinateSystemView: View {
     }
 }
 
-struct GridlineView: View {
+struct TickView: View {
     let points: (CGPoint, CGPoint)
     let dash: [CGFloat]
     let color: Color
     let isInverted: Bool
     
     var body: some View {
-        self.verticalGridlinePath()
+        self.linePath()
             .stroke(self.color,
                     style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: self.dash))
             .rotationEffect(.degrees(self.isInverted ? 180 : 0), anchor: .center)
             .rotation3DEffect(.degrees(self.isInverted ? 180 : 0), axis: (x: 0, y: 1, z: 0))
     }
     
-    func verticalGridlinePath() -> Path {
+    func linePath() -> Path {
         var vLine = Path()
         vLine.move(to: self.points.0)
         vLine.addLine(to: self.points.1)
@@ -71,34 +71,34 @@ struct XAxisView: View {
     var body: some View {
         ForEach((0..<self.xAxis.formattedLabels().count), id: \.self) { index in
             VStack(alignment: .center) {
-                GridlineView(points: self.verticalGridlinePoints(index: index),
-                             dash: self.xAxis.gridlineDash,
-                             color: self.xAxis.gridlineColor,
+                TickView(points: self.tickPoints(index: index),
+                             dash: self.xAxis.ticksDash,
+                             color: self.xAxis.ticksColor,
                              isInverted: false)
                 LabelView(text: self.xAxis.formattedLabels()[index],
-                          font: self.xAxis.labelFont,
-                          color: self.xAxis.labelColor)
-                    .offset(x: self.xLabelHorizontalOffset(index: index),
+                          font: self.xAxis.labelsFont,
+                          color: self.xAxis.labelsColor)
+                    .offset(x: self.labelOffsetX(index: index),
                             y: self.labelOffsetY)
             }
         }
     }
     
-    func xLabelHorizontalOffset(index: Int) -> CGFloat {
-        let gridlineX = self.verticalGridlineX(at: index)
-        let x = gridlineX - self.frameSize.width / 2
+    func labelOffsetX(index: Int) -> CGFloat {
+        let tickX = self.tickX(at: index)
+        let x = tickX - self.frameSize.width / 2
         return x
     }
     
-    func verticalGridlineX(at index: Int) -> CGFloat {
+    func tickX(at index: Int) -> CGFloat {
         let chartEntry = self.xAxis.chartEntry(at: index)
         guard let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == chartEntry }),
             let centre = self.xAxis.layout?.barCentre(at: indexAtFullRange) else { return 0 }
         return centre
     }
     
-    func verticalGridlinePoints(index: Int) -> (CGPoint, CGPoint) {
-        let x = self.verticalGridlineX(at: index)
+    func tickPoints(index: Int) -> (CGPoint, CGPoint) {
+        let x = self.tickX(at: index)
         return (CGPoint(x: x, y: 0), CGPoint(x: x, y: self.frameSize.height))
     }
 }
@@ -110,37 +110,37 @@ struct YAxisView: View {
     var body: some View {
         ForEach((0..<self.yAxis.formattedLabels().count), id: \.self) { index in
             HStack(alignment: .center) {
-                GridlineView(points: self.horizontalGridlinePoints(index: index),
-                             dash: self.yAxis.labelValue(at: index) == 0 ? [] : self.yAxis.gridlineDash,
-                             color: self.yAxis.gridlineColor,
+                TickView(points: self.tickPoints(index: index),
+                             dash: self.yAxis.labelValue(at: index) == 0 ? [] : self.yAxis.ticksDash,
+                             color: self.yAxis.ticksColor,
                              isInverted: true)
                 LabelView(text: self.yAxis.formattedLabels()[index],
-                          font: self.yAxis.labelFont,
-                          color: self.yAxis.labelColor)
-                    .offset(y: self.yLabelVerticalOffset(at: index))
+                          font: self.yAxis.labelsFont,
+                          color: self.yAxis.labelsColor)
+                    .offset(y: self.labelOffsetY(at: index))
             }
         }
     }
     
-    func yLabelVerticalOffset(at index: Int) -> CGFloat {
-        let gridlineY = self.horizontalGridlineY(at: index)
-        let y = (self.frameSize.height - gridlineY) - (self.frameSize.height / 2)
+    func labelOffsetY(at index: Int) -> CGFloat {
+        let tickY = self.tickY(at: index)
+        let y = (self.frameSize.height - tickY) - (self.frameSize.height / 2)
         return y
     }
     
-    func horizontalGridlineY(at index: Int) -> CGFloat {
+    func tickY(at index: Int) -> CGFloat {
         guard let chartMin = self.yAxis.scaler?.scaledMin,
             let pixelsRatio = self.yAxis.pixelsRatio(),
             let label = self.yAxis.labelValue(at: index) else { return 0 }
         return (CGFloat(label) - CGFloat(chartMin)) * pixelsRatio
     }
     
-    func horizontalGridlinePoints(index: Int) -> (CGPoint, CGPoint) {
-        let y = self.horizontalGridlineY(at: index)
-        return self.horizontalGridlinePoints(y: y)
+    func tickPoints(index: Int) -> (CGPoint, CGPoint) {
+        let y = self.tickY(at: index)
+        return self.tickPoints(y: y)
     }
     
-    func horizontalGridlinePoints(y: CGFloat) -> (CGPoint, CGPoint) {
+    func tickPoints(y: CGFloat) -> (CGPoint, CGPoint) {
         let endPointX = self.frameSize.width - self.yAxis.maxLabelWidth
         return (CGPoint(x: 0, y: y), CGPoint(x: endPointX, y: y))
     }

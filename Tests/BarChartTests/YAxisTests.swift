@@ -54,7 +54,7 @@ class YAxisTests: XCTestCase {
     
     func testScaler3() {
         self.yAxis.frameHeight = 600
-        self.yAxis.minGridlineSpacing = 100
+        self.yAxis.minTicksSpacing = 100
         self.yAxis.data = [5, 7, 14]
         XCTAssert(self.yAxis.scaler?.tickSpacing == 5)
         XCTAssert(self.yAxis.scaler?.scaledMin == 0)
@@ -64,10 +64,10 @@ class YAxisTests: XCTestCase {
     
     func testMaxTicks1() {
         let frameHeight: CGFloat = 400
-        let minGridlineSpacing: CGFloat = 60
+        let minTicksSpacing: CGFloat = 60
         
         self.yAxis.frameHeight = frameHeight
-        self.yAxis.minGridlineSpacing = minGridlineSpacing
+        self.yAxis.minTicksSpacing = minTicksSpacing
         self.yAxis.data = TestData.Values.Positive.Small.values1
         
         let expectedLabels = ["0.0", "0.1", "0.2", "0.3"]
@@ -76,10 +76,10 @@ class YAxisTests: XCTestCase {
     
     func testMaxTicks2() {
         let frameHeight: CGFloat = 400
-        let minGridlineSpacing: CGFloat = 20
+        let minTicksSpacing: CGFloat = 20
         
         self.yAxis.frameHeight = frameHeight
-        self.yAxis.minGridlineSpacing = minGridlineSpacing
+        self.yAxis.minTicksSpacing = minTicksSpacing
         self.yAxis.data = TestData.Values.Positive.Small.values1
         
         let expectedLabels = ["0.00", "0.02", "0.04", "0.06", "0.08", "0.10", "0.12", "0.14", "0.16", "0.18", "0.20", "0.22", "0.24"]
