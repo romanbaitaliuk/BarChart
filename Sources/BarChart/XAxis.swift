@@ -12,7 +12,11 @@ public class XAxis: AxisBase {
     
     // MARK: - Public Properties
     
-    @Published public var ticksInterval: Int?
+    @Published public var ticksInterval: Int? {
+        didSet {
+            self.validateTicksInterval()
+        }
+    }
     
     // MARK: - Internal Properties
     
@@ -74,6 +78,12 @@ public class XAxis: AxisBase {
             return self.calculateLabels(with: interval + adj, to: maxLabelsCount)
         }
         return Array(finalLabels.reversed())
+    }
+    
+    private func validateTicksInterval() {
+        if let newValue = self.ticksInterval, newValue < 1 {
+            self.ticksInterval = nil
+        }
     }
     
     private func updateLayout() {
