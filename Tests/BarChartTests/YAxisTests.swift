@@ -104,6 +104,21 @@ class YAxisTests: XCTestCase {
         XCTAssert(self.yAxis.formattedLabels() == [])
     }
     
+    func testMaxTicks5() {
+        let minTicksSpacing: CGFloat = 0
+        self.yAxis.minTicksSpacing = minTicksSpacing
+        self.yAxis.data = TestData.Values.Positive.Small.values1
+        XCTAssert(self.yAxis.formattedLabels() == [])
+    }
+    
+    func testMaxTicks6() {
+        let frameHeight: CGFloat = 400
+        let minTicksSpacing: CGFloat = 0
+        self.yAxis.frameHeight = frameHeight
+        self.yAxis.minTicksSpacing = minTicksSpacing
+        XCTAssert(self.yAxis.formattedLabels() == [])
+    }
+    
     func testFormatter() {
         self.yAxis.frameHeight = 400
         self.yAxis.data = TestData.Values.Positive.Small.values1

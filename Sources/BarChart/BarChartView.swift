@@ -10,6 +10,10 @@ import SwiftUI
 
 public struct BarChartView : View {
     @ObservedObject public var config = ChartConfiguration()
+
+    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
+        .makeConnectable()
+        .autoconnect()
     
     public init() {}
     
@@ -24,6 +28,9 @@ public struct BarChartView : View {
                         self.config.updateAxes(frameSize: proxy.size)
                     }
                     .onReceive(self.config.data.objectWillChange) { newData in
+                        self.config.updateAxes(frameSize: proxy.size)
+                    }
+                    .onReceive(self.orientationChanged) { _ in
                         self.config.updateAxes(frameSize: proxy.size)
                     }
                 BarChartCollectionView(xAxis: self.config.xAxis,
