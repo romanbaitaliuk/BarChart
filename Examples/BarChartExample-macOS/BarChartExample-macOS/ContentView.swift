@@ -148,7 +148,7 @@ struct ContentView: View {
     func randomEntries() -> [ChartDataEntry] {
         var entries = [ChartDataEntry]()
         guard self.maxEntriesCount > 0 else { return [] }
-        for data in 0...self.maxEntriesCount {
+        for data in 0..<self.maxEntriesCount {
             let randomDouble = Double.random(in: self.minChartValue...self.maxChartValue)
             let newEntry = ChartDataEntry(x: "\(2000+data)", y: randomDouble)
             entries.append(newEntry)

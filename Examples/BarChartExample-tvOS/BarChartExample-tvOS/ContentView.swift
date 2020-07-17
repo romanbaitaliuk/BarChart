@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  BarChartExample-iOS
+//  BarChartExample-tvOS
 //
 //  Copyright (c) 2020 Roman Baitaliuk
 //  Permission is hereby granted, free of charge, to any person
@@ -29,13 +29,9 @@ import BarChart
 
 struct ContentView: View {
     
-    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-        .makeConnectable()
-        .autoconnect()
-    
     // MARK: - Chart Properties
     
-    let chartHeight: CGFloat = 300
+    let chartHeight: CGFloat = 400
     let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
     let config = ChartConfiguration()
     @State var dataColor: Color = .red
@@ -43,19 +39,11 @@ struct ContentView: View {
     
     // MARK: - Controls Properties
     
-    @State var maxEntriesCount: Int = 0
-    @State var maxChartValueRatio: Double = 10
-    @State var minChartValueRatio: Double = -3
-    @State var xAxisTicksIntervalValue: Double = 1
+    @State var maxEntriesCount: String = ""
+    @State var maxChartValueRatio: String = ""
+    @State var minChartValueRatio: String = ""
+    @State var xAxisTicksIntervalValue: String = ""
     @State var isXAxisTicksHidden: Bool = false
-    
-    var maxChartValue: Double {
-        self.maxChartValueRatio * 5
-    }
-    
-    var minChartValue: Double {
-        self.minChartValueRatio * 5
-    }
     
     // MARK: - Views
     
@@ -65,14 +53,10 @@ struct ContentView: View {
                 VStack(spacing: 10) {
                     self.chartView()
                     self.controlsView()
-                        .onReceive(self.orientationChanged) { _ in
-                            self.config.refresh.send()
-                        }
-                    .navigationBarTitle(Text("BarChart"))
                 }
                 .padding(5)
             }
-        }.navigationViewStyle(StackNavigationViewStyle())
+        }
     }
     
     func chartView() -> some View {
@@ -110,41 +94,31 @@ struct ContentView: View {
     
     func controlsView() -> some View {
         Group {
-            VStack(spacing: 0) {
-                Stepper(value: self.$maxEntriesCount, in: 0...30) {
-                    Text("Max entries count: \(self.maxEntriesCount)")
-                }.padding(15)
-                Stepper(value: self.$maxChartValueRatio, in: (self.minChartValueRatio)...20) {
-                    Text("Max chart value: \(Int(self.maxChartValue))")
-                }.padding(15)
-                Stepper(value: self.$minChartValueRatio, in: -20...(self.maxChartValueRatio)) {
-                    Text("Min chart value: \(Int(self.minChartValue))")
-                }.padding(15)
-                
+            HStack(spacing: 0) {
+                TextField("Max entries count", text: self.$maxEntriesCount).padding(15)
+                TextField("Max chart value", text: self.$maxChartValueRatio).padding(15)
+                TextField("Min chart value", text: self.$minChartValueRatio).padding(15)
+            }
+            HStack {
                 Button(action: {
                     let newEntries = self.randomEntries()
                     self.entries = newEntries
                 }) {
                     Text("Generate entries")
-                }.randomButtonStyle()
-            }
-            HStack {
+                }
                 Button(action: {
                     self.config.data.gradientColor = nil
                     self.dataColor = Color.random
                 }) {
                     Text("Generate color")
-                }.randomButtonStyle()
+                }
                 Button(action: {
                     self.config.data.gradientColor = GradientColor(start: Color.random, end: Color.random)
                 }) {
                     Text("Generate gradient")
-                }.randomButtonStyle()
+                }
             }
-            
-            Stepper(value: self.$xAxisTicksIntervalValue, in: 1...4) {
-                Text("X axis ticks interval: \(Int(self.xAxisTicksIntervalValue))")
-            }.padding(15)
+            TextField("x- axis ticks interval", text: self.$xAxisTicksIntervalValue).padding(15)
             Toggle(isOn: self.$isXAxisTicksHidden, label: {
                 Text("X axis ticks is hidden")
             }).padding(15)
@@ -155,9 +129,11 @@ struct ContentView: View {
     
     func randomEntries() -> [ChartDataEntry] {
         var entries = [ChartDataEntry]()
-        guard self.maxEntriesCount > 0 else { return [] }
-        for data in 0..<self.maxEntriesCount {
-            let randomDouble = Double.random(in: self.minChartValue...self.maxChartValue)
+        guard let maxEntriesCount = Int(self.maxEntriesCount), maxEntriesCount > 0,
+            let minChartValue = Double(self.minChartValueRatio),
+            let maxChartValue = Double(self.maxChartValueRatio) else { return [] }
+        for data in 0..<maxEntriesCount {
+            let randomDouble = Double.random(in: minChartValue...maxChartValue)
             let newEntry = ChartDataEntry(x: "\(2000+data)", y: randomDouble)
             entries.append(newEntry)
         }
@@ -170,22 +146,5 @@ extension Color {
         return Color(red: .random(in: 0...1),
                      green: .random(in: 0...1),
                      blue: .random(in: 0...1))
-    }
-}
-
-// MARK: - Modifers
-
-struct RandomButtonStyle: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding(10)
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(8)
-    }
-}
-
-extension View {
-    func randomButtonStyle() -> some View {
-        self.modifier(RandomButtonStyle())
     }
 }
