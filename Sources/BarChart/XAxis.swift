@@ -68,7 +68,7 @@ public class XAxis: AxisBase {
     private func labels() -> [ChartDataEntry] {
         guard let frameWidth = self.frameWidth,
             !self.data.isEmpty else { return [] }
-        let totalLabelsWidth = self.data.compactMap { $0.x.width(font: self.labelsUIFont) }.reduce(0, +)
+        let totalLabelsWidth = self.data.compactMap { $0.x.width(ctFont: self.labelsCTFont) }.reduce(0, +)
         let averageLabelWidth = totalLabelsWidth / CGFloat(data.count)
         
         guard averageLabelWidth != 0 else { return [] }

@@ -37,22 +37,11 @@ extension String {
     
     func size(ctFont: CTFont) -> CGSize {
         let attributes = [NSAttributedString.Key.init(kCTFontAttributeName as String): ctFont]
-        let attString = NSAttributedString(string: self, attributes: attributes)
+        let attString = NSAttributedString(string: self == "" ? " " : self, attributes: attributes)
         let framesetter = CTFramesetterCreateWithAttributedString(attString)
-        let range = CFRange(location: 0, length: 0)
-        let frame = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, range, nil, .zero, nil)
+        let range = CFRange(location: 0, length: self.count)
+        let size = CGSize(width: 10000, height: 10000)
+        let frame = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, range, nil, size, nil)
         return frame
-    }
-    
-    func width(font: UIFont) -> CGFloat {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        let size = self.size(withAttributes: fontAttributes)
-        return size.width
-    }
-
-    func height(font: UIFont) -> CGFloat {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        let size = self.size(withAttributes: fontAttributes)
-        return size.height
     }
 }

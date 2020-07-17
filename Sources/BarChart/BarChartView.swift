@@ -59,10 +59,10 @@ public struct BarChartView : View {
     }
     
     private func topPadding() -> CGFloat {
-        return String().height(font: self.config.yAxis.labelsUIFont) / 2
+        return String().height(ctFont: self.config.yAxis.labelsCTFont) / 2
     }
     
     private func bottomPadding() -> CGFloat {
-        return self.topPadding() + String().height(font: self.config.xAxis.labelsUIFont)
+        return self.topPadding() + String().height(ctFont: self.config.xAxis.labelsCTFont)
     }
 }

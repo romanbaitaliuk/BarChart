@@ -17,7 +17,7 @@ Lightweight and easy to use SwiftUI chart library for iOS and macOS.
 
 ## Requirements
 
-- iOS 13+ / macOS 10.15+ / watchOS 6+
+- iOS 13+ / macOS 10.15+ / tvOS 13+ / watchOS 6+
 - Xcode 11.0+
 - Swift 5+
 
