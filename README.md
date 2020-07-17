@@ -32,5 +32,9 @@ For more examples open `/Examples/BarChartExample-iOS/BarChartExample-iOS.xcodep
 
 BarChart is released under the MIT license. [See LICENSE](https://github.com/dawigr/BarChart/blob/master/LICENSE) for details.
 
-## Donations
+## Help
 
+If you like what you see here, and want to support the work being done in this repository, you could:
+* Contribute code, issues and pull requests
+* Let people know this library exists (:fire: spread the word :fire:)
+* [![Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3TRUH8CR2LZVG&source=url) (You can buy me a beer, or you can buy me dinner :-)
