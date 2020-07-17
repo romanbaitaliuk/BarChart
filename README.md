@@ -37,6 +37,4 @@ BarChart is released under the MIT license. [See LICENSE](https://github.com/daw
 If you like the library, you could:
 - Contribute code, issues and pull requests
 - Let other people know about it
-- Donate any amount to accelaerate new feature development
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3JRRFXS8K53MU)
+- [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7D5E9VK2WYZUY) any amount to accelaerate new feature development
