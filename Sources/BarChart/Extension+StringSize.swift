@@ -43,4 +43,16 @@ extension String {
         let frame = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, range, nil, .zero, nil)
         return frame
     }
+    
+    func width(font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.width
+    }
+
+    func height(font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.height
+    }
 }
