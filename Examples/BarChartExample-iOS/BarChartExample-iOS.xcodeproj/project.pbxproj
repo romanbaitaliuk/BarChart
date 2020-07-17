@@ -13,7 +13,7 @@
 		D376827A24BF02F800D87BAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D376827924BF02F800D87BAB /* Preview Assets.xcassets */; };
 		D376827D24BF02F800D87BAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D376827B24BF02F800D87BAB /* LaunchScreen.storyboard */; };
 		D376828524BF033300D87BAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D376828424BF033300D87BAB /* ContentView.swift */; };
-		D376828824BF036F00D87BAB /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D376828724BF036F00D87BAB /* BarChart */; };
+		D3FC653124C1ACE600DCA4F4 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D3FC653024C1ACE600DCA4F4 /* BarChart */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D376828824BF036F00D87BAB /* BarChart in Frameworks */,
+				D3FC653124C1ACE600DCA4F4 /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +94,7 @@
 			);
 			name = "BarChartExample-iOS";
 			packageProductDependencies = (
-				D376828724BF036F00D87BAB /* BarChart */,
+				D3FC653024C1ACE600DCA4F4 /* BarChart */,
 			);
 			productName = "BarChartExample-iOS";
 			productReference = D376826D24BF02F600D87BAB /* BarChartExample-iOS.app */;
@@ -125,7 +125,7 @@
 			);
 			mainGroup = D376826424BF02F600D87BAB;
 			packageReferences = (
-				D376828624BF036F00D87BAB /* XCRemoteSwiftPackageReference "BarChart" */,
+				D3FC652F24C1ACE600DCA4F4 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D376826E24BF02F600D87BAB /* Products */;
 			projectDirPath = "";
@@ -297,6 +297,7 @@
 				DEVELOPMENT_TEAM = NQ55NQ9ATC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "BarChartExample-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -317,6 +318,7 @@
 				DEVELOPMENT_TEAM = NQ55NQ9ATC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "BarChartExample-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -352,20 +354,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D376828624BF036F00D87BAB /* XCRemoteSwiftPackageReference "BarChart" */ = {
+		D3FC652F24C1ACE600DCA4F4 /* XCRemoteSwiftPackageReference "BarChart" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dawigr/BarChart.git";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 1.0.5;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D376828724BF036F00D87BAB /* BarChart */ = {
+		D3FC653024C1ACE600DCA4F4 /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D376828624BF036F00D87BAB /* XCRemoteSwiftPackageReference "BarChart" */;
+			package = D3FC652F24C1ACE600DCA4F4 /* XCRemoteSwiftPackageReference "BarChart" */;
 			productName = BarChart;
 		};
 /* End XCSwiftPackageProductDependency section */
