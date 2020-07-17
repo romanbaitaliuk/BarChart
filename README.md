@@ -32,7 +32,7 @@ https://github.com/dawigr/BarChart.git
 
 ## Usage
 
-[See usage guide](https://github.com/dawigr/BarChart/blob/master/Usage.md) for details
+[See Wiki](https://github.com/dawigr/BarChart/wiki/Usage) for usage details
 
 ## Help
 
