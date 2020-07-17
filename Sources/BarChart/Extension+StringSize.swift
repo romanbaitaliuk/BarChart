@@ -27,15 +27,20 @@
 import SwiftUI
 
 extension String {
-    func width(font: UIFont) -> CGFloat {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        let size = self.size(withAttributes: fontAttributes)
-        return size.width
+    func width(ctFont: CTFont) -> CGFloat {
+        return self.size(ctFont: ctFont).width
     }
 
-    func height(font: UIFont) -> CGFloat {
-        let fontAttributes = [NSAttributedString.Key.font: font]
-        let size = self.size(withAttributes: fontAttributes)
-        return size.height
+    func height(ctFont: CTFont) -> CGFloat {
+        return self.size(ctFont: ctFont).height
+    }
+    
+    func size(ctFont: CTFont) -> CGSize {
+        let attributes = [NSAttributedString.Key.init(kCTFontAttributeName as String): ctFont]
+        let attString = NSAttributedString(string: self, attributes: attributes)
+        let framesetter = CTFramesetterCreateWithAttributedString(attString)
+        let range = CFRange(location: 0, length: 0)
+        let frame = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, range, nil, .zero, nil)
+        return frame
     }
 }

@@ -32,6 +32,9 @@ public class ChartConfiguration: ObservableObject {
     public var xAxis = XAxis()
     public var yAxis = YAxis()
     
+    /// Refresh observable is used to update axes frame
+    public let refresh = ObservableObjectPublisher()
+    
     private var dataCancellable: AnyCancellable?
     private var xAxisCancellable: AnyCancellable?
     private var yAxisCancellable: AnyCancellable?

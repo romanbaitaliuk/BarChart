@@ -30,6 +30,7 @@ public class YAxis: AxisBase {
     
     // MARK: - Public Properties
     
+    /// Minimum spacing between the ticks in pixels
     @Published public var minTicksSpacing: CGFloat = 40.0
     
     @Published public var formatter: ((Double, Int) -> String) = {

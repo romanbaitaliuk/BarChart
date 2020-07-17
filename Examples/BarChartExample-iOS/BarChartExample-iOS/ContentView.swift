@@ -29,6 +29,10 @@ import BarChart
 
 struct ContentView: View {
     
+    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
+        .makeConnectable()
+        .autoconnect()
+    
     // MARK: - Chart Properties
     
     let chartHeight: CGFloat = 300
@@ -61,6 +65,9 @@ struct ContentView: View {
                 VStack(spacing: 10) {
                     self.chartView()
                     self.controlsView()
+                        .onReceive(self.orientationChanged) { _ in
+                            self.config.refresh.send()
+                        }
                     .navigationBarTitle(Text("BarChart"))
                 }
                 .padding(5)
@@ -97,7 +104,6 @@ struct ContentView: View {
                         return String(format: "%.\(decimals)f\(format)", value)
                     })
                     .padding(15)
-                    .foregroundColor(.white)
             }
         }.frame(height: self.chartHeight)
     }
