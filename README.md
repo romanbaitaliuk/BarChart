@@ -1,5 +1,5 @@
 ## SwiftUI BarChart
-Lightweight and easy to use SwiftUI chart library for iOS and macOS.
+Lightweight and easy to use SwiftUI chart library for all Apple platforms.
 
 <center>
 <img src="Resources/bar-chart-screenshot.png"/>
