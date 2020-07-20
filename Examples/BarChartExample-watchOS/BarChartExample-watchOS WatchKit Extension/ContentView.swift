@@ -25,7 +25,6 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 import SwiftUI
-import Combine
 import BarChart
 
 struct ContentView: View {
