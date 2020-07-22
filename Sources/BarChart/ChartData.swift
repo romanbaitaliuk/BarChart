@@ -37,18 +37,10 @@ public struct ChartDataEntry: Identifiable, Equatable {
     }
 }
 
-public class ChartData: ObservableObject {
-    @Published public var entries: [ChartDataEntry]
-    @Published public var gradientColor: GradientColor?
-    @Published public var color: Color = .red
-    
-    convenience init() {
-        self.init(entries: [])
-    }
-    
-    init(entries: [ChartDataEntry]) {
-        self.entries = entries
-    }
+public struct ChartData {
+    public var entries: [ChartDataEntry] = []
+    public var gradientColor: GradientColor?
+    public var color: Color = .red
     
     var yValues: [Double] {
         return self.entries.map { $0.y }

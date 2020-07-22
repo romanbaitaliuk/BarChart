@@ -29,10 +29,13 @@ import BarChart
 
 struct ContentView: View {
     
+    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
+        .makeConnectable()
+        .autoconnect()
+    
     // MARK: - Chart Properties
     
     let chartHeight: CGFloat = 300
-    let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
     let config = ChartConfiguration()
     
     // MARK: - Controls Properties
@@ -68,14 +71,15 @@ struct ContentView: View {
 //            } else {
                 BarChartView(config: self.config)
                     .onAppear() {
+                        let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
                         self.config.data.color = .red
                         self.config.xAxis.labelsColor = .gray
-                        self.config.xAxis.ticksColor = self.isXAxisTicksHidden ? .clear : .gray
-                        self.config.xAxis.labelsCTFont = self.labelsFont
+                        self.config.xAxis.ticksColor = .gray
+                        self.config.xAxis.labelsCTFont = labelsFont
                         self.config.xAxis.ticksDash = [2, 4]
                         self.config.yAxis.labelsColor = .gray
                         self.config.yAxis.ticksColor = .gray
-                        self.config.yAxis.labelsCTFont = self.labelsFont
+                        self.config.yAxis.labelsCTFont = labelsFont
                         self.config.yAxis.ticksDash = [2, 4]
                         self.config.yAxis.minTicksSpacing = 30.0
                         self.config.yAxis.formatter = { (value, decimals) in
@@ -84,10 +88,13 @@ struct ContentView: View {
                         }
                     }
                     .onReceive([self.isXAxisTicksHidden].publisher.first()) { (value) in
-                        self.config.yAxis.ticksColor = value ? .clear : .gray
+                        self.config.xAxis.ticksColor = value ? .clear : .gray
                     }
                     .onReceive([self.xAxisTicksIntervalValue].publisher.first()) { (value) in
                         self.config.xAxis.ticksInterval = Int(value)
+                    }
+                    .onReceive(self.orientationChanged) { _ in
+                        self.config.objectWillChange.send()
                     }
                     .padding(15)
 //            }

@@ -28,6 +28,8 @@ import SwiftUI
 
 public struct BarChartView : View {
     @ObservedObject var config: ChartConfiguration
+    @State var xAxis = XAxis()
+    @State var yAxis = YAxis()
     
     public init(config: ChartConfiguration) {
         self.config = config
@@ -36,42 +38,26 @@ public struct BarChartView : View {
     public var body: some View {
         ZStack {
             GeometryReader { proxy in
-                CoordinateSystemView(yAxis: YAxis(frameHeight: proxy.size.height,
-                                                  data: self.config.data.yValues,
-                                                  ref: self.config.yAxis),
-                                     xAxis: XAxis(frameWidth: proxy.size.width,
-                                                  data: self.config.data.entries,
-                                                  ref: self.config.xAxis),
+                CoordinateSystemView(yAxis: self.yAxis,
+                                     xAxis: self.xAxis,
                                      frameSize: proxy.size,
                                      labelOffsetY: self.bottomPadding())
                     .onReceive(self.config.objectWillChange) { _ in
-                        print("changed")
+                        self.yAxis = YAxis(frameHeight: proxy.size.height,
+                                           data: self.config.data.yValues,
+                                           ref: self.config.yAxis)
+                        self.xAxis = XAxis(frameWidth: proxy.size.width - self.yAxis.maxLabelWidth,
+                                           data: self.config.data.entries,
+                                           ref: self.config.xAxis)
                     }
-                BarChartCollectionView(yAxis: YAxis(frameHeight: proxy.size.height,
-                                                    data: self.config.data.yValues,
-                                                    ref: self.config.yAxis),
-                                       xAxis: XAxis(frameWidth: proxy.size.width,
-                                                    data: self.config.data.entries,
-                                                    ref: self.config.xAxis),
+                BarChartCollectionView(yAxis: self.yAxis,
+                                       xAxis: self.xAxis,
                                        gradient: self.config.data.gradientColor?.gradient(),
-                                       color: self.config.data.color,
-                                       frameHeight: proxy.size.height)
+                                       color: self.config.data.color)
             }
             .padding([.top], self.topPadding())
             .padding([.bottom], self.bottomPadding())
         }
-    }
-    
-    private func xAxis(width: CGFloat) -> XAxis {
-        return XAxis(frameWidth: width,
-                     data: self.config.data.entries,
-                     ref: self.config.xAxis)
-    }
-    
-    private func yAxis(height: CGFloat) -> YAxis {
-        return YAxis(frameHeight: height,
-                     data: self.config.data.yValues,
-                     ref: self.config.yAxis)
     }
     
     private func topPadding() -> CGFloat {

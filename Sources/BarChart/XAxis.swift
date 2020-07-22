@@ -35,10 +35,10 @@ struct XAxis: Identifiable {
     var layout: XAxisLayout {
         XAxisLayout(frameWidth: self.frameWidth, dataCount: self.data.count)
     }
-    
-    init(frameWidth: CGFloat,
-         data: [ChartDataEntry],
-         ref: XAxisReference) {
+        
+    init(frameWidth: CGFloat = 0,
+         data: [ChartDataEntry] = [],
+         ref: XAxisReference = XAxisReference()) {
         self.frameWidth = frameWidth
         self.data = data
         self.ref = ref

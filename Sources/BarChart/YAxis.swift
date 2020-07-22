@@ -47,9 +47,9 @@ struct YAxis: Identifiable {
         return self.formattedLabels().map { $0.width(ctFont: self.ref.labelsCTFont) }.max() ?? 0
     }
     
-    init(frameHeight: CGFloat,
-         data: [Double],
-         ref: YAxisReference) {
+    init(frameHeight: CGFloat = 0,
+         data: [Double] = [],
+         ref: YAxisReference = YAxisReference()) {
         self.frameHeight = frameHeight
         self.data = data
         self.ref = ref

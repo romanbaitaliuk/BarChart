@@ -28,23 +28,18 @@ import SwiftUI
 import Combine
 
 public class ChartConfiguration: ObservableObject {
-    public var data = ChartData()
+    @Published public var data = ChartData()
     public var xAxis = XAxisReference()
     public var yAxis = YAxisReference()
     
-    private var dataCancellable: AnyCancellable?
     private var xAxisCancellable: AnyCancellable?
     private var yAxisCancellable: AnyCancellable?
     
     public init() {
-        self.dataCancellable = self.data.objectWillChange.sink { value in
-            self.objectWillChange.send()
-        }
-        
         self.xAxisCancellable = self.xAxis.objectWillChange.sink(receiveValue: { _ in
             self.objectWillChange.send()
         })
-
+        
         self.yAxisCancellable = self.yAxis.objectWillChange.sink(receiveValue: { _ in
             self.objectWillChange.send()
         })
