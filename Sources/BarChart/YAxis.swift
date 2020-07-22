@@ -34,8 +34,7 @@ struct YAxis: Identifiable {
     
     var scaler: YAxisScaler? {
         guard let minValue = self.data.min(),
-            let maxValue = self.data.max(),
-            let maxTicks = self.maxTicks else {
+            let maxValue = self.data.max() else {
                 return nil
         }
         let adjustedMin = minValue > 0 ? 0 : minValue
@@ -55,9 +54,8 @@ struct YAxis: Identifiable {
         self.ref = ref
     }
     
-    private var maxTicks: Int? {
-        guard self.ref.minTicksSpacing != 0 else { return nil }
-        return Int(frameHeight / self.ref.minTicksSpacing)
+    private var maxTicks: Int {
+        return Int(self.frameHeight / self.ref.minTicksSpacing)
     }
     
     func formattedLabels() -> [String] {
@@ -72,7 +70,7 @@ struct YAxis: Identifiable {
     func pixelsRatio() -> CGFloat? {
         guard let verticalDistance = self.verticalDistance(),
             verticalDistance != 0 else { return nil }
-        return frameHeight / CGFloat(verticalDistance)
+        return self.frameHeight / CGFloat(verticalDistance)
     }
     
     func centre() -> CGFloat? {

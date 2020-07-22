@@ -45,7 +45,6 @@ public class XAxisReference: AxisBase {
         }
     }
     
-    // TODO: Set default to 1
     private func validateTicksInterval() {
         if let newValue = self.ticksInterval, newValue < 1 {
             self.ticksInterval = nil
@@ -54,12 +53,21 @@ public class XAxisReference: AxisBase {
     // TODO: Move validations here
 }
 
-// TODO: Validate minTicksSpacing
 public class YAxisReference: AxisBase {
     /// Minimum spacing between the ticks in pixels
-    @Published public var minTicksSpacing: CGFloat = 40.0
+    @Published public var minTicksSpacing: CGFloat = 40.0 {
+        didSet {
+            self.validateMinTicksSpacing()
+        }
+    }
     
     @Published public var formatter: ((Double, Int) -> String) = {
         return { return String(format: "%.\($1)f", $0) }
     }()
+    
+    private func validateMinTicksSpacing() {
+        if minTicksSpacing <= 0 {
+            self.minTicksSpacing = 40.0
+        }
+    }
 }
