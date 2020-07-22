@@ -37,6 +37,7 @@ struct ContentView: View {
     
     let chartHeight: CGFloat = 300
     let config = ChartConfiguration()
+    @State var entries = [ChartDataEntry]()
     
     // MARK: - Controls Properties
     
@@ -66,9 +67,9 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .padding(5)
                 .shadow(color: .black, radius: 5)
-//            if self.config.data.entries.isEmpty {
-//                Text("No data")
-//            } else {
+            if self.entries.isEmpty {
+                Text("No data")
+            } else {
                 BarChartView(config: self.config)
                     .onAppear() {
                         let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
@@ -97,19 +98,19 @@ struct ContentView: View {
                         self.config.objectWillChange.send()
                     }
                     .padding(15)
-//            }
+            }
         }.frame(height: self.chartHeight)
     }
     
     func controlsView() -> some View {
         Group {
             VStack(spacing: 0) {
-                // TODO: Add new presets
                 Stepper(value: self.$maxEntriesCount, in: 0...30) {
                     Text("Max entries count: \(self.maxEntriesCount)")
                 }.padding(15)
                 Button(action: {
                     let newEntries = self.randomEntries()
+                    self.entries = newEntries
                     self.config.data.entries = newEntries
                 }) {
                     Text("Generate entries")
@@ -117,8 +118,6 @@ struct ContentView: View {
             }
             HStack {
                 Button(action: {
-                    // TODO: Improve this
-                    self.config.data.gradientColor = nil
                     self.config.data.color = Color.random
                 }) {
                     Text("Generate color")
@@ -129,7 +128,6 @@ struct ContentView: View {
                     Text("Generate gradient")
                 }.randomButtonStyle()
             }
-            
             Stepper(value: self.$xAxisTicksIntervalValue, in: 1...4) {
                 Text("X axis ticks interval: \(Int(self.xAxisTicksIntervalValue))")
             }.padding(15)
