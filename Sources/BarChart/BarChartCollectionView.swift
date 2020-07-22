@@ -27,18 +27,18 @@
 import SwiftUI
 
 struct BarChartCollectionView: View {
-    @ObservedObject var xAxis: XAxis
-    @ObservedObject var yAxis: YAxis
+    let yAxis: YAxis
+    let xAxis: XAxis
     let gradient: Gradient?
     let color: Color
     let frameHeight: CGFloat
     
     var body: some View {
         HStack(alignment: .bottom,
-               spacing: self.xAxis.layout?.spacing) {
-                if self.xAxis.layout?.barWidth != nil {
+               spacing: self.xAxis.layout.spacing) {
+                if self.xAxis.layout.barWidth != nil {
                     ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
-                        BarChartCell(width: self.xAxis.layout!.barWidth!,
+                        BarChartCell(width: self.xAxis.layout.barWidth!,
                                      height: self.barHeight(at: index),
                                      gradient: self.gradient,
                                      color: self.color)
@@ -59,7 +59,7 @@ struct BarChartCollectionView: View {
     }
     
     func offsetX() -> CGFloat {
-        guard let spacing = self.xAxis.layout?.spacing else { return 0 }
+        guard let spacing = self.xAxis.layout.spacing else { return 0 }
         // Getting offset when only one entry is shown
         return self.xAxis.data.count == 1 ? spacing : 0
     }

@@ -27,8 +27,8 @@
 import SwiftUI
 
 struct CoordinateSystemView: View {
-    @ObservedObject var xAxis: XAxis
-    @ObservedObject var yAxis: YAxis
+    let yAxis: YAxis
+    let xAxis: XAxis
     let frameSize: CGSize
     
     // Offset for x labels to draw outside of the given size
@@ -82,7 +82,7 @@ struct LabelView: View {
 }
 
 struct XAxisView: View {
-    @ObservedObject var xAxis: XAxis
+    let xAxis: XAxis
     let frameSize: CGSize
     let labelOffsetY: CGFloat
     
@@ -90,12 +90,12 @@ struct XAxisView: View {
         ForEach((0..<self.xAxis.formattedLabels().count), id: \.self) { index in
             VStack(alignment: .center) {
                 TickView(points: self.tickPoints(index: index),
-                             dash: self.xAxis.ticksDash,
-                             color: self.xAxis.ticksColor,
-                             isInverted: false)
+                         dash: self.xAxis.ref.ticksDash,
+                         color: self.xAxis.ref.ticksColor,
+                         isInverted: false)
                 LabelView(text: self.xAxis.formattedLabels()[index],
-                          font: self.xAxis.labelsFont,
-                          color: self.xAxis.labelsColor)
+                          font: self.xAxis.ref.labelsFont,
+                          color: self.xAxis.ref.labelsColor)
                     .offset(x: self.labelOffsetX(index: index),
                             y: self.labelOffsetY)
             }
@@ -111,7 +111,7 @@ struct XAxisView: View {
     func tickX(at index: Int) -> CGFloat {
         let chartEntry = self.xAxis.chartEntry(at: index)
         guard let indexAtFullRange = self.xAxis.data.firstIndex(where: { $0 == chartEntry }),
-            let centre = self.xAxis.layout?.barCentre(at: indexAtFullRange) else { return 0 }
+            let centre = self.xAxis.layout.barCentre(at: indexAtFullRange) else { return 0 }
         return centre
     }
     
@@ -122,19 +122,19 @@ struct XAxisView: View {
 }
 
 struct YAxisView: View {
-    @ObservedObject var yAxis: YAxis
+    let yAxis: YAxis
     let frameSize: CGSize
     
     var body: some View {
         ForEach((0..<self.yAxis.formattedLabels().count), id: \.self) { index in
             HStack(alignment: .center) {
                 TickView(points: self.tickPoints(index: index),
-                             dash: self.yAxis.labelValue(at: index) == 0 ? [] : self.yAxis.ticksDash,
-                             color: self.yAxis.ticksColor,
-                             isInverted: true)
+                         dash: self.yAxis.labelValue(at: index) == 0 ? [] : self.yAxis.ref.ticksDash,
+                         color: self.yAxis.ref.ticksColor,
+                         isInverted: true)
                 LabelView(text: self.yAxis.formattedLabels()[index],
-                          font: self.yAxis.labelsFont,
-                          color: self.yAxis.labelsColor)
+                          font: self.yAxis.ref.labelsFont,
+                          color: self.yAxis.ref.labelsColor)
                     .offset(y: self.labelOffsetY(at: index))
             }
         }

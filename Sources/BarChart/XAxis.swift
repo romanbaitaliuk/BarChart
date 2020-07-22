@@ -26,55 +26,41 @@
 
 import SwiftUI
 
-public class XAxis: AxisBase {
+struct XAxis: Identifiable {
+    let id = UUID()
+    let data: [ChartDataEntry]
+    let frameWidth: CGFloat
+    let ref: XAxisReference
     
-    // MARK: - Public Properties
-    
-    /// Horizontal interval between the bars
-    @Published public var ticksInterval: Int? {
-        didSet {
-            self.validateTicksInterval()
-        }
+    var layout: XAxisLayout {
+        XAxisLayout(frameWidth: self.frameWidth, dataCount: self.data.count)
     }
     
-    // MARK: - Internal Properties
-    
-    @Published var data: [ChartDataEntry] = [] {
-        didSet {
-            self.updateLayout()
-        }
+    init(frameWidth: CGFloat,
+         data: [ChartDataEntry],
+         ref: XAxisReference) {
+        self.frameWidth = frameWidth
+        self.data = data
+        self.ref = ref
     }
-    
-    @Published var frameWidth: CGFloat? {
-        didSet {
-            self.updateLayout()
-        }
-    }
-    
-    var layout: XAxisLayout?
-    
-    // MARK: - Internal Methods
     
     func chartEntry(at index: Int) -> ChartDataEntry {
         return self.labels()[index]
     }
     
-    override func formattedLabels() -> [String] {
+    func formattedLabels() -> [String] {
         return self.labels().map { $0.x }
     }
     
-    // MARK: - Private Methods
-    
     private func labels() -> [ChartDataEntry] {
-        guard let frameWidth = self.frameWidth,
-            !self.data.isEmpty else { return [] }
-        let totalLabelsWidth = self.data.compactMap { $0.x.width(ctFont: self.labelsCTFont) }.reduce(0, +)
+        guard !self.data.isEmpty else { return [] }
+        let totalLabelsWidth = self.data.compactMap { $0.x.width(ctFont: self.ref.labelsCTFont) }.reduce(0, +)
         let averageLabelWidth = totalLabelsWidth / CGFloat(data.count)
         
         guard averageLabelWidth != 0 else { return [] }
         let maxLabelsCount = Int((frameWidth / averageLabelWidth))
         
-        if let interval = self.ticksInterval {
+        if let interval = self.ref.ticksInterval {
             return self.calculateLabels(with: interval, to: maxLabelsCount)
         }
         
@@ -93,23 +79,9 @@ public class XAxis: AxisBase {
             finalLabels.append(reversedData[index])
         }
         if finalLabels.count > maxLabelsCount {
-            let adj = self.ticksInterval ?? 1
+            let adj = self.ref.ticksInterval ?? 1
             return self.calculateLabels(with: interval + adj, to: maxLabelsCount)
         }
         return Array(finalLabels.reversed())
-    }
-    
-    private func validateTicksInterval() {
-        if let newValue = self.ticksInterval, newValue < 1 {
-            self.ticksInterval = nil
-        }
-    }
-    
-    private func updateLayout() {
-        guard let frameWidth = self.frameWidth else {
-            self.layout = nil
-            return
-        }
-        self.layout = XAxisLayout(frameWidth: frameWidth, dataCount: self.data.count)
     }
 }

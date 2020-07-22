@@ -26,46 +26,43 @@
 
 import SwiftUI
 
-public class YAxis: AxisBase {
+struct YAxis: Identifiable {
+    let id = UUID()
+    let data: [Double]
+    let frameHeight: CGFloat
+    let ref: YAxisReference
     
-    // MARK: - Public Properties
-    
-    /// Minimum spacing between the ticks in pixels
-    @Published public var minTicksSpacing: CGFloat = 40.0
-    
-    @Published public var formatter: ((Double, Int) -> String) = {
-        return { return String(format: "%.\($1)f", $0) }
-    }()
-    
-    // MARK: - Internal Properties
-    
-    @Published var data: [Double] = [] {
-        didSet {
-            self.updateScaler()
+    var scaler: YAxisScaler? {
+        guard let minValue = self.data.min(),
+            let maxValue = self.data.max(),
+            let maxTicks = self.maxTicks else {
+                return nil
         }
+        let adjustedMin = minValue > 0 ? 0 : minValue
+        let adjustedMax = maxValue < 0 ? 0 : maxValue
+        return YAxisScaler(min: adjustedMin, max: adjustedMax, maxTicks: maxTicks)
     }
     
-    @Published var frameHeight: CGFloat? {
-        didSet {
-            self.updateScaler()
-        }
+    var maxLabelWidth: CGFloat {
+        return self.formattedLabels().map { $0.width(ctFont: self.ref.labelsCTFont) }.max() ?? 0
     }
     
-    var scaler: YAxisScaler?
-    
-    // MARK: - Private Properties
+    init(frameHeight: CGFloat,
+         data: [Double],
+         ref: YAxisReference) {
+        self.frameHeight = frameHeight
+        self.data = data
+        self.ref = ref
+    }
     
     private var maxTicks: Int? {
-        guard let frameHeight = self.frameHeight,
-            self.minTicksSpacing != 0 else { return nil }
-        return Int(frameHeight / self.minTicksSpacing)
+        guard self.ref.minTicksSpacing != 0 else { return nil }
+        return Int(frameHeight / self.ref.minTicksSpacing)
     }
     
-    // MARK: - Internal Methods
-    
-    override func formattedLabels() -> [String] {
+    func formattedLabels() -> [String] {
         guard let tickSpacing = self.scaler?.tickSpacing else { return [] }
-        return self.scaler?.scaledValues().map { self.formatter($0, tickSpacing.decimalsCount()) } ?? []
+        return self.scaler?.scaledValues().map { self.ref.formatter($0, tickSpacing.decimalsCount()) } ?? []
     }
     
     func labelValue(at index: Int) -> Double? {
@@ -73,8 +70,7 @@ public class YAxis: AxisBase {
     }
     
     func pixelsRatio() -> CGFloat? {
-        guard let frameHeight = self.frameHeight,
-            let verticalDistance = self.verticalDistance(),
+        guard let verticalDistance = self.verticalDistance(),
             verticalDistance != 0 else { return nil }
         return frameHeight / CGFloat(verticalDistance)
     }
@@ -89,20 +85,6 @@ public class YAxis: AxisBase {
         guard let verticalDistance = self.verticalDistance(),
             verticalDistance != 0 else { return [] }
         return self.data.map { $0 / verticalDistance }
-    }
-    
-    // MARK: - Private Methods
-    
-    private func updateScaler() {
-        guard let minValue = self.data.min(),
-            let maxValue = self.data.max(),
-            let maxTicks = self.maxTicks else {
-                self.scaler = nil
-                return
-        }
-        let adjustedMin = minValue > 0 ? 0 : minValue
-        let adjustedMax = maxValue < 0 ? 0 : maxValue
-        self.scaler = YAxisScaler(min: adjustedMin, max: adjustedMax, maxTicks: maxTicks)
     }
     
     private func verticalDistance() -> Double? {

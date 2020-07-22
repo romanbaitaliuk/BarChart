@@ -35,12 +35,31 @@ public class AxisBase: ObservableObject {
     var labelsFont: Font {
         return Font(self.labelsCTFont)
     }
-    
-    var maxLabelWidth: CGFloat {
-        return self.formattedLabels().map { $0.width(ctFont: self.labelsCTFont) }.max() ?? 0
+}
+
+public class XAxisReference: AxisBase {
+    /// Horizontal interval between the bars
+    @Published public var ticksInterval: Int? {
+        didSet {
+            self.validateTicksInterval()
+        }
     }
     
-    func formattedLabels() -> [String] {
-        fatalError("Needs to be overridden")
+    // TODO: Set default to 1
+    private func validateTicksInterval() {
+        if let newValue = self.ticksInterval, newValue < 1 {
+            self.ticksInterval = nil
+        }
     }
+    // TODO: Move validations here
+}
+
+// TODO: Validate minTicksSpacing
+public class YAxisReference: AxisBase {
+    /// Minimum spacing between the ticks in pixels
+    @Published public var minTicksSpacing: CGFloat = 40.0
+    
+    @Published public var formatter: ((Double, Int) -> String) = {
+        return { return String(format: "%.\($1)f", $0) }
+    }()
 }

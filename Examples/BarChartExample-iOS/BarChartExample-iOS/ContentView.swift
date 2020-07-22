@@ -29,33 +29,17 @@ import BarChart
 
 struct ContentView: View {
     
-    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-        .makeConnectable()
-        .autoconnect()
-    
     // MARK: - Chart Properties
     
     let chartHeight: CGFloat = 300
     let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
     let config = ChartConfiguration()
-    @State var dataColor: Color = .red
-    @State var entries: [ChartDataEntry] = []
     
     // MARK: - Controls Properties
     
     @State var maxEntriesCount: Int = 0
-    @State var maxChartValueRatio: Double = 10
-    @State var minChartValueRatio: Double = -3
     @State var xAxisTicksIntervalValue: Double = 1
     @State var isXAxisTicksHidden: Bool = false
-    
-    var maxChartValue: Double {
-        self.maxChartValueRatio * 5
-    }
-    
-    var minChartValue: Double {
-        self.minChartValueRatio * 5
-    }
     
     // MARK: - Views
     
@@ -65,9 +49,6 @@ struct ContentView: View {
                 VStack(spacing: 10) {
                     self.chartView()
                     self.controlsView()
-                        .onReceive(self.orientationChanged) { _ in
-                            self.config.refresh.send()
-                        }
                     .navigationBarTitle(Text("BarChart"))
                 }
                 .padding(5)
@@ -82,56 +63,56 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .padding(5)
                 .shadow(color: .black, radius: 5)
-            if self.entries.isEmpty {
-                Text("No data")
-            } else {
-                BarChartView()
-                    .modifying(\.config, value: self.config)
-                    .modifying(\.config.data.entries, value: self.entries)
-                    .modifying(\.config.data.color, value: self.dataColor)
-                    .modifying(\.config.xAxis.labelsColor, value: .gray)
-                    .modifying(\.config.xAxis.ticksColor, value: self.isXAxisTicksHidden ? .clear : .gray)
-                    .modifying(\.config.xAxis.labelsCTFont, value: self.labelsFont)
-                    .modifying(\.config.xAxis.ticksDash, value: [2, 4])
-                    .modifying(\.config.xAxis.ticksInterval, value: Int(self.xAxisTicksIntervalValue))
-                    .modifying(\.config.yAxis.labelsColor, value: .gray)
-                    .modifying(\.config.yAxis.ticksColor, value: .gray)
-                    .modifying(\.config.yAxis.labelsCTFont, value: self.labelsFont)
-                    .modifying(\.config.yAxis.ticksDash, value: [3, 6])
-                    .modifying(\.config.yAxis.minTicksSpacing, value: 30.0)
-                    .modifying(\.config.yAxis.formatter, value: { (value, decimals) in
-                        let format = value == 0 ? "" : "b"
-                        return String(format: "%.\(decimals)f\(format)", value)
-                    })
+//            if self.config.data.entries.isEmpty {
+//                Text("No data")
+//            } else {
+                BarChartView(config: self.config)
+                    .onAppear() {
+                        self.config.data.color = .red
+                        self.config.xAxis.labelsColor = .gray
+                        self.config.xAxis.ticksColor = self.isXAxisTicksHidden ? .clear : .gray
+                        self.config.xAxis.labelsCTFont = self.labelsFont
+                        self.config.xAxis.ticksDash = [2, 4]
+                        self.config.yAxis.labelsColor = .gray
+                        self.config.yAxis.ticksColor = .gray
+                        self.config.yAxis.labelsCTFont = self.labelsFont
+                        self.config.yAxis.ticksDash = [2, 4]
+                        self.config.yAxis.minTicksSpacing = 30.0
+                        self.config.yAxis.formatter = { (value, decimals) in
+                            let format = value == 0 ? "" : "b"
+                            return String(format: "%.\(decimals)f\(format)", value)
+                        }
+                    }
+                    .onReceive([self.isXAxisTicksHidden].publisher.first()) { (value) in
+                        self.config.yAxis.ticksColor = value ? .clear : .gray
+                    }
+                    .onReceive([self.xAxisTicksIntervalValue].publisher.first()) { (value) in
+                        self.config.xAxis.ticksInterval = Int(value)
+                    }
                     .padding(15)
-            }
+//            }
         }.frame(height: self.chartHeight)
     }
     
     func controlsView() -> some View {
         Group {
             VStack(spacing: 0) {
+                // TODO: Add new presets
                 Stepper(value: self.$maxEntriesCount, in: 0...30) {
                     Text("Max entries count: \(self.maxEntriesCount)")
                 }.padding(15)
-                Stepper(value: self.$maxChartValueRatio, in: (self.minChartValueRatio)...20) {
-                    Text("Max chart value: \(Int(self.maxChartValue))")
-                }.padding(15)
-                Stepper(value: self.$minChartValueRatio, in: -20...(self.maxChartValueRatio)) {
-                    Text("Min chart value: \(Int(self.minChartValue))")
-                }.padding(15)
-                
                 Button(action: {
                     let newEntries = self.randomEntries()
-                    self.entries = newEntries
+                    self.config.data.entries = newEntries
                 }) {
                     Text("Generate entries")
                 }.randomButtonStyle()
             }
             HStack {
                 Button(action: {
+                    // TODO: Improve this
                     self.config.data.gradientColor = nil
-                    self.dataColor = Color.random
+                    self.config.data.color = Color.random
                 }) {
                     Text("Generate color")
                 }.randomButtonStyle()
@@ -157,7 +138,7 @@ struct ContentView: View {
         var entries = [ChartDataEntry]()
         guard self.maxEntriesCount > 0 else { return [] }
         for data in 0..<self.maxEntriesCount {
-            let randomDouble = Double.random(in: self.minChartValue...self.maxChartValue)
+            let randomDouble = Double.random(in: -15...50)
             let newEntry = ChartDataEntry(x: "\(2000+data)", y: randomDouble)
             entries.append(newEntry)
         }
