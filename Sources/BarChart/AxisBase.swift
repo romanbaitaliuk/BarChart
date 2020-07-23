@@ -50,7 +50,6 @@ public class XAxisReference: AxisBase {
             self.ticksInterval = nil
         }
     }
-    // TODO: Move validations here
 }
 
 public class YAxisReference: AxisBase {
