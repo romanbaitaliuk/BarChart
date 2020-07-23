@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		D376827A24BF02F800D87BAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D376827924BF02F800D87BAB /* Preview Assets.xcassets */; };
 		D376827D24BF02F800D87BAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D376827B24BF02F800D87BAB /* LaunchScreen.storyboard */; };
 		D376828524BF033300D87BAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D376828424BF033300D87BAB /* ContentView.swift */; };
+		D3C78E1A24C930F100365172 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D3C78E1924C930F100365172 /* BarChart */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3C78E1A24C930F100365172 /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +94,7 @@
 			);
 			name = "BarChartExample-iOS";
 			packageProductDependencies = (
+				D3C78E1924C930F100365172 /* BarChart */,
 			);
 			productName = "BarChartExample-iOS";
 			productReference = D376826D24BF02F600D87BAB /* BarChartExample-iOS.app */;
@@ -122,6 +125,7 @@
 			);
 			mainGroup = D376826424BF02F600D87BAB;
 			packageReferences = (
+				D3C78E1824C930F100365172 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D376826E24BF02F600D87BAB /* Products */;
 			projectDirPath = "";
@@ -348,6 +352,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D3C78E1824C930F100365172 /* XCRemoteSwiftPackageReference "BarChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dawigr/BarChart.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D3C78E1924C930F100365172 /* BarChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3C78E1824C930F100365172 /* XCRemoteSwiftPackageReference "BarChart" */;
+			productName = BarChart;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D376826524BF02F600D87BAB /* Project object */;
 }
