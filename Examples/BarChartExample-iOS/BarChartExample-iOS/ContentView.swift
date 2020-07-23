@@ -41,7 +41,7 @@ struct ContentView: View {
     
     // MARK: - Controls Properties
     
-    @State var maxEntriesCount: Int = 0
+    @State var maxEntriesCount: Int = 10
     @State var xAxisTicksIntervalValue: Double = 1
     @State var isXAxisTicksHidden: Bool = false
     
@@ -67,10 +67,11 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .padding(5)
                 .shadow(color: .black, radius: 5)
-                Text("No data").opacity(self.entries.isEmpty ? 1.0 : 0.0)
+//                Text("No data").opacity(self.entries.isEmpty ? 1.0 : 0.0)
                 BarChartView(config: self.config)
                     .onAppear() {
                         let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
+                        self.config.data.entries = self.randomEntries()
                         self.config.data.color = .red
                         self.config.xAxis.labelsColor = .gray
                         self.config.xAxis.ticksColor = .gray

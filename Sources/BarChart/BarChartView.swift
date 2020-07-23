@@ -40,31 +40,26 @@ public struct BarChartView : View {
             GeometryReader { proxy in
                 CoordinateSystemView(yAxis: self.yAxis,
                                      xAxis: self.xAxis,
-                                     frameSize: proxy.size,
-                                     labelOffsetY: self.bottomPadding())
+                                     frameSize: proxy.size)
                     .onReceive(self.config.objectWillChange) { _ in
-                        self.yAxis = YAxis(frameHeight: proxy.size.height,
+                        self.yAxis = YAxis(frameHeight: self.yAxisHeight(proxy.size.height),
                                            data: self.config.data.yValues,
                                            ref: self.config.yAxis)
                         self.xAxis = XAxis(frameWidth: proxy.size.width - self.yAxis.maxLabelWidth,
                                            data: self.config.data.entries,
                                            ref: self.config.xAxis)
                     }
-                BarChartCollectionView(yAxis: self.yAxis,
-                                       xAxis: self.xAxis,
-                                       gradient: self.config.data.gradientColor?.gradient(),
-                                       color: self.config.data.color)
+//                BarChartCollectionView(yAxis: self.yAxis,
+//                                       xAxis: self.xAxis,
+//                                       gradient: self.config.data.gradientColor?.gradient(),
+//                                       color: self.config.data.color)
             }
-            .padding([.top], self.topPadding())
-            .padding([.bottom], self.bottomPadding())
         }
     }
     
-    private func topPadding() -> CGFloat {
-        return String().height(ctFont: self.config.yAxis.labelsCTFont) / 2
-    }
-    
-    private func bottomPadding() -> CGFloat {
-        return self.topPadding() + String().height(ctFont: self.config.xAxis.labelsCTFont)
+    private func yAxisHeight(_ frameHeight: CGFloat) -> CGFloat {
+        let topPadding = String().height(ctFont: self.config.yAxis.labelsCTFont) / 2
+        let bottomPadding = String().height(ctFont: self.config.xAxis.labelsCTFont) + topPadding
+        return frameHeight - (topPadding + bottomPadding)
     }
 }

@@ -31,17 +31,15 @@ struct CoordinateSystemView: View {
     let xAxis: XAxis
     let frameSize: CGSize
     
-    // Offset for x labels to draw outside of the given size
-    let labelOffsetY: CGFloat
-    
     var body: some View {
         ZStack(alignment: .center) {
             if !self.yAxis.formattedLabels().isEmpty {
                 YAxisView(yAxis: self.yAxis,
-                          frameSize: self.frameSize)
-                XAxisView(xAxis: self.xAxis,
                           frameSize: self.frameSize,
-                          labelOffsetY: self.labelOffsetY)
+                          xLabelsHeight: String().height(ctFont: self.xAxis.ref.labelsCTFont))
+                XAxisView(xAxis: self.xAxis,
+                          frameSize: CGSize(width: self.frameSize.width,
+                                            height: self.yAxis.frameHeight))
             }
         }
     }
@@ -84,7 +82,6 @@ struct LabelView: View {
 struct XAxisView: View {
     let xAxis: XAxis
     let frameSize: CGSize
-    let labelOffsetY: CGFloat
     
     var body: some View {
         ForEach((0..<self.xAxis.formattedLabels().count), id: \.self) { index in
@@ -96,8 +93,7 @@ struct XAxisView: View {
                 LabelView(text: self.xAxis.formattedLabels()[index],
                           font: self.xAxis.ref.labelsFont,
                           color: self.xAxis.ref.labelsColor)
-                    .offset(x: self.labelOffsetX(index: index),
-                            y: self.labelOffsetY)
+                    .offset(x: self.labelOffsetX(index: index))
             }
         }
     }
@@ -124,6 +120,7 @@ struct XAxisView: View {
 struct YAxisView: View {
     let yAxis: YAxis
     let frameSize: CGSize
+    let xLabelsHeight: CGFloat
     
     var body: some View {
         ForEach((0..<self.yAxis.formattedLabels().count), id: \.self) { index in
@@ -142,7 +139,8 @@ struct YAxisView: View {
     
     func labelOffsetY(at index: Int) -> CGFloat {
         let tickY = self.tickY(at: index)
-        let y = (self.frameSize.height - tickY) - (self.frameSize.height / 2)
+        let height = self.frameSize.height
+        let y = (height - tickY) - (height / 2)
         return y
     }
     
@@ -150,7 +148,8 @@ struct YAxisView: View {
         guard let chartMin = self.yAxis.scaler?.scaledMin,
             let pixelsRatio = self.yAxis.pixelsRatio(),
             let label = self.yAxis.labelValue(at: index) else { return 0 }
-        return (CGFloat(label) - CGFloat(chartMin)) * pixelsRatio
+        let shift = String().height(ctFont: self.yAxis.ref.labelsCTFont) + self.xLabelsHeight
+        return (CGFloat(label) - CGFloat(chartMin)) * pixelsRatio + shift
     }
     
     func tickPoints(index: Int) -> (CGPoint, CGPoint) {
