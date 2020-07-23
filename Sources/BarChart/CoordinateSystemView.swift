@@ -38,8 +38,8 @@ struct CoordinateSystemView: View {
                           frameSize: self.frameSize,
                           xLabelsHeight: String().height(ctFont: self.xAxis.ref.labelsCTFont))
                 XAxisView(xAxis: self.xAxis,
-                          frameSize: CGSize(width: self.frameSize.width,
-                                            height: self.yAxis.frameHeight))
+                          frameSize: self.frameSize,
+                          yLabelHeight: String().height(ctFont: self.yAxis.ref.labelsCTFont))
             }
         }
     }
@@ -82,6 +82,7 @@ struct LabelView: View {
 struct XAxisView: View {
     let xAxis: XAxis
     let frameSize: CGSize
+    let yLabelHeight: CGFloat
     
     var body: some View {
         ForEach((0..<self.xAxis.formattedLabels().count), id: \.self) { index in
@@ -113,7 +114,9 @@ struct XAxisView: View {
     
     func tickPoints(index: Int) -> (CGPoint, CGPoint) {
         let x = self.tickX(at: index)
-        return (CGPoint(x: x, y: 0), CGPoint(x: x, y: self.frameSize.height))
+        let startY = self.yLabelHeight / 2
+        let endY = self.frameSize.height - String().height(ctFont: self.xAxis.ref.labelsCTFont) - startY
+        return (CGPoint(x: x, y: startY), CGPoint(x: x, y: endY))
     }
 }
 
@@ -148,7 +151,7 @@ struct YAxisView: View {
         guard let chartMin = self.yAxis.scaler?.scaledMin,
             let pixelsRatio = self.yAxis.pixelsRatio(),
             let label = self.yAxis.labelValue(at: index) else { return 0 }
-        let shift = String().height(ctFont: self.yAxis.ref.labelsCTFont) + self.xLabelsHeight
+        let shift = String().height(ctFont: self.yAxis.ref.labelsCTFont) / 2 + xLabelsHeight
         return (CGFloat(label) - CGFloat(chartMin)) * pixelsRatio + shift
     }
     
