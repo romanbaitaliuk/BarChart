@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D3377F9B24C9187800EF5463 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D3377F9A24C9187800EF5463 /* BarChart */; };
 		D351E84524C1BB5C00369539 /* BarChartExample-watchOS WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D351E84424C1BB5C00369539 /* BarChartExample-watchOS WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D351E84B24C1BB5C00369539 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D351E84924C1BB5C00369539 /* Interface.storyboard */; };
 		D351E84D24C1BB5D00369539 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D351E84C24C1BB5D00369539 /* Assets.xcassets */; };
@@ -16,7 +17,6 @@
 		D351E85D24C1BB5D00369539 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351E85C24C1BB5D00369539 /* ExtensionDelegate.swift */; };
 		D351E85F24C1BB5D00369539 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D351E85E24C1BB5D00369539 /* Assets.xcassets */; };
 		D351E86224C1BB5D00369539 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D351E86124C1BB5D00369539 /* Preview Assets.xcassets */; };
-		D367A52224C2680600E320B7 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D367A52124C2680600E320B7 /* BarChart */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D3377F9924C9186900EF5463 /* BarChart */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BarChart; path = ../..; sourceTree = "<group>"; };
 		D351E84024C1BB5C00369539 /* BarChartExample-watchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BarChartExample-watchOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D351E84424C1BB5C00369539 /* BarChartExample-watchOS WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BarChartExample-watchOS WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D351E84A24C1BB5C00369539 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -81,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D367A52224C2680600E320B7 /* BarChart in Frameworks */,
+				D3377F9B24C9187800EF5463 /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +92,7 @@
 		D32D12DF24C1BD6A0030F55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3377F9924C9186900EF5463 /* BarChart */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -163,7 +165,6 @@
 			);
 			name = "BarChartExample-watchOS";
 			packageProductDependencies = (
-				D367A52024C267FE00E320B7 /* BarChart */,
 			);
 			productName = "BarChartExample-watchOS";
 			productReference = D351E84024C1BB5C00369539 /* BarChartExample-watchOS.app */;
@@ -200,7 +201,7 @@
 			);
 			name = "BarChartExample-watchOS WatchKit Extension";
 			packageProductDependencies = (
-				D367A52124C2680600E320B7 /* BarChart */,
+				D3377F9A24C9187800EF5463 /* BarChart */,
 			);
 			productName = "BarChartExample-watchOS WatchKit Extension";
 			productReference = D351E85324C1BB5D00369539 /* BarChartExample-watchOS WatchKit Extension.appex */;
@@ -237,7 +238,6 @@
 			);
 			mainGroup = D351E83924C1BB5C00369539;
 			packageReferences = (
-				D367A51F24C267FE00E320B7 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D351E84124C1BB5C00369539 /* Products */;
 			projectDirPath = "";
@@ -581,26 +581,9 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		D367A51F24C267FE00E320B7 /* XCRemoteSwiftPackageReference "BarChart" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dawigr/BarChart.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.6;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		D367A52024C267FE00E320B7 /* BarChart */ = {
+		D3377F9A24C9187800EF5463 /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D367A51F24C267FE00E320B7 /* XCRemoteSwiftPackageReference "BarChart" */;
-			productName = BarChart;
-		};
-		D367A52124C2680600E320B7 /* BarChart */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D367A51F24C267FE00E320B7 /* XCRemoteSwiftPackageReference "BarChart" */;
 			productName = BarChart;
 		};
 /* End XCSwiftPackageProductDependency section */

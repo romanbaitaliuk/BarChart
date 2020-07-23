@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D37470C424C7E247008E29AB /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D37470C324C7E247008E29AB /* BarChart */; };
 		D376827124BF02F600D87BAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D376827024BF02F600D87BAB /* AppDelegate.swift */; };
 		D376827324BF02F600D87BAB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D376827224BF02F600D87BAB /* SceneDelegate.swift */; };
 		D376827724BF02F800D87BAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D376827624BF02F800D87BAB /* Assets.xcassets */; };
@@ -17,7 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D37470C224C7E236008E29AB /* BarChart */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BarChart; path = ../..; sourceTree = "<group>"; };
 		D376826D24BF02F600D87BAB /* BarChartExample-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BarChartExample-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D376827024BF02F600D87BAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D376827224BF02F600D87BAB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D37470C424C7E247008E29AB /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +42,6 @@
 			children = (
 				D376826F24BF02F600D87BAB /* BarChartExample-iOS */,
 				D376826E24BF02F600D87BAB /* Products */,
-				D3F0226024C56B730010483A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,14 +75,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		D3F0226024C56B730010483A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D37470C224C7E236008E29AB /* BarChart */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,7 +92,6 @@
 			);
 			name = "BarChartExample-iOS";
 			packageProductDependencies = (
-				D37470C324C7E247008E29AB /* BarChart */,
 			);
 			productName = "BarChartExample-iOS";
 			productReference = D376826D24BF02F600D87BAB /* BarChartExample-iOS.app */;
@@ -361,13 +348,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		D37470C324C7E247008E29AB /* BarChart */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BarChart;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D376826524BF02F600D87BAB /* Project object */;
 }

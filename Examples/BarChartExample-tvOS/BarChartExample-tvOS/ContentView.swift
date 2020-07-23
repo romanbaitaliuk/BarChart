@@ -32,16 +32,12 @@ struct ContentView: View {
     // MARK: - Chart Properties
     
     let chartHeight: CGFloat = 400
-    let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
     let config = ChartConfiguration()
-    @State var dataColor: Color = .red
     @State var entries: [ChartDataEntry] = []
     
     // MARK: - Controls Properties
     
     @State var maxEntriesCount: String = ""
-    @State var maxChartValueRatio: String = ""
-    @State var minChartValueRatio: String = ""
     @State var xAxisTicksIntervalValue: String = ""
     @State var isXAxisTicksHidden: Bool = false
     
@@ -66,49 +62,48 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .padding(5)
                 .shadow(color: .black, radius: 5)
-            if self.entries.isEmpty {
-                Text("No data")
-            } else {
-                BarChartView()
-                    .modifying(\.config, value: self.config)
-                    .modifying(\.config.data.entries, value: self.entries)
-                    .modifying(\.config.data.color, value: self.dataColor)
-                    .modifying(\.config.xAxis.labelsColor, value: .gray)
-                    .modifying(\.config.xAxis.ticksColor, value: self.isXAxisTicksHidden ? .clear : .gray)
-                    .modifying(\.config.xAxis.labelsCTFont, value: self.labelsFont)
-                    .modifying(\.config.xAxis.ticksDash, value: [2, 4])
-                    .modifying(\.config.xAxis.ticksInterval, value: Int(self.xAxisTicksIntervalValue))
-                    .modifying(\.config.yAxis.labelsColor, value: .gray)
-                    .modifying(\.config.yAxis.ticksColor, value: .gray)
-                    .modifying(\.config.yAxis.labelsCTFont, value: self.labelsFont)
-                    .modifying(\.config.yAxis.ticksDash, value: [3, 6])
-                    .modifying(\.config.yAxis.minTicksSpacing, value: 30.0)
-                    .modifying(\.config.yAxis.formatter, value: { (value, decimals) in
+            Text("No data").opacity(self.entries.isEmpty ? 1.0 : 0.0)
+            BarChartView(config: self.config)
+                .onAppear() {
+                    let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
+                    self.config.data.color = .red
+                    self.config.xAxis.labelsColor = .gray
+                    self.config.xAxis.ticksColor = .gray
+                    self.config.xAxis.labelsCTFont = labelsFont
+                    self.config.xAxis.ticksDash = [2, 4]
+                    self.config.yAxis.labelsColor = .gray
+                    self.config.yAxis.ticksColor = .gray
+                    self.config.yAxis.labelsCTFont = labelsFont
+                    self.config.yAxis.ticksDash = [2, 4]
+                    self.config.yAxis.minTicksSpacing = 30.0
+                    self.config.yAxis.formatter = { (value, decimals) in
                         let format = value == 0 ? "" : "b"
                         return String(format: "%.\(decimals)f\(format)", value)
-                    })
-                    .padding(15)
-            }
+                    }
+                }
+                .onReceive([self.isXAxisTicksHidden].publisher.first()) { (value) in
+                    self.config.xAxis.ticksColor = value ? .clear : .gray
+                }
+                .onReceive([self.xAxisTicksIntervalValue].publisher.first()) { (value) in
+                    self.config.xAxis.ticksInterval = Int(value)
+                }
+                .padding(15)
         }.frame(height: self.chartHeight)
     }
     
     func controlsView() -> some View {
         Group {
-            HStack(spacing: 0) {
-                TextField("Max entries count", text: self.$maxEntriesCount).padding(15)
-                TextField("Max chart value", text: self.$maxChartValueRatio).padding(15)
-                TextField("Min chart value", text: self.$minChartValueRatio).padding(15)
-            }
+            TextField("Max entries count", text: self.$maxEntriesCount).padding(15)
             HStack {
                 Button(action: {
                     let newEntries = self.randomEntries()
                     self.entries = newEntries
+                    self.config.data.entries = newEntries
                 }) {
                     Text("Generate entries")
                 }
                 Button(action: {
-                    self.config.data.gradientColor = nil
-                    self.dataColor = Color.random
+                    self.config.data.color = Color.random
                 }) {
                     Text("Generate color")
                 }
@@ -129,11 +124,9 @@ struct ContentView: View {
     
     func randomEntries() -> [ChartDataEntry] {
         var entries = [ChartDataEntry]()
-        guard let maxEntriesCount = Int(self.maxEntriesCount), maxEntriesCount > 0,
-            let minChartValue = Double(self.minChartValueRatio),
-            let maxChartValue = Double(self.maxChartValueRatio) else { return [] }
+        guard let maxEntriesCount = Int(self.maxEntriesCount), maxEntriesCount > 0 else { return [] }
         for data in 0..<maxEntriesCount {
-            let randomDouble = Double.random(in: minChartValue...maxChartValue)
+            let randomDouble = Double.random(in: -15...50)
             let newEntry = ChartDataEntry(x: "\(2000+data)", y: randomDouble)
             entries.append(newEntry)
         }

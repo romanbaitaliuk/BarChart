@@ -28,29 +28,25 @@ import SwiftUI
 import BarChart
 
 struct ContentView: View {
-    
-    // MARK: - Chart Properties
-    
-    let font = CTFontCreateWithName(("SFProText-Regular" as CFString), 8, nil)
     let config = ChartConfiguration()
     
     var body: some View {
         GeometryReader { geometry in
-            BarChartView()
-                .modifying(\.config, value: self.config)
-                .modifying(\.config.data.entries, value: self.randomEntries())
-                .modifying(\.config.xAxis.labelsColor, value: .white)
-                .modifying(\.config.xAxis.ticksColor, value: .white)
-                .modifying(\.config.xAxis.labelsCTFont, value: self.font)
-                .modifying(\.config.yAxis.labelsCTFont, value: self.font)
-                .modifying(\.config.yAxis.minTicksSpacing, value: 20.0)
-                .modifying(\.config.yAxis.labelsColor, value: .white)
-                .modifying(\.config.yAxis.ticksColor, value: .white)
-                .frame(width: geometry.size.width, height: geometry.size.height)
+            BarChartView(config: self.config)
+                .onAppear() {
+                    let font = CTFontCreateWithName(("SFProText-Regular" as CFString), 8, nil)
+                    self.config.data.entries = self.randomEntries()
+                    self.config.xAxis.labelsColor = .white
+                    self.config.xAxis.ticksColor = .white
+                    self.config.xAxis.labelsCTFont = font
+                    self.config.yAxis.labelsCTFont = font
+                    self.config.yAxis.minTicksSpacing = 20.0
+                    self.config.yAxis.labelsColor = .white
+                    self.config.yAxis.ticksColor = .white
+                }
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
-    
-    // MARK: - Random Helpers
     
     func randomEntries() -> [ChartDataEntry] {
         var entries = [ChartDataEntry]()
