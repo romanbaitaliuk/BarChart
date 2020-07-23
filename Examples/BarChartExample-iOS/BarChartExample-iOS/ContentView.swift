@@ -67,9 +67,7 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .padding(5)
                 .shadow(color: .black, radius: 5)
-            if self.entries.isEmpty {
-                Text("No data")
-            } else {
+                Text("No data").opacity(self.entries.isEmpty ? 1.0 : 0.0)
                 BarChartView(config: self.config)
                     .onAppear() {
                         let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
@@ -98,7 +96,6 @@ struct ContentView: View {
                         self.config.objectWillChange.send()
                     }
                     .padding(15)
-            }
         }.frame(height: self.chartHeight)
     }
     
