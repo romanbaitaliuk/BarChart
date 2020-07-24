@@ -33,30 +33,29 @@ struct BarChartCollectionView: View {
     let color: Color
     
     var body: some View {
-        GeometryReader { proxy in
-            HStack(alignment: .bottom,
-                   spacing: self.xAxis.layout.spacing) {
-                    if self.xAxis.layout.barWidth != nil {
-                        ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
-                            BarChartCell(width: self.xAxis.layout.barWidth!,
-                                         height: self.barHeight(at: index, frameHeight: proxy.size.height),
-                                         gradient: self.gradient,
-                                         color: self.color)
-                                .offset(x: self.offsetX(),
-                                        y: self.offsetY(proxy.size.height))
-                        }
+        HStack(alignment: .bottom,
+               spacing: self.xAxis.layout.spacing) {
+                if self.xAxis.layout.barWidth != nil {
+                    ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
+                        BarChartCell(width: self.xAxis.layout.barWidth!,
+                                     height: self.barHeight(at: index),
+                                     gradient: self.gradient,
+                                     color: self.color)
+                            .offset(x: self.offsetX(),
+                                    y: self.offsetY())
                     }
-            }
+                }
         }
     }
     
-    func offsetY(_ frameHeight: CGFloat) -> CGFloat {
+    func offsetY() -> CGFloat {
         guard let maxNormalizedValue = self.yAxis.normalizedValues().max(),
             let centre = self.yAxis.centre() else { return 0 }
         let chartNormalisedMax = maxNormalizedValue > 0 ? maxNormalizedValue : 0
         let absoluteMax = abs(CGFloat(chartNormalisedMax))
-        let positivePart = absoluteMax * frameHeight
-        return frameHeight-abs(centre) - positivePart
+        let positivePart = absoluteMax * self.yAxis.frameHeight
+        let topPadding = String().height(ctFont: self.xAxis.labelsCTFont) / 2
+        return self.yAxis.frameHeight - abs(centre) - positivePart + topPadding
     }
     
     func offsetX() -> CGFloat {
@@ -65,7 +64,7 @@ struct BarChartCollectionView: View {
         return self.xAxis.data.count == 1 ? spacing : 0
     }
     
-    func barHeight(at index: Int, frameHeight: CGFloat) -> CGFloat {
-        return CGFloat(self.yAxis.normalizedValues()[index]) * frameHeight
+    func barHeight(at index: Int) -> CGFloat {
+        return CGFloat(self.yAxis.normalizedValues()[index]) * self.yAxis.frameHeight
     }
 }

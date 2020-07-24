@@ -51,10 +51,10 @@ public struct BarChartView : View {
                                            ref: self.config.xAxis,
                                            labelsCTFont: self.config.labelsCTFont)
                     }
-//                BarChartCollectionView(yAxis: self.yAxis,
-//                                       xAxis: self.xAxis,
-//                                       gradient: self.config.data.gradientColor?.gradient(),
-//                                       color: self.config.data.color)
+                BarChartCollectionView(yAxis: self.yAxis,
+                                       xAxis: self.xAxis,
+                                       gradient: self.config.data.gradientColor?.gradient(),
+                                       color: self.config.data.color)
             }
         }
     }

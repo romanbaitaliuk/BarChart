@@ -76,10 +76,10 @@ struct ContentView: View {
                         self.config.xAxis.labelsColor = .gray
                         self.config.xAxis.ticksColor = .gray
                         self.config.labelsCTFont = labelsFont
-                        self.config.xAxis.ticksDash = []
+                        self.config.xAxis.ticksDash = [2, 4]
                         self.config.yAxis.labelsColor = .gray
                         self.config.yAxis.ticksColor = .gray
-                        self.config.yAxis.ticksDash = []
+                        self.config.yAxis.ticksDash = [2, 4]
                         self.config.yAxis.minTicksSpacing = 30.0
                         self.config.yAxis.formatter = { (value, decimals) in
                             let format = value == 0 ? "" : "b"
