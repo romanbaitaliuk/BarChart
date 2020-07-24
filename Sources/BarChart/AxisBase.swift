@@ -30,11 +30,6 @@ public class AxisBase: ObservableObject {
     @Published public var labelsColor: Color = .black
     @Published public var ticksColor: Color = .black
     @Published public var ticksDash: [CGFloat] =  [5, 10]
-    @Published public var labelsCTFont: CTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
-    
-    var labelsFont: Font {
-        return Font(self.labelsCTFont)
-    }
 }
 
 public class XAxisReference: AxisBase {

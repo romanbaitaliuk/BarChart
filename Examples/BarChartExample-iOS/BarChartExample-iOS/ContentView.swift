@@ -75,12 +75,11 @@ struct ContentView: View {
                         self.config.data.color = .red
                         self.config.xAxis.labelsColor = .gray
                         self.config.xAxis.ticksColor = .gray
-                        self.config.xAxis.labelsCTFont = labelsFont
-                        self.config.xAxis.ticksDash = [2, 4]
+                        self.config.labelsCTFont = labelsFont
+                        self.config.xAxis.ticksDash = []
                         self.config.yAxis.labelsColor = .gray
                         self.config.yAxis.ticksColor = .gray
-                        self.config.yAxis.labelsCTFont = labelsFont
-                        self.config.yAxis.ticksDash = [2, 4]
+                        self.config.yAxis.ticksDash = []
                         self.config.yAxis.minTicksSpacing = 30.0
                         self.config.yAxis.formatter = { (value, decimals) in
                             let format = value == 0 ? "" : "b"

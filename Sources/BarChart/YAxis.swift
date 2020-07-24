@@ -31,6 +31,7 @@ struct YAxis: Identifiable {
     let data: [Double]
     let frameHeight: CGFloat
     let ref: YAxisReference
+    let labelsCTFont: CTFont
     
     var scaler: YAxisScaler? {
         guard let minValue = self.data.min(),
@@ -43,12 +44,14 @@ struct YAxis: Identifiable {
     }
     
     var maxLabelWidth: CGFloat {
-        return self.formattedLabels().map { $0.width(ctFont: self.ref.labelsCTFont) }.max() ?? 0
+        return self.formattedLabels().map { $0.width(ctFont: self.labelsCTFont) }.max() ?? 0
     }
     
     init(frameHeight: CGFloat = 0,
          data: [Double] = [],
-         ref: YAxisReference = YAxisReference()) {
+         ref: YAxisReference = YAxisReference(),
+         labelsCTFont: CTFont = ChartConfiguration.defaultLabelsCTFont) {
+        self.labelsCTFont = labelsCTFont
         self.frameHeight = frameHeight
         self.data = data
         self.ref = ref

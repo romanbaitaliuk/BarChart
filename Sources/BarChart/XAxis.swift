@@ -31,6 +31,7 @@ struct XAxis: Identifiable {
     let data: [ChartDataEntry]
     let frameWidth: CGFloat
     let ref: XAxisReference
+    let labelsCTFont: CTFont
     
     var layout: XAxisLayout {
         XAxisLayout(frameWidth: self.frameWidth, dataCount: self.data.count)
@@ -38,7 +39,9 @@ struct XAxis: Identifiable {
         
     init(frameWidth: CGFloat = 0,
          data: [ChartDataEntry] = [],
-         ref: XAxisReference = XAxisReference()) {
+         ref: XAxisReference = XAxisReference(),
+         labelsCTFont: CTFont = ChartConfiguration.defaultLabelsCTFont) {
+        self.labelsCTFont = labelsCTFont
         self.frameWidth = frameWidth
         self.data = data
         self.ref = ref
@@ -54,7 +57,7 @@ struct XAxis: Identifiable {
     
     private func labels() -> [ChartDataEntry] {
         guard !self.data.isEmpty else { return [] }
-        let totalLabelsWidth = self.data.compactMap { $0.x.width(ctFont: self.ref.labelsCTFont) }.reduce(0, +)
+        let totalLabelsWidth = self.data.compactMap { $0.x.width(ctFont: self.labelsCTFont) }.reduce(0, +)
         let averageLabelWidth = totalLabelsWidth / CGFloat(data.count)
         
         guard averageLabelWidth != 0 else { return [] }

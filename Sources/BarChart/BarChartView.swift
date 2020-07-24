@@ -44,10 +44,12 @@ public struct BarChartView : View {
                     .onReceive(self.config.objectWillChange) { _ in
                         self.yAxis = YAxis(frameHeight: self.yAxisHeight(proxy.size.height),
                                            data: self.config.data.yValues,
-                                           ref: self.config.yAxis)
+                                           ref: self.config.yAxis,
+                                           labelsCTFont: self.config.labelsCTFont)
                         self.xAxis = XAxis(frameWidth: proxy.size.width - self.yAxis.maxLabelWidth,
                                            data: self.config.data.entries,
-                                           ref: self.config.xAxis)
+                                           ref: self.config.xAxis,
+                                           labelsCTFont: self.config.labelsCTFont)
                     }
 //                BarChartCollectionView(yAxis: self.yAxis,
 //                                       xAxis: self.xAxis,
@@ -58,8 +60,9 @@ public struct BarChartView : View {
     }
     
     private func yAxisHeight(_ frameHeight: CGFloat) -> CGFloat {
-        let topPadding = String().height(ctFont: self.config.yAxis.labelsCTFont) / 2
-        let bottomPadding = String().height(ctFont: self.config.xAxis.labelsCTFont) + topPadding
+        let labelsHeight = String().height(ctFont: self.config.labelsCTFont)
+        let topPadding = labelsHeight / 2
+        let bottomPadding = labelsHeight  * 1.5
         return frameHeight - (topPadding + bottomPadding)
     }
 }

@@ -35,6 +35,9 @@ public class ChartConfiguration: ObservableObject {
     private var xAxisCancellable: AnyCancellable?
     private var yAxisCancellable: AnyCancellable?
     
+    static let defaultLabelsCTFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 12, nil)
+    @Published public var labelsCTFont: CTFont = ChartConfiguration.defaultLabelsCTFont
+    
     public init() {
         self.xAxisCancellable = self.xAxis.objectWillChange.sink(receiveValue: { _ in
             self.objectWillChange.send()
