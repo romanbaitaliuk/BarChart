@@ -33,35 +33,35 @@ struct BarChartCollectionView: View {
     let color: Color
     
     var body: some View {
-        HStack(alignment: .bottom,
-               spacing: self.xAxis.layout.spacing) {
-                if self.xAxis.layout.barWidth != nil {
-                    ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
-                        BarChartCell(width: self.xAxis.layout.barWidth!,
-                                     height: self.barHeight(at: index),
-                                     gradient: self.gradient,
-                                     color: self.color)
-                            .offset(x: self.offsetX(),
-                                    y: self.offsetY())
-                    }
+        ZStack {
+            if self.xAxis.layout.barWidth != nil {
+                ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
+                    BarChartCell(width: self.xAxis.layout.barWidth!,
+                                 cornerRadius: 5.0,
+                                 startPoint: self.startPoint(at: index),
+                                 endPoint: self.endPoint(at: index),
+                                 gradient: self.gradient,
+                                 color: self.color)
+                        .animation(Animation.easeInOut.delay(Double(index) * 0.04))
+                        .rotation3DEffect(Angle(degrees: 180), axis: (x: 1, y: 0, z: 0))
                 }
+            }
         }
     }
     
     func offsetY() -> CGFloat {
-        guard let maxNormalizedValue = self.yAxis.normalizedValues().max(),
-            let centre = self.yAxis.centre() else { return 0 }
-        let chartNormalisedMax = maxNormalizedValue > 0 ? maxNormalizedValue : 0
-        let absoluteMax = abs(CGFloat(chartNormalisedMax))
-        let positivePart = absoluteMax * self.yAxis.frameHeight
-        let topPadding = String().height(ctFont: self.xAxis.labelsCTFont) / 2
-        return self.yAxis.frameHeight - abs(centre) - positivePart + topPadding
+        guard let centre = self.yAxis.centre() else { return 0 }
+        let bottomPadding = String().height(ctFont: self.xAxis.labelsCTFont) * 1.5
+        return abs(centre) + bottomPadding
     }
     
-    func offsetX() -> CGFloat {
-        guard let spacing = self.xAxis.layout.spacing else { return 0 }
-        // Getting offset when only one entry is shown
-        return self.xAxis.data.count == 1 ? spacing : 0
+    func startPoint(at index: Int) -> CGPoint {
+        return CGPoint(x: self.xAxis.layout.barCentre(at: index)!, y: self.offsetY())
+    }
+    
+    func endPoint(at index: Int) -> CGPoint {
+        let endY = self.barHeight(at: index) + self.offsetY()
+        return CGPoint(x: self.xAxis.layout.barCentre(at: index)!, y: endY)
     }
     
     func barHeight(at index: Int) -> CGFloat {
