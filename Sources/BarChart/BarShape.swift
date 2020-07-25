@@ -27,7 +27,7 @@
 import SwiftUI
 
 struct BarShape: Shape {
-    let width, cornerRadius: CGFloat
+    let cornerRadius: CGFloat
     var start, end: CGPoint
     
     var animatableData: AnimatablePair<CGPoint.AnimatableData, CGPoint.AnimatableData> {
@@ -38,15 +38,18 @@ struct BarShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        let p1 = CGPoint(x: self.start.x - self.width / 2, y: self.start.y)
-        let p2 = CGPoint(x: self.start.x - self.width / 2, y: self.end.y - self.cornerRadius)
-        let p3 = CGPoint(x: self.start.x - self.width / 2 + self.cornerRadius, y: self.end.y)
-        let p4 = CGPoint(x: self.start.x + self.width / 2 - self.cornerRadius, y: self.end.y)
-        let p5 = CGPoint(x: self.start.x + self.width / 2, y: self.end.y - self.cornerRadius)
-        let p6 = CGPoint(x: self.start.x + self.width / 2, y: self.start.y)
+        let width = rect.maxX
+        let adj: CGFloat = self.start.y < self.end.y ? 1.0 : -1.0
+        
+        let p1 = CGPoint(x: self.start.x - width / 2, y: self.start.y)
+        let p2 = CGPoint(x: self.start.x - width / 2, y: self.end.y - self.cornerRadius * adj)
+        let p3 = CGPoint(x: self.start.x - width / 2 + self.cornerRadius, y: self.end.y)
+        let p4 = CGPoint(x: self.start.x + width / 2 - self.cornerRadius, y: self.end.y)
+        let p5 = CGPoint(x: self.start.x + width / 2, y: self.end.y - self.cornerRadius * adj)
+        let p6 = CGPoint(x: self.start.x + width / 2, y: self.start.y)
 
-        let control1 = CGPoint(x: self.start.x - self.width / 2, y: self.end.y)
-        let control2 = CGPoint(x: self.start.x + self.width / 2, y: self.end.y)
+        let control1 = CGPoint(x: self.start.x - width / 2, y: self.end.y)
+        let control2 = CGPoint(x: self.start.x + width / 2, y: self.end.y)
 
         path.move(to: p1)
         path.addLine(to: p2)

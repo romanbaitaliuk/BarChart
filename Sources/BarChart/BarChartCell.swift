@@ -35,20 +35,18 @@ struct BarChartCell: View {
     var body: some View {
         Group {
             if self.gradient != nil {
-                BarShape(width: self.width,
-                         cornerRadius: self.cornerRadius,
-                        start: self.startPoint,
-                        end: self.endPoint)
+                BarShape(cornerRadius: self.cornerRadius,
+                         start: self.startPoint,
+                         end: self.endPoint)
                     .fill(LinearGradient(gradient: self.gradient!,
                                          startPoint: .bottom,
                                          endPoint: .top))
             } else {
-                BarShape(width: self.width,
-                         cornerRadius: self.cornerRadius,
+                BarShape(cornerRadius: self.cornerRadius,
                          start: self.startPoint,
                          end: self.endPoint)
                     .fill(self.color)
             }
-        }
+        }.frame(width: self.width)
     }
 }

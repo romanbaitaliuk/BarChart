@@ -37,7 +37,7 @@ struct BarChartCollectionView: View {
             if self.xAxis.layout.barWidth != nil {
                 ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
                     BarChartCell(width: self.xAxis.layout.barWidth!,
-                                 cornerRadius: 5.0,
+                                 cornerRadius: 3.0,
                                  startPoint: self.startPoint(at: index),
                                  endPoint: self.endPoint(at: index),
                                  gradient: self.gradient,
