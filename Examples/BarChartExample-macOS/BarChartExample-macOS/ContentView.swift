@@ -69,11 +69,10 @@ struct ContentView: View {
                     self.config.data.color = .red
                     self.config.xAxis.labelsColor = .gray
                     self.config.xAxis.ticksColor = .gray
-                    self.config.xAxis.labelsCTFont = labelsFont
+                    self.config.labelsCTFont = labelsFont
                     self.config.xAxis.ticksDash = [2, 4]
                     self.config.yAxis.labelsColor = .gray
                     self.config.yAxis.ticksColor = .gray
-                    self.config.yAxis.labelsCTFont = labelsFont
                     self.config.yAxis.ticksDash = [2, 4]
                     self.config.yAxis.minTicksSpacing = 30.0
                     self.config.yAxis.formatter = { (value, decimals) in
@@ -81,6 +80,7 @@ struct ContentView: View {
                         return String(format: "%.\(decimals)f\(format)", value)
                     }
                 }
+                .animation(.easeInOut)
                 .onReceive([self.isXAxisTicksHidden].publisher.first()) { (value) in
                     self.config.xAxis.ticksColor = value ? .clear : .gray
                 }

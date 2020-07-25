@@ -62,7 +62,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D31C87B424CBD49C00C51C48 /* BarChart */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BarChart; path = ../..; sourceTree = "<group>"; };
 		D351E84024C1BB5C00369539 /* BarChartExample-watchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BarChartExample-watchOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D351E84424C1BB5C00369539 /* BarChartExample-watchOS WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BarChartExample-watchOS WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D351E84A24C1BB5C00369539 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -89,21 +88,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D31C87B924CBD55C00C51C48 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D31C87B424CBD49C00C51C48 /* BarChart */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D351E83924C1BB5C00369539 = {
 			isa = PBXGroup;
 			children = (
 				D351E84824C1BB5C00369539 /* BarChartExample-watchOS WatchKit App */,
 				D351E85724C1BB5D00369539 /* BarChartExample-watchOS WatchKit Extension */,
 				D351E84124C1BB5C00369539 /* Products */,
-				D31C87B924CBD55C00C51C48 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

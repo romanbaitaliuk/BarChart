@@ -45,6 +45,7 @@ struct ContentView: View {
                     self.config.yAxis.ticksColor = .white
                     self.config.yAxis.minTicksSpacing = 20.0
                 }
+                .animation(Animation.easeInOut.delay(1.0))
                 .frame(height: geometry.size.height)
         }
     }
