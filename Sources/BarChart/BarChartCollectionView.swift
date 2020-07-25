@@ -32,6 +32,8 @@ struct BarChartCollectionView: View {
     let gradient: Gradient?
     let color: Color
     
+    @State var scaleValue: CGFloat = 0
+    
     var body: some View {
         ZStack {
             if self.xAxis.layout.barWidth != nil {
@@ -42,8 +44,6 @@ struct BarChartCollectionView: View {
                                  endPoint: self.endPoint(at: index),
                                  gradient: self.gradient,
                                  color: self.color)
-                        .animation(Animation.easeInOut.delay(Double(index) * 0.04))
-                        .rotation3DEffect(Angle(degrees: 180), axis: (x: 1, y: 0, z: 0))
                 }
             }
         }

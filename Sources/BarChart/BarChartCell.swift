@@ -47,6 +47,8 @@ struct BarChartCell: View {
                          end: self.endPoint)
                     .fill(self.color)
             }
-        }.frame(width: self.width)
+        }
+        .frame(width: self.width)
+        .rotation3DEffect(Angle(degrees: 180), axis: (x: 1, y: 0, z: 0))
     }
 }

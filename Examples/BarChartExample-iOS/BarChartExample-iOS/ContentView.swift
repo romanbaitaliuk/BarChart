@@ -67,7 +67,7 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .padding(5)
                 .shadow(color: .black, radius: 5)
-//                Text("No data").opacity(self.entries.isEmpty ? 1.0 : 0.0)
+                Text("No data").opacity(self.entries.isEmpty ? 1.0 : 0.0)
                 BarChartView(config: self.config)
                     .onAppear() {
                         let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
@@ -86,6 +86,7 @@ struct ContentView: View {
                             return String(format: " %.\(decimals)f\(format)", value)
                         }
                     }
+                    .animation(.easeInOut)
                     .onReceive([self.isXAxisTicksHidden].publisher.first()) { (value) in
                         self.config.xAxis.ticksColor = value ? .clear : .gray
                     }
@@ -140,7 +141,7 @@ struct ContentView: View {
         var entries = [ChartDataEntry]()
         guard self.maxEntriesCount > 0 else { return [] }
         for data in 0..<self.maxEntriesCount {
-            let randomDouble = Double.random(in: 0...50)
+            let randomDouble = Double.random(in: -15...50)
             let newEntry = ChartDataEntry(x: "\(2000+data)", y: randomDouble)
             entries.append(newEntry)
         }
