@@ -1,5 +1,5 @@
 ## SwiftUI BarChart
-Lightweight and easy to use SwiftUI chart library for iOS, macOS and tvOS
+Lightweight and easy to use SwiftUI chart library for all Apple platforms
 
 <center>
 <img src="Resources/bar-chart-screenshot.png"/>
@@ -17,7 +17,7 @@ Lightweight and easy to use SwiftUI chart library for iOS, macOS and tvOS
 
 ## Requirements
 
-- iOS 13+ / macOS 10.15+ / tvOS 13+
+- iOS 13+ / macOS 10.15+ / watchOS 6+ / tvOS 13+
 - Xcode 11.0+
 - Swift 5+
 
