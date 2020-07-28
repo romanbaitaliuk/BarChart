@@ -12,7 +12,7 @@
 		D317954F24C1ADE000DC2168 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D317954E24C1ADE000DC2168 /* Assets.xcassets */; };
 		D317955224C1ADE000DC2168 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D317955124C1ADE000DC2168 /* Preview Assets.xcassets */; };
 		D317955524C1ADE000DC2168 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D317955324C1ADE000DC2168 /* Main.storyboard */; };
-		D3CA77E424D04BB60039107C /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D3CA77E324D04BB60039107C /* BarChart */; };
+		D3EACF0F24D04D9A002E4109 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D3EACF0E24D04D9A002E4109 /* BarChart */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3CA77E424D04BB60039107C /* BarChart in Frameworks */,
+				D3EACF0F24D04D9A002E4109 /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,7 @@
 			);
 			name = "BarChartExample-macOS";
 			packageProductDependencies = (
-				D3CA77E324D04BB60039107C /* BarChart */,
+				D3EACF0E24D04D9A002E4109 /* BarChart */,
 			);
 			productName = "BarChartExample-macOS";
 			productReference = D317954724C1ADDF00DC2168 /* BarChartExample-macOS.app */;
@@ -124,7 +124,7 @@
 			);
 			mainGroup = D317953E24C1ADDF00DC2168;
 			packageReferences = (
-				D3CA77E224D04BB60039107C /* XCRemoteSwiftPackageReference "BarChart" */,
+				D3EACF0D24D04D9A002E4109 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D317954824C1ADDF00DC2168 /* Products */;
 			projectDirPath = "";
@@ -355,20 +355,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D3CA77E224D04BB60039107C /* XCRemoteSwiftPackageReference "BarChart" */ = {
+		D3EACF0D24D04D9A002E4109 /* XCRemoteSwiftPackageReference "BarChart" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dawigr/BarChart.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
+				minimumVersion = 1.2.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D3CA77E324D04BB60039107C /* BarChart */ = {
+		D3EACF0E24D04D9A002E4109 /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D3CA77E224D04BB60039107C /* XCRemoteSwiftPackageReference "BarChart" */;
+			package = D3EACF0D24D04D9A002E4109 /* XCRemoteSwiftPackageReference "BarChart" */;
 			productName = BarChart;
 		};
 /* End XCSwiftPackageProductDependency section */

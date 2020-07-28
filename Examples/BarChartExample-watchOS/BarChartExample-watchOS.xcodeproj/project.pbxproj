@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D31C87BD24CBD59300C51C48 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D31C87BC24CBD59300C51C48 /* BarChart */; };
+		D33BD93824D04ECB009979C4 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D33BD93724D04ECB009979C4 /* BarChart */; };
 		D351E84524C1BB5C00369539 /* BarChartExample-watchOS WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D351E84424C1BB5C00369539 /* BarChartExample-watchOS WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D351E84B24C1BB5C00369539 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D351E84924C1BB5C00369539 /* Interface.storyboard */; };
 		D351E84D24C1BB5D00369539 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D351E84C24C1BB5D00369539 /* Assets.xcassets */; };
@@ -81,19 +81,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D31C87BD24CBD59300C51C48 /* BarChart in Frameworks */,
+				D33BD93824D04ECB009979C4 /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D33BD93624D04ECB009979C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D351E83924C1BB5C00369539 = {
 			isa = PBXGroup;
 			children = (
 				D351E84824C1BB5C00369539 /* BarChartExample-watchOS WatchKit App */,
 				D351E85724C1BB5D00369539 /* BarChartExample-watchOS WatchKit Extension */,
 				D351E84124C1BB5C00369539 /* Products */,
+				D33BD93624D04ECB009979C4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +163,7 @@
 			);
 			name = "BarChartExample-watchOS";
 			packageProductDependencies = (
+				D33BD93524D04EBB009979C4 /* BarChart */,
 			);
 			productName = "BarChartExample-watchOS";
 			productReference = D351E84024C1BB5C00369539 /* BarChartExample-watchOS.app */;
@@ -191,7 +200,7 @@
 			);
 			name = "BarChartExample-watchOS WatchKit Extension";
 			packageProductDependencies = (
-				D31C87BC24CBD59300C51C48 /* BarChart */,
+				D33BD93724D04ECB009979C4 /* BarChart */,
 			);
 			productName = "BarChartExample-watchOS WatchKit Extension";
 			productReference = D351E85324C1BB5D00369539 /* BarChartExample-watchOS WatchKit Extension.appex */;
@@ -228,6 +237,7 @@
 			);
 			mainGroup = D351E83924C1BB5C00369539;
 			packageReferences = (
+				D33BD93424D04EBB009979C4 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D351E84124C1BB5C00369539 /* Products */;
 			projectDirPath = "";
@@ -571,9 +581,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D33BD93424D04EBB009979C4 /* XCRemoteSwiftPackageReference "BarChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dawigr/BarChart.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		D31C87BC24CBD59300C51C48 /* BarChart */ = {
+		D33BD93524D04EBB009979C4 /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = D33BD93424D04EBB009979C4 /* XCRemoteSwiftPackageReference "BarChart" */;
+			productName = BarChart;
+		};
+		D33BD93724D04ECB009979C4 /* BarChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D33BD93424D04EBB009979C4 /* XCRemoteSwiftPackageReference "BarChart" */;
 			productName = BarChart;
 		};
 /* End XCSwiftPackageProductDependency section */
