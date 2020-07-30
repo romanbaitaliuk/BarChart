@@ -11,8 +11,7 @@ Lightweight and easy to use SwiftUI chart library for all Apple platforms
 - Fully customizable axes (labels font, color, dashed lines)
 - Custom gradient bars
 - Reactive chart configuration
-- **[WIP]** chart animation
-- **[WIP]** bar selection
+- Bar selection API
 - **[WIP]** horizontal scrolling
 
 ## Requirements
