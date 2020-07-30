@@ -35,9 +35,11 @@ struct ContentView: View {
     
     // MARK: - Chart Properties
     
-    let chartHeight: CGFloat = 300
+    let chartHeight: CGFloat = 400
     let config = ChartConfiguration()
     @State var entries = [ChartDataEntry]()
+    @State var selectedBarTopCentreLocation: CGPoint?
+    @State var selectedEntry: ChartDataEntry?
     
     // MARK: - Controls Properties
     
@@ -60,6 +62,19 @@ struct ContentView: View {
         }.navigationViewStyle(StackNavigationViewStyle())
     }
     
+    func selectionIndicatorView() -> some View {
+        Group {
+            if self.selectedEntry != nil && self.selectedBarTopCentreLocation != nil {
+                SelectionIndicator(entry: self.selectedEntry!,
+                                   location: self.selectedBarTopCentreLocation!.x,
+                                   infoRectangleColor: Color(red: 241/255, green: 242/255, blue: 245/255))
+            } else {
+                Rectangle().foregroundColor(.clear)
+            }
+        }
+        .frame(height: 60)
+    }
+    
     func chartView() -> some View {
         ZStack {
             // Drop shadow rectangle
@@ -68,35 +83,45 @@ struct ContentView: View {
                 .padding(5)
                 .shadow(color: .black, radius: 5)
                 Text("No data").opacity(self.entries.isEmpty ? 1.0 : 0.0)
-                BarChartView(config: self.config)
-                    .onAppear() {
-                        let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
-                        self.config.data.entries = self.randomEntries()
-                        self.config.data.color = .red
-                        self.config.xAxis.labelsColor = .gray
-                        self.config.xAxis.ticksColor = .gray
-                        self.config.labelsCTFont = labelsFont
-                        self.config.xAxis.ticksDash = [2, 4]
-                        self.config.yAxis.labelsColor = .gray
-                        self.config.yAxis.ticksColor = .gray
-                        self.config.yAxis.ticksDash = [2, 4]
-                        self.config.yAxis.minTicksSpacing = 30.0
-                        self.config.yAxis.formatter = { (value, decimals) in
-                            let format = value == 0 ? "" : "b"
-                            return String(format: " %.\(decimals)f\(format)", value)
-                        }
+            VStack(alignment: .leading, spacing: 0) {
+                self.selectionIndicatorView()
+                SelectableBarChartView<SelectionLine>(config: self.config)
+                .onBarSelection { entry, location in
+                    self.selectedBarTopCentreLocation = location
+                    self.selectedEntry = entry
+                }
+                .selectionView {
+                    SelectionLine(location: self.selectedBarTopCentreLocation,
+                                  height: 295)
+                }
+                .onAppear() {
+                    let labelsFont = CTFontCreateWithName(("SFProText-Regular" as CFString), 10, nil)
+                    self.config.data.entries = self.randomEntries()
+                    self.config.data.color = .red
+                    self.config.xAxis.labelsColor = .gray
+                    self.config.xAxis.ticksColor = .gray
+                    self.config.labelsCTFont = labelsFont
+                    self.config.xAxis.ticksDash = [2, 4]
+                    self.config.yAxis.labelsColor = .gray
+                    self.config.yAxis.ticksColor = .gray
+                    self.config.yAxis.ticksDash = [2, 4]
+                    self.config.yAxis.minTicksSpacing = 30.0
+                    self.config.yAxis.formatter = { (value, decimals) in
+                        let format = value == 0 ? "" : "b"
+                        return String(format: " %.\(decimals)f\(format)", value)
                     }
-                    .animation(.easeInOut)
-                    .onReceive([self.isXAxisTicksHidden].publisher.first()) { (value) in
-                        self.config.xAxis.ticksColor = value ? .clear : .gray
-                    }
-                    .onReceive([self.xAxisTicksIntervalValue].publisher.first()) { (value) in
-                        self.config.xAxis.ticksInterval = Int(value)
-                    }
-                    .onReceive(self.orientationChanged) { _ in
-                        self.config.objectWillChange.send()
-                    }
-                    .padding(15)
+                }
+                .animation(.easeInOut)
+                .onReceive([self.isXAxisTicksHidden].publisher.first()) { (value) in
+                    self.config.xAxis.ticksColor = value ? .clear : .gray
+                }
+                .onReceive([self.xAxisTicksIntervalValue].publisher.first()) { (value) in
+                    self.config.xAxis.ticksInterval = Int(value)
+                }
+                .onReceive(self.orientationChanged) { _ in
+                    self.config.objectWillChange.send()
+                }
+            }.padding(15)
         }.frame(height: self.chartHeight)
     }
     

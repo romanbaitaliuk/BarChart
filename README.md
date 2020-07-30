@@ -5,6 +5,10 @@ Lightweight and easy to use SwiftUI chart library for all Apple platforms
 <img src="Resources/bar-chart-screenshot.png"/>
 </center>
 
+<center>
+<img src="Resources/bar-chart-screenshot-2.png"/>
+</center>
+
 ## Features
 
 - Scaling on both axes

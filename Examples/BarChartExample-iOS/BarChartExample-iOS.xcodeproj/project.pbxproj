@@ -14,6 +14,8 @@
 		D376827A24BF02F800D87BAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D376827924BF02F800D87BAB /* Preview Assets.xcassets */; };
 		D376827D24BF02F800D87BAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D376827B24BF02F800D87BAB /* LaunchScreen.storyboard */; };
 		D376828524BF033300D87BAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D376828424BF033300D87BAB /* ContentView.swift */; };
+		D3EFCE0D24D2DD9C0021553C /* SelectionIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFCE0B24D2DD9C0021553C /* SelectionIndicator.swift */; };
+		D3EFCE0E24D2DD9C0021553C /* SelectionLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFCE0C24D2DD9C0021553C /* SelectionLine.swift */; };
 		D3F4FEE624D1170B00B3773B /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D3F4FEE524D1170B00B3773B /* BarChart */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +28,8 @@
 		D376827C24BF02F800D87BAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D376827E24BF02F800D87BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D376828424BF033300D87BAB /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D3EFCE0B24D2DD9C0021553C /* SelectionIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionIndicator.swift; path = "../../SelectableBarChartExample-iOS/SelectableBarChartExample-iOS/SelectionIndicator.swift"; sourceTree = "<group>"; };
+		D3EFCE0C24D2DD9C0021553C /* SelectionLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionLine.swift; path = "../../SelectableBarChartExample-iOS/SelectableBarChartExample-iOS/SelectionLine.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				D376827024BF02F600D87BAB /* AppDelegate.swift */,
 				D376827224BF02F600D87BAB /* SceneDelegate.swift */,
 				D376828424BF033300D87BAB /* ContentView.swift */,
+				D3EFCE0B24D2DD9C0021553C /* SelectionIndicator.swift */,
+				D3EFCE0C24D2DD9C0021553C /* SelectionLine.swift */,
 				D376827624BF02F800D87BAB /* Assets.xcassets */,
 				D376827B24BF02F800D87BAB /* LaunchScreen.storyboard */,
 				D376827E24BF02F800D87BAB /* Info.plist */,
@@ -157,8 +163,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3EFCE0E24D2DD9C0021553C /* SelectionLine.swift in Sources */,
 				D376827124BF02F600D87BAB /* AppDelegate.swift in Sources */,
 				D376827324BF02F600D87BAB /* SceneDelegate.swift in Sources */,
+				D3EFCE0D24D2DD9C0021553C /* SelectionIndicator.swift in Sources */,
 				D376828524BF033300D87BAB /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
