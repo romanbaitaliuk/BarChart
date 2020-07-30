@@ -74,7 +74,6 @@
 		D351E85E24C1BB5D00369539 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D351E86124C1BB5D00369539 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D351E86324C1BB5D00369539 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3F4FEE724D11A5100B3773B /* BarChart */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BarChart; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,21 +88,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D33BD93624D04ECB009979C4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D3F4FEE724D11A5100B3773B /* BarChart */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D351E83924C1BB5C00369539 = {
 			isa = PBXGroup;
 			children = (
 				D351E84824C1BB5C00369539 /* BarChartExample-watchOS WatchKit App */,
 				D351E85724C1BB5D00369539 /* BarChartExample-watchOS WatchKit Extension */,
 				D351E84124C1BB5C00369539 /* Products */,
-				D33BD93624D04ECB009979C4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,6 +155,7 @@
 			);
 			name = "BarChartExample-watchOS";
 			packageProductDependencies = (
+				D31B068F24D2D6ED0031D9A2 /* BarChart */,
 			);
 			productName = "BarChartExample-watchOS";
 			productReference = D351E84024C1BB5C00369539 /* BarChartExample-watchOS.app */;
@@ -238,6 +229,7 @@
 			);
 			mainGroup = D351E83924C1BB5C00369539;
 			packageReferences = (
+				D31B068E24D2D6ED0031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D351E84124C1BB5C00369539 /* Products */;
 			projectDirPath = "";
@@ -432,9 +424,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"BarChartExample-watchOS WatchKit Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "BarChartExample-watchOS WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -444,6 +436,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-watchOS.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -456,9 +449,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"BarChartExample-watchOS WatchKit Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "BarChartExample-watchOS WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -468,6 +461,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-watchOS.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -481,12 +475,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = BarChartExample_watchOS_WatchKit_Extension;
 				INFOPLIST_FILE = "BarChartExample-watchOS WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-watchOS.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -500,12 +495,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = BarChartExample_watchOS_WatchKit_Extension;
 				INFOPLIST_FILE = "BarChartExample-watchOS WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-watchOS.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -517,12 +513,13 @@
 		D351E86F24C1BB5D00369539 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				DEVELOPMENT_TEAM = "";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-watchOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -530,12 +527,13 @@
 		D351E87024C1BB5D00369539 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				DEVELOPMENT_TEAM = "";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-watchOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -581,7 +579,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D31B068E24D2D6ED0031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dawigr/BarChart.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		D31B068F24D2D6ED0031D9A2 /* BarChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D31B068E24D2D6ED0031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */;
+			productName = BarChart;
+		};
 		D3F4FEE824D11A5600B3773B /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BarChart;

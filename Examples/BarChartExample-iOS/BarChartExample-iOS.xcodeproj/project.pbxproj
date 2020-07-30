@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D31B069224D2D7500031D9A2 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D31B069124D2D7500031D9A2 /* BarChart */; };
 		D376827124BF02F600D87BAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D376827024BF02F600D87BAB /* AppDelegate.swift */; };
 		D376827324BF02F600D87BAB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D376827224BF02F600D87BAB /* SceneDelegate.swift */; };
 		D376827724BF02F800D87BAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D376827624BF02F800D87BAB /* Assets.xcassets */; };
@@ -25,7 +26,6 @@
 		D376827C24BF02F800D87BAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D376827E24BF02F800D87BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D376828424BF033300D87BAB /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D3F4FEE324D1170600B3773B /* BarChart */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BarChart; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +34,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3F4FEE624D1170B00B3773B /* BarChart in Frameworks */,
+				D31B069224D2D7500031D9A2 /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +46,6 @@
 			children = (
 				D376826F24BF02F600D87BAB /* BarChartExample-iOS */,
 				D376826E24BF02F600D87BAB /* Products */,
-				D3F4FEE424D1170B00B3773B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,14 +79,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		D3F4FEE424D1170B00B3773B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D3F4FEE324D1170600B3773B /* BarChart */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -105,6 +97,7 @@
 			name = "BarChartExample-iOS";
 			packageProductDependencies = (
 				D3F4FEE524D1170B00B3773B /* BarChart */,
+				D31B069124D2D7500031D9A2 /* BarChart */,
 			);
 			productName = "BarChartExample-iOS";
 			productReference = D376826D24BF02F600D87BAB /* BarChartExample-iOS.app */;
@@ -135,6 +128,7 @@
 			);
 			mainGroup = D376826424BF02F600D87BAB;
 			packageReferences = (
+				D31B069024D2D7500031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D376826E24BF02F600D87BAB /* Products */;
 			projectDirPath = "";
@@ -301,9 +295,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"BarChartExample-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "BarChartExample-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -313,6 +307,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -322,9 +317,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"BarChartExample-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "BarChartExample-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -334,6 +329,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -362,7 +358,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D31B069024D2D7500031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dawigr/BarChart.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		D31B069124D2D7500031D9A2 /* BarChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D31B069024D2D7500031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */;
+			productName = BarChart;
+		};
 		D3F4FEE524D1170B00B3773B /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BarChart;

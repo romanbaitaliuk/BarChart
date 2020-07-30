@@ -288,9 +288,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"BarChartExample-tvOS/Preview Content\"";
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "BarChartExample-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -299,6 +299,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
@@ -308,9 +309,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"BarChartExample-tvOS/Preview Content\"";
-				DEVELOPMENT_TEAM = NQ55NQ9ATC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "BarChartExample-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -319,6 +320,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ByteKit.BarChartExample-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
@@ -353,7 +355,7 @@
 			repositoryURL = "https://github.com/dawigr/BarChart.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
+				minimumVersion = 1.3.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
