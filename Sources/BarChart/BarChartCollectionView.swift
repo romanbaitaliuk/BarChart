@@ -45,22 +45,31 @@ struct BarChartCollectionView: View {
                         .offset(y: self.offsetY())
                         .onTapGesture {
                             let entry = self.xAxis.data[index]
-                            let x = self.xAxis.layout.barCentre(at: index)!
-                            let bottomPadding = String().height(ctFont: self.xAxis.labelsCTFont) / 2
-                            let y = self.yAxis.frameHeight - (self.barHeight(at: index) - bottomPadding)
-                            self.selectionCallback?(entry, CGPoint(x: x, y: y))
+                            let barTopCentre = self.barTopCentre(at: index)
+                            self.selectionCallback?(entry, barTopCentre)
                         }
                 }
             }
         }
     }
     
+    func barTopCentre(at index: Int) -> CGPoint {
+        let x = self.xAxis.layout.barCentre(at: index)!
+        let value = CGFloat(self.yAxis.normalizedValues()[index])
+        let y = self.calculateTopOffset(for: value)
+        return CGPoint(x: x, y: y)
+    }
+    
     func offsetY() -> CGFloat {
-        guard let maxNormalizedValue = self.yAxis.normalizedValues().max(),
-            let centre = self.yAxis.centre() else { return 0 }
+        guard let maxNormalizedValue = self.yAxis.normalizedValues().max() else { return 0 }
         let chartNormalisedMax = maxNormalizedValue > 0 ? maxNormalizedValue : 0
         let absoluteMax = abs(CGFloat(chartNormalisedMax))
-        let maxBarHeight = absoluteMax * self.yAxis.frameHeight
+        return self.calculateTopOffset(for: absoluteMax)
+    }
+    
+    func calculateTopOffset(for value: CGFloat) -> CGFloat {
+        guard let centre = self.yAxis.centre() else { return 0 }
+        let maxBarHeight = value * self.yAxis.frameHeight
         let topPadding = String().height(ctFont: self.xAxis.labelsCTFont) / 2
         return self.yAxis.frameHeight - abs(centre) - maxBarHeight + topPadding
     }

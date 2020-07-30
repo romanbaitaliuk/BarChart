@@ -51,7 +51,6 @@
 			children = (
 				D3A6EEC024D294C500DEED1B /* SelectableBarChartExample-iOS */,
 				D3A6EEBF24D294C500DEED1B /* Products */,
-				D3A6EEDB24D2962E00DEED1B /* BarChart */,
 				D3A6EEDC24D2963600DEED1B /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +91,7 @@
 		D3A6EEDC24D2963600DEED1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3A6EEDB24D2962E00DEED1B /* BarChart */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

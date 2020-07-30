@@ -49,6 +49,7 @@ struct ContentView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     self.selectableChartView()
+                    self.miniSelectableChartView()
                     Button(action: {
                         self.resetSelection()
                         self.config.data.entries = self.randomEntries()
@@ -73,7 +74,24 @@ struct ContentView: View {
             self.chartView()
         }
         .frame(height: self.chartHeight)
-        .padding(10)
+        .padding(15)
+    }
+    
+    func miniSelectableChartView() -> some View {
+        SelectableBarChartView<MiniSelectionIndicator>(config: self.config)
+            .onBarSelection { entry, location in
+                self.selectedBarTopCentreLocation = location
+                self.selectedEntry = entry
+            }
+            .selectionView {
+                MiniSelectionIndicator(entry: self.selectedEntry,
+                                       location: self.selectedBarTopCentreLocation)
+            }
+            .onAppear() {
+                self.config.data.entries = self.randomEntries()
+            }
+            .frame(height: self.chartHeight - self.selectionIndicatorHeight)
+            .padding(15)
     }
     
     func chartView() -> some View {
@@ -109,7 +127,7 @@ struct ContentView: View {
     func randomEntries() -> [ChartDataEntry] {
         var entries = [ChartDataEntry]()
         for data in 0..<15 {
-            let randomDouble = Double.random(in: -10...50)
+            let randomDouble = Double.random(in: -20...50)
             let newEntry = ChartDataEntry(x: "\(2000+data)", y: randomDouble)
             entries.append(newEntry)
         }
