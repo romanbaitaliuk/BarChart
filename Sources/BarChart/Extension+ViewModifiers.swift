@@ -28,6 +28,7 @@ import SwiftUI
 
 public typealias BarChartView = SelectableBarChartView<EmptyView>
 
+#if !os(tvOS)
 public extension SelectableBarChartView {
     func onBarSelection(_ callback: @escaping (ChartDataEntry, CGPoint) -> ()) -> Self {
         SelectableBarChartView(config: self.config, selectionCallback: callback)
@@ -35,5 +36,29 @@ public extension SelectableBarChartView {
     
     func selectionView(@ViewBuilder view: () -> SelectionView) -> Self {
         SelectableBarChartView(config: self.config, selectionCallback: self.selectionCallback, selectionView: view())
+    }
+}
+#endif
+
+extension View {
+    func onSelect(callback: @escaping () -> ()) -> some View {
+        return self.modifier(Selectable(callback: callback))
+    }
+}
+
+struct Selectable: ViewModifier {
+    let callback: () -> ()
+    
+    func body(content: Content) -> some View {
+        Group {
+            #if !os(tvOS)
+                content
+                    .onTapGesture {
+                        self.callback()
+                    }
+            #else
+                content
+            #endif
+        }
     }
 }

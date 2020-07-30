@@ -43,7 +43,7 @@ struct BarChartCollectionView: View {
                                  gradient: self.gradient,
                                  color: self.color)
                         .offset(y: self.offsetY())
-                        .onTapGesture {
+                        .onSelect {
                             let entry = self.xAxis.data[index]
                             let barTopCentre = self.barTopCentre(at: index)
                             self.selectionCallback?(entry, barTopCentre)

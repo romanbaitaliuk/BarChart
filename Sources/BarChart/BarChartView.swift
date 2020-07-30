@@ -31,12 +31,16 @@ public struct SelectableBarChartView<SelectionView: View> : View {
     @State var xAxis = XAxis()
     @State var yAxis = YAxis()
     @State var selectionCallback: ((ChartDataEntry, CGPoint) -> Void)?
-    let selectionView: SelectionView?
+    var selectionView: SelectionView?
     
-    public init(config: ChartConfiguration,
-                selectionCallback: ((ChartDataEntry, CGPoint) -> Void)? = nil,
-                selectionView: SelectionView? = nil) {
+    public init(config: ChartConfiguration) {
         self.config = config
+    }
+    
+    init(config: ChartConfiguration,
+         selectionCallback: ((ChartDataEntry, CGPoint) -> Void)? = nil,
+         selectionView: SelectionView? = nil) {
+        self.init(config: config)
         self._selectionCallback = State(wrappedValue: selectionCallback)
         self.selectionView = selectionView
     }
