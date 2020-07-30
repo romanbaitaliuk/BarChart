@@ -32,36 +32,32 @@ struct BarChartCollectionView: View {
     let gradient: Gradient?
     let color: Color
     
-    @State var scaleValue: CGFloat = 0
-    
     var body: some View {
-        ZStack {
+        HStack(alignment: .bottom, spacing: self.xAxis.layout.spacing ?? 0) {
             if self.xAxis.layout.barWidth != nil {
                 ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
                     BarChartCell(width: self.xAxis.layout.barWidth!,
+                                 height: self.barHeight(at: index),
                                  cornerRadius: 3.0,
-                                 startPoint: self.startPoint(at: index),
-                                 endPoint: self.endPoint(at: index),
                                  gradient: self.gradient,
                                  color: self.color)
+                        .offset(y: self.offsetY())
+                        .onTapGesture {
+                            print(index)
+                        }
                 }
             }
         }
     }
     
     func offsetY() -> CGFloat {
-        guard let centre = self.yAxis.centre() else { return 0 }
-        let bottomPadding = String().height(ctFont: self.xAxis.labelsCTFont) * 1.5
-        return abs(centre) + bottomPadding
-    }
-    
-    func startPoint(at index: Int) -> CGPoint {
-        return CGPoint(x: self.xAxis.layout.barCentre(at: index)!, y: self.offsetY())
-    }
-    
-    func endPoint(at index: Int) -> CGPoint {
-        let endY = self.barHeight(at: index) + self.offsetY()
-        return CGPoint(x: self.xAxis.layout.barCentre(at: index)!, y: endY)
+        guard let maxNormalizedValue = self.yAxis.normalizedValues().max(),
+            let centre = self.yAxis.centre() else { return 0 }
+        let chartNormalisedMax = maxNormalizedValue > 0 ? maxNormalizedValue : 0
+        let absoluteMax = abs(CGFloat(chartNormalisedMax))
+        let maxBarHeight = absoluteMax * self.yAxis.frameHeight
+        let topPadding = String().height(ctFont: self.xAxis.labelsCTFont) / 2
+        return self.yAxis.frameHeight - abs(centre) - maxBarHeight + topPadding
     }
     
     func barHeight(at index: Int) -> CGFloat {

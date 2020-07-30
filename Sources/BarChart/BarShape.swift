@@ -28,35 +28,15 @@ import SwiftUI
 
 struct BarShape: Shape {
     let cornerRadius: CGFloat
-    var start, end: CGPoint
-    
-    var animatableData: AnimatablePair<CGPoint.AnimatableData, CGPoint.AnimatableData> {
-        get { AnimatablePair(self.start.animatableData, self.end.animatableData) }
-        set { (self.start.animatableData, self.end.animatableData) = (newValue.first, newValue.second) }
-    }
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        let width = rect.maxX
-        let adj: CGFloat = self.start.y < self.end.y ? 1.0 : -1.0
-        
-        let p1 = CGPoint(x: self.start.x - width / 2, y: self.start.y)
-        let p2 = CGPoint(x: self.start.x - width / 2, y: self.end.y - self.cornerRadius * adj)
-        let p3 = CGPoint(x: self.start.x - width / 2 + self.cornerRadius, y: self.end.y)
-        let p4 = CGPoint(x: self.start.x + width / 2 - self.cornerRadius, y: self.end.y)
-        let p5 = CGPoint(x: self.start.x + width / 2, y: self.end.y - self.cornerRadius * adj)
-        let p6 = CGPoint(x: self.start.x + width / 2, y: self.start.y)
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
 
-        let control1 = CGPoint(x: self.start.x - width / 2, y: self.end.y)
-        let control2 = CGPoint(x: self.start.x + width / 2, y: self.end.y)
-
-        path.move(to: p1)
-        path.addLine(to: p2)
-        path.addQuadCurve(to: p3, control: control1)
-        path.addLine(to: p4)
-        path.addQuadCurve(to: p5, control: control2)
-        path.addLine(to: p6)
         path.closeSubpath()
         
         return path

@@ -27,28 +27,22 @@
 import SwiftUI
 
 struct BarChartCell: View {
-    let width, cornerRadius: CGFloat
-    let startPoint, endPoint: CGPoint
+    let width, height, cornerRadius: CGFloat
     let gradient: Gradient?
     let color: Color
     
     var body: some View {
         Group {
             if self.gradient != nil {
-                BarShape(cornerRadius: self.cornerRadius,
-                         start: self.startPoint,
-                         end: self.endPoint)
+                BarShape(cornerRadius: self.cornerRadius)
                     .fill(LinearGradient(gradient: self.gradient!,
                                          startPoint: .bottom,
                                          endPoint: .top))
             } else {
-                BarShape(cornerRadius: self.cornerRadius,
-                         start: self.startPoint,
-                         end: self.endPoint)
+                BarShape(cornerRadius: self.cornerRadius)
                     .fill(self.color)
             }
         }
-        .frame(width: self.width)
-        .rotation3DEffect(Angle(degrees: 180), axis: (x: 1, y: 0, z: 0))
+        .frame(width: self.width, height: self.height)
     }
 }
