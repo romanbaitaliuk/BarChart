@@ -31,6 +31,7 @@ struct BarChartCollectionView: View {
     let xAxis: XAxis
     let gradient: Gradient?
     let color: Color
+    @Binding var selectionCallback: ((ChartDataEntry, CGPoint) -> Void)?
     
     var body: some View {
         HStack(alignment: .bottom, spacing: self.xAxis.layout.spacing ?? 0) {
@@ -43,7 +44,11 @@ struct BarChartCollectionView: View {
                                  color: self.color)
                         .offset(y: self.offsetY())
                         .onTapGesture {
-                            print(index)
+                            let entry = self.xAxis.data[index]
+                            let x = self.xAxis.layout.barCentre(at: index)!
+                            let bottomPadding = String().height(ctFont: self.xAxis.labelsCTFont) / 2
+                            let y = self.yAxis.frameHeight - (self.barHeight(at: index) + bottomPadding)
+                            self.selectionCallback?(entry, CGPoint(x: x, y: y))
                         }
                 }
             }

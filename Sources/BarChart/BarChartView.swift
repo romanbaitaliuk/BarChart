@@ -26,13 +26,19 @@
 
 import SwiftUI
 
-public struct BarChartView : View {
+public struct SelectableBarChartView<SelectionView: View> : View {
     @ObservedObject var config: ChartConfiguration
     @State var xAxis = XAxis()
     @State var yAxis = YAxis()
+    @State var selectionCallback: ((ChartDataEntry, CGPoint) -> Void)?
+    let selectionView: SelectionView?
     
-    public init(config: ChartConfiguration) {
+    public init(config: ChartConfiguration,
+                selectionCallback: ((ChartDataEntry, CGPoint) -> Void)? = nil,
+                selectionView: SelectionView? = nil) {
         self.config = config
+        self._selectionCallback = State(wrappedValue: selectionCallback)
+        self.selectionView = selectionView
     }
     
     public var body: some View {
@@ -40,7 +46,7 @@ public struct BarChartView : View {
             GeometryReader { proxy in
                 CoordinateSystemView(yAxis: self.yAxis,
                                      xAxis: self.xAxis,
-                                     frameSize: proxy.size)
+                                     frameSize: proxy.size).id(UUID())
                     .onReceive(self.config.objectWillChange) { _ in
                         self.yAxis = YAxis(frameHeight: self.yAxisHeight(proxy.size.height),
                                            data: self.config.data.yValues,
@@ -51,10 +57,12 @@ public struct BarChartView : View {
                                            ref: self.config.xAxis,
                                            labelsCTFont: self.config.labelsCTFont)
                     }
+                self.selectionView
                 BarChartCollectionView(yAxis: self.yAxis,
                                        xAxis: self.xAxis,
                                        gradient: self.config.data.gradientColor?.gradient(),
-                                       color: self.config.data.color)
+                                       color: self.config.data.color,
+                                       selectionCallback: self.$selectionCallback)
             }
         }
     }
