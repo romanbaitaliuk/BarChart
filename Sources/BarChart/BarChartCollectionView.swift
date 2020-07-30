@@ -47,7 +47,7 @@ struct BarChartCollectionView: View {
                             let entry = self.xAxis.data[index]
                             let x = self.xAxis.layout.barCentre(at: index)!
                             let bottomPadding = String().height(ctFont: self.xAxis.labelsCTFont) / 2
-                            let y = self.yAxis.frameHeight - (self.barHeight(at: index) + bottomPadding)
+                            let y = self.yAxis.frameHeight - (self.barHeight(at: index) - bottomPadding)
                             self.selectionCallback?(entry, CGPoint(x: x, y: y))
                         }
                 }
