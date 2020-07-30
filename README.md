@@ -31,7 +31,7 @@ https://github.com/dawigr/BarChart.git
 
 ## Usage
 
-[See Wiki](https://github.com/dawigr/BarChart/wiki/Usage) for usage details
+[See Wiki](https://github.com/dawigr/BarChart/wiki) for usage details
 
 ## Help
 
