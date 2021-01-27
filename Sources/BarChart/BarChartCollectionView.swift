@@ -38,11 +38,11 @@ struct BarChartCollectionView: View {
             if self.xAxis.layout.barWidth != nil {
                 ForEach(0..<self.yAxis.normalizedValues().count, id: \.self) { index in
                     BarChartCell(width: self.xAxis.layout.barWidth!,
-                                 height: self.barHeight(at: index),
+                                 height: abs(self.barHeight(at: index)),
                                  cornerRadius: 3.0,
                                  gradient: self.gradient,
                                  color: self.color)
-                        .offset(y: self.offsetY())
+                        .offset(y: self.offsetY(at: index))
                         .onSelect {
                             let entry = self.xAxis.data[index]
                             let barTopCentre = self.barTopCentre(at: index)
@@ -60,11 +60,17 @@ struct BarChartCollectionView: View {
         return CGPoint(x: x, y: y)
     }
     
-    func offsetY() -> CGFloat {
+    func offsetY(at index: Int) -> CGFloat {
         guard let maxNormalizedValue = self.yAxis.normalizedValues().max() else { return 0 }
         let chartNormalisedMax = maxNormalizedValue > 0 ? maxNormalizedValue : 0
         let absoluteMax = abs(CGFloat(chartNormalisedMax))
-        return self.calculateTopOffset(for: absoluteMax)
+        var offset = self.calculateTopOffset(for: absoluteMax)
+        let barHeight = self.barHeight(at: index)
+        // Adding offset for bars with negative normalised value
+        if barHeight < 0 {
+            offset -= barHeight
+        }
+        return offset
     }
     
     func calculateTopOffset(for value: CGFloat) -> CGFloat {
