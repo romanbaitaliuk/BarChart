@@ -60,6 +60,9 @@ struct ContentView: View {
                         self.config.objectWillChange.send()
                         self.resetSelection()
                     }
+                    .onAppear() {
+                        self.config.data.entries = self.randomEntries()
+                    }
                     .navigationBarTitle(Text("SelectableBarChart"))
                 }
             }
@@ -87,9 +90,6 @@ struct ContentView: View {
                 MiniSelectionIndicator(entry: self.selectedEntry,
                                        location: self.selectedBarTopCentreLocation)
             }
-            .onAppear() {
-                self.config.data.entries = self.randomEntries()
-            }
             .frame(height: self.chartHeight - self.selectionIndicatorHeight)
             .padding(15)
     }
@@ -104,9 +104,6 @@ struct ContentView: View {
                 .selectionView {
                     SelectionLine(location: self.selectedBarTopCentreLocation,
                                   height: proxy.size.height - 17)
-                }
-                .onAppear() {
-                    self.config.data.entries = self.randomEntries()
                 }
         }
     }
