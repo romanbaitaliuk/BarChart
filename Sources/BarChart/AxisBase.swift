@@ -29,7 +29,7 @@ import SwiftUI
 public class AxisBase: ObservableObject {
     @Published public var labelsColor: Color = .black
     @Published public var ticksColor: Color = .black
-    @Published public var ticksDash: [CGFloat] =  [5, 10]
+    @Published public var ticksStyle = StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: [5, 10])
 }
 
 public class XAxisReference: AxisBase {
