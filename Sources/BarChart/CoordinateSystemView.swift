@@ -45,16 +45,25 @@ struct CoordinateSystemView: View {
 
 struct TickView: View {
     let points: (CGPoint, CGPoint)
-    let dash: [CGFloat]
+    let style: StrokeStyle
     let color: Color
     let isInverted: Bool
+    let isYAt0: Bool
     
     var body: some View {
         self.linePath()
             .stroke(self.color,
-                    style: StrokeStyle(lineWidth: 1.5, lineCap: .round, dash: self.dash))
+                    style: self.getStyle())
             .rotationEffect(.degrees(self.isInverted ? 180 : 0), anchor: .center)
             .rotation3DEffect(.degrees(self.isInverted ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+    }
+    
+    func getStyle() -> StrokeStyle {
+        var style = self.style
+        if isYAt0 {
+            style.dash = []
+        }
+        return style
     }
     
     func linePath() -> Path {
@@ -85,9 +94,9 @@ struct XAxisView: View {
         ForEach((0..<self.xAxis.formattedLabels().count), id: \.self) { index in
             VStack(alignment: .center) {
                 TickView(points: self.tickPoints(index: index),
-                         dash: self.xAxis.ref.ticksDash,
+                         style: self.xAxis.ref.ticksStyle,
                          color: self.xAxis.ref.ticksColor,
-                         isInverted: false)
+                         isInverted: false, isYAt0: false)
                 LabelView(text: self.xAxis.formattedLabels()[index],
                           ctFont: self.xAxis.labelsCTFont,
                           color: self.xAxis.ref.labelsColor)
@@ -126,9 +135,9 @@ struct YAxisView: View {
         ForEach((0..<self.yAxis.formattedLabels().count), id: \.self) { index in
             HStack(alignment: .center) {
                 TickView(points: self.tickPoints(index: index),
-                         dash: self.yAxis.labelValue(at: index) == 0 ? [] : self.yAxis.ref.ticksDash,
+                         style: self.yAxis.ref.ticksStyle,
                          color: self.yAxis.ref.ticksColor,
-                         isInverted: true)
+                         isInverted: true, isYAt0: self.yAxis.labelValue(at: index) == 0)
                 LabelView(text: self.yAxis.formattedLabels()[index],
                           ctFont: self.yAxis.labelsCTFont,
                           color: self.yAxis.ref.labelsColor)
