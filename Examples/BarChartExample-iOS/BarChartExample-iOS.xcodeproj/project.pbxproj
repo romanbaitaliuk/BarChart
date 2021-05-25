@@ -13,10 +13,9 @@
 		D376827A24BF02F800D87BAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D376827924BF02F800D87BAB /* Preview Assets.xcassets */; };
 		D376827D24BF02F800D87BAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D376827B24BF02F800D87BAB /* LaunchScreen.storyboard */; };
 		D376828524BF033300D87BAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D376828424BF033300D87BAB /* ContentView.swift */; };
-		D3B7CEC125C111B0005FA949 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D3B7CEC025C111B0005FA949 /* BarChart */; };
+		D399CAE2265C7D5600A92054 /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D399CAE1265C7D5600A92054 /* BarChart */; };
 		D3EFCE0D24D2DD9C0021553C /* SelectionIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFCE0B24D2DD9C0021553C /* SelectionIndicator.swift */; };
 		D3EFCE0E24D2DD9C0021553C /* SelectionLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFCE0C24D2DD9C0021553C /* SelectionLine.swift */; };
-		D3F4FEE624D1170B00B3773B /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D3F4FEE524D1170B00B3773B /* BarChart */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +27,7 @@
 		D376827C24BF02F800D87BAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D376827E24BF02F800D87BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D376828424BF033300D87BAB /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D399CADE265C7D4700A92054 /* BarChart */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BarChart; path = ../..; sourceTree = "<group>"; };
 		D3EFCE0B24D2DD9C0021553C /* SelectionIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionIndicator.swift; path = "../../SelectableBarChartExample-iOS/SelectableBarChartExample-iOS/SelectionIndicator.swift"; sourceTree = "<group>"; };
 		D3EFCE0C24D2DD9C0021553C /* SelectionLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionLine.swift; path = "../../SelectableBarChartExample-iOS/SelectableBarChartExample-iOS/SelectionLine.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,8 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3F4FEE624D1170B00B3773B /* BarChart in Frameworks */,
-				D3B7CEC125C111B0005FA949 /* BarChart in Frameworks */,
+				D399CAE2265C7D5600A92054 /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,8 +47,10 @@
 		D376826424BF02F600D87BAB = {
 			isa = PBXGroup;
 			children = (
+				D399CADE265C7D4700A92054 /* BarChart */,
 				D376826F24BF02F600D87BAB /* BarChartExample-iOS */,
 				D376826E24BF02F600D87BAB /* Products */,
+				D399CAE0265C7D5600A92054 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +86,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D399CAE0265C7D5600A92054 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,8 +110,7 @@
 			);
 			name = "BarChartExample-iOS";
 			packageProductDependencies = (
-				D3F4FEE524D1170B00B3773B /* BarChart */,
-				D3B7CEC025C111B0005FA949 /* BarChart */,
+				D399CAE1265C7D5600A92054 /* BarChart */,
 			);
 			productName = "BarChartExample-iOS";
 			productReference = D376826D24BF02F600D87BAB /* BarChartExample-iOS.app */;
@@ -116,7 +123,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Roman Baitaliuk";
 				TargetAttributes = {
 					D376826C24BF02F600D87BAB = {
@@ -134,7 +141,6 @@
 			);
 			mainGroup = D376826424BF02F600D87BAB;
 			packageReferences = (
-				D3B7CEBF25C111B0005FA949 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D376826E24BF02F600D87BAB /* Products */;
 			projectDirPath = "";
@@ -211,6 +217,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -271,6 +278,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -366,24 +374,8 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		D3B7CEBF25C111B0005FA949 /* XCRemoteSwiftPackageReference "BarChart" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dawigr/BarChart.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		D3B7CEC025C111B0005FA949 /* BarChart */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D3B7CEBF25C111B0005FA949 /* XCRemoteSwiftPackageReference "BarChart" */;
-			productName = BarChart;
-		};
-		D3F4FEE524D1170B00B3773B /* BarChart */ = {
+		D399CAE1265C7D5600A92054 /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BarChart;
 		};
