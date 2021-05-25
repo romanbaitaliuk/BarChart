@@ -61,7 +61,11 @@ struct ContentView: View {
                         self.resetSelection()
                     }
                     .onAppear() {
-                        self.config.data.entries = self.randomEntries()
+                        // SwiftUI bug, onAppear is called before the view frame is calculated
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                            self.config.data.entries = self.randomEntries()
+                            self.config.objectWillChange.send()
+                        })
                     }
                     .navigationBarTitle(Text("SelectableBarChart"))
                 }
@@ -76,7 +80,7 @@ struct ContentView: View {
             self.selectionIndicatorView()
             self.chartView()
         }
-        .frame(height: self.chartHeight)
+        .frame(height: chartHeight)
         .padding(15)
     }
     

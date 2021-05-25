@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D302459725C1139D00B89EFA /* BarChart in Frameworks */ = {isa = PBXBuildFile; productRef = D302459625C1139D00B89EFA /* BarChart */; };
 		D3A6EEC224D294C500DEED1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A6EEC124D294C500DEED1B /* AppDelegate.swift */; };
 		D3A6EEC424D294C500DEED1B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A6EEC324D294C500DEED1B /* SceneDelegate.swift */; };
 		D3A6EEC624D294C500DEED1B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A6EEC524D294C500DEED1B /* ContentView.swift */; };
@@ -21,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D399CB01265C802500A92054 /* BarChart */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BarChart; path = ../..; sourceTree = "<group>"; };
 		D3A6EEBE24D294C500DEED1B /* SelectableBarChartExample-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SelectableBarChartExample-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A6EEC124D294C500DEED1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3A6EEC324D294C500DEED1B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +40,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A6EEDE24D2963600DEED1B /* BarChart in Frameworks */,
-				D302459725C1139D00B89EFA /* BarChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +49,7 @@
 		D3A6EEB524D294C500DEED1B = {
 			isa = PBXGroup;
 			children = (
+				D399CB01265C802500A92054 /* BarChart */,
 				D3A6EEC024D294C500DEED1B /* SelectableBarChartExample-iOS */,
 				D3A6EEBF24D294C500DEED1B /* Products */,
 			);
@@ -106,7 +106,6 @@
 			name = "SelectableBarChartExample-iOS";
 			packageProductDependencies = (
 				D3A6EEDD24D2963600DEED1B /* BarChart */,
-				D302459625C1139D00B89EFA /* BarChart */,
 			);
 			productName = "SelectableBarChartExample-iOS";
 			productReference = D3A6EEBE24D294C500DEED1B /* SelectableBarChartExample-iOS.app */;
@@ -119,7 +118,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Roman Baitaliuk";
 				TargetAttributes = {
 					D3A6EEBD24D294C500DEED1B = {
@@ -137,7 +136,6 @@
 			);
 			mainGroup = D3A6EEB524D294C500DEED1B;
 			packageReferences = (
-				D302459525C1139D00B89EFA /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D3A6EEBF24D294C500DEED1B /* Products */;
 			projectDirPath = "";
@@ -215,6 +213,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -275,6 +274,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -370,23 +370,7 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		D302459525C1139D00B89EFA /* XCRemoteSwiftPackageReference "BarChart" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dawigr/BarChart.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		D302459625C1139D00B89EFA /* BarChart */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D302459525C1139D00B89EFA /* XCRemoteSwiftPackageReference "BarChart" */;
-			productName = BarChart;
-		};
 		D3A6EEDD24D2963600DEED1B /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BarChart;
