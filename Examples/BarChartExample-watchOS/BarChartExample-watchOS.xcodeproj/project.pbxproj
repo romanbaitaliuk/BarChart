@@ -74,6 +74,7 @@
 		D351E85E24C1BB5D00369539 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D351E86124C1BB5D00369539 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D351E86324C1BB5D00369539 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D399CAF8265C7F9600A92054 /* BarChart */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BarChart; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +92,7 @@
 		D351E83924C1BB5C00369539 = {
 			isa = PBXGroup;
 			children = (
+				D399CAF8265C7F9600A92054 /* BarChart */,
 				D351E84824C1BB5C00369539 /* BarChartExample-watchOS WatchKit App */,
 				D351E85724C1BB5D00369539 /* BarChartExample-watchOS WatchKit Extension */,
 				D351E84124C1BB5C00369539 /* Products */,
@@ -155,7 +157,6 @@
 			);
 			name = "BarChartExample-watchOS";
 			packageProductDependencies = (
-				D31B068F24D2D6ED0031D9A2 /* BarChart */,
 			);
 			productName = "BarChartExample-watchOS";
 			productReference = D351E84024C1BB5C00369539 /* BarChartExample-watchOS.app */;
@@ -205,7 +206,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Roman Baitaliuk";
 				TargetAttributes = {
 					D351E83F24C1BB5C00369539 = {
@@ -229,7 +230,6 @@
 			);
 			mainGroup = D351E83924C1BB5C00369539;
 			packageReferences = (
-				D31B068E24D2D6ED0031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */,
 			);
 			productRefGroup = D351E84124C1BB5C00369539 /* Products */;
 			projectDirPath = "";
@@ -334,6 +334,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -393,6 +394,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -579,23 +581,7 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		D31B068E24D2D6ED0031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dawigr/BarChart.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		D31B068F24D2D6ED0031D9A2 /* BarChart */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D31B068E24D2D6ED0031D9A2 /* XCRemoteSwiftPackageReference "BarChart" */;
-			productName = BarChart;
-		};
 		D3F4FEE824D11A5600B3773B /* BarChart */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BarChart;
